@@ -1,4 +1,4 @@
-library(gVenn)
+library(gVenn) # pak::pak("ckntav/gVenn")
 library(org.Hs.eg.db)
 
 packageVersion("gVenn") # should be >= 0.99.6 to be able to get a transparent background
@@ -86,19 +86,19 @@ if (!dir.exists(output_dir)) {
 if (isTRUE(with_date)) {
     output_file <- paste0(today, "_", output_file)
 }
-filepath <- file.path(output_dir, paste0(output_file, ".", 
+filepath <- file.path(output_dir, paste0(output_file, ".",
                                          format))
 switch(format,
-       pdf = grDevices::pdf(file = filepath, width = width, 
+       pdf = grDevices::pdf(file = filepath, width = width,
                                     height = height),
-       png = grDevices::png(file = filepath, 
-                                                                           width = width, height = height, units = "in", res = resolution, bg = "transparent"), 
-       svg = grDevices::svg(file = filepath, width = width, 
+       png = grDevices::png(file = filepath,
+                                                                           width = width, height = height, units = "in", res = resolution, bg = "transparent"),
+       svg = grDevices::svg(file = filepath, width = width,
                             height = height))
 print(viz)
 grDevices::dev.off()
 if (isTRUE(verbose)) {
-    message(" > Visualization (", format, ") saved in ", 
+    message(" > Visualization (", format, ") saved in ",
             filepath)
 }
 invisible(filepath)

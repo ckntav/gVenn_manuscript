@@ -1,5 +1,4 @@
-# install.packages("hexSticker")
-library(hexSticker)
+library(hexSticker) # devtools::install_github("GuangchuangYu/hexSticker")
 library(showtext)
 
 font_add("Century Gothic", regular = here("input", "fonts", "centurygothic.ttf"))
@@ -13,6 +12,6 @@ sticker(imgurl, package="gVenn",
         s_width = 0.55, # size for subplot
         p_family = "Century Gothic", p_size = 36, # font for package name
         h_fill = "white",
-        h_size = 1.2, h_color = "black", 
+        h_size = 1.2, h_color = "black",
         dpi = 600, , p_color = "black",
         filename = here("output", "hex_sticker_logo", "gVenn_hex_sticker.png"))
