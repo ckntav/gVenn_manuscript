@@ -1,0 +1,18 @@
+# install.packages("hexSticker")
+library(hexSticker)
+library(showtext)
+
+font_add("Century Gothic", regular = here("input", "fonts", "centurygothic.ttf"))
+showtext_auto()  # enable showtext
+
+imgurl <- here("output", "hex_sticker_logo", "venn_logo.png")
+
+sticker(imgurl, package="gVenn",
+        p_x = 1, p_y = 0.45, # position for package name
+        s_x = 1, s_y = 1.2, # position for subplot
+        s_width = 0.55, # size for subplot
+        p_family = "Century Gothic", p_size = 36, # font for package name
+        h_fill = "white",
+        h_size = 1.2, h_color = "black", 
+        dpi = 600, , p_color = "black",
+        filename = here("output", "hex_sticker_logo", "gVenn_hex_sticker.png"))
