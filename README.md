@@ -1,4 +1,4 @@
-# gVenn - Manuscript repository
+# gVenn (manuscript repository)
 
 ![Maintainer](https://img.shields.io/badge/maintainer-ckntav-blue)
 
