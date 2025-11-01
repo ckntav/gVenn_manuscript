@@ -1,5 +1,6 @@
 library(gVenn) # pak::pak("ckntav/gVenn")
 library(org.Hs.eg.db)
+library(here)
 
 packageVersion("gVenn") # should be >= 0.99.6 to be able to get a transparent background
 
@@ -68,37 +69,3 @@ saveViz(venn,
         output_dir = here("output", "hex_sticker_logo"),
         output_file = "venn_logo",
         with_date = FALSE)
-
-viz <- venn
-output_dir = "/Users/chris/Desktop/gVenn_docs/pics"
-format = "png"
-output_file = "venn_logo"
-with_date = TRUE
-width = 5
-height = 5
-resolution = 300
-verbose = TRUE
-
-format <- match.arg(format, choices = c("pdf", "png", "svg"))
-if (!dir.exists(output_dir)) {
-    dir.create(output_dir, recursive = TRUE)
-}
-if (isTRUE(with_date)) {
-    output_file <- paste0(today, "_", output_file)
-}
-filepath <- file.path(output_dir, paste0(output_file, ".",
-                                         format))
-switch(format,
-       pdf = grDevices::pdf(file = filepath, width = width,
-                                    height = height),
-       png = grDevices::png(file = filepath,
-                                                                           width = width, height = height, units = "in", res = resolution, bg = "transparent"),
-       svg = grDevices::svg(file = filepath, width = width,
-                            height = height))
-print(viz)
-grDevices::dev.off()
-if (isTRUE(verbose)) {
-    message(" > Visualization (", format, ") saved in ",
-            filepath)
-}
-invisible(filepath)
