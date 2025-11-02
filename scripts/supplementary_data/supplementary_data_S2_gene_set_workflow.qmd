@@ -19,14 +19,17 @@ format:
     fig-width: 7
     fig-height: 5
     fig-align: center
-output-dir: docs
 execute:
   echo: true
   warning: false
   message: false
 ---
 
-# Add this copmutational notebook is available here: <link>
+::: {.callout-note icon=false}
+## Interactive notebook
+This analysis workflow is available online at:  
+**<https://ckntav.github.io/gVenn_manuscript/supp_data_S2.html>**
+:::
 
 # Overview
 
@@ -440,20 +443,3 @@ sessionInfo()
 ```
 
 # References
-
-1. **gVenn Package**  
-   Tav, C. (2025). gVenn: Proportional Venn and UpSet Diagrams for Gene Sets and Genomic Regions. 
-   R package. https://github.com/ckntav/gVenn
-
-2. **eulerr Package**  
-   Larsson, J. (2023). eulerr: Area-Proportional Euler and Venn Diagrams with Ellipses. 
-   https://CRAN.R-project.org/package=eulerr
-
-3. **ComplexHeatmap**  
-   Gu, Z., Eils, R., & Schlesner, M. (2016). Complex heatmaps reveal patterns and correlations 
-   in multidimensional genomic data. *Bioinformatics*, 32(18), 2847-2849. 
-   doi:10.1093/bioinformatics/btw313
-
-4. **Gene Set Analysis**  
-   Subramanian, A., et al. (2005). Gene set enrichment analysis: a knowledge-based approach 
-   for interpreting genome-wide expression profiles. *PNAS*, 102(43), 15545-15550.
