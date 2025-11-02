@@ -1,0 +1,52 @@
+/*-- scss:defaults --*/
+
+// Override Bootstrap Journal theme link colors
+$link-color: #047857 !default;
+$link-hover-color: #036046 !default;
+
+/*-- scss:rules --*/
+
+// General link styling
+a {
+  color: #047857;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #036046;
+  text-decoration: underline;
+}
+
+// TOC links
+
+.sidebar nav[role="doc-toc"] ul li a:hover {
+  color: #036046;
+}
+
+.sidebar nav[role="doc-toc"] ul li a.active {
+  color: #047857;
+  border-left-color: #047857;
+}
+
+// Code block border
+.code-with-filename .code-with-filename-file {
+  border-left-color: #047857;
+}
+
+// Callout boxes styling with green theme
+.callout-note {
+  border-left-color: #047857 !important;
+  background-color: #f0fdf4 !important;
+}
+
+.callout-note.callout-style-default .callout-header {
+  background-color: #dcfce7 !important;
+}
+
+.callout-note .callout-icon::before {
+  background-color: #047857 !important;
+}
+
+.callout-note .callout-title {
+  color: #047857 !important;
+}
