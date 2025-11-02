@@ -11,8 +11,10 @@ format:
     code-fold: false
     code-tools: true
     code-block-bg: true
-    code-block-border-left: "#F3B349"
-    theme: journal
+    code-block-border-left: "#047857"
+    theme: 
+      - journal
+      - custom.scss
     embed-resources: true
     fig-width: 7
     fig-height: 5

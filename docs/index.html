@@ -4,105 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supplementary Materials - gVenn Manuscript</title>
+    
+    <!-- Bootstrap Journal Theme -->
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/journal/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Analytics -->
+    <!-- TODO: Replace G-XXXXXXXXXX with your actual Google Analytics Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 40px 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 900px;
-            width: 100%;
-            padding: 50px;
-            animation: fadeIn 0.6s ease-out;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            background-color: #fff;
         }
         
         .header {
             text-align: center;
             margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #047857;
         }
         
         .logo {
             width: 150px;
             height: auto;
             margin-bottom: 20px;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
         }
         
-        h1 {
-            color: #2c3e50;
+        .header h1 {
+            color: #222;
             font-size: 2.5em;
             margin-bottom: 10px;
             font-weight: 700;
         }
         
         .subtitle {
-            color: #7f8c8d;
+            color: #777;
             font-size: 1.2em;
-            margin-bottom: 40px;
             font-weight: 300;
-        }
-        
-        .graphical-abstract {
-            margin: 40px 0;
-            text-align: center;
-        }
-        
-        .graphical-abstract h2 {
-            color: #34495e;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .graphical-abstract h2::before {
-            content: "🎨";
-            margin-right: 12px;
-            font-size: 1.2em;
-        }
-        
-        .graphical-abstract img {
-            width: 100%;
-            max-width: 800px;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .graphical-abstract img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
         }
         
         .intro {
@@ -111,77 +56,92 @@
             font-size: 1.1em;
             line-height: 1.8;
             text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .supp-materials {
-            margin: 40px 0;
+        .graphical-abstract {
+            margin: 40px auto;
+            text-align: center;
+            max-width: 900px;
         }
         
-        .supp-materials h2 {
-            color: #34495e;
-            font-size: 1.8em;
+        .graphical-abstract h2 {
+            color: #222;
+            font-size: 2em;
             margin-bottom: 25px;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
-        .supp-materials h2::before {
-            content: "📊";
-            margin-right: 12px;
-            font-size: 1.2em;
+        .graphical-abstract img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        
+        .graphical-abstract img:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: scale(1.01);
+        }
+        
+        .supp-materials {
+            margin: 50px auto;
+            max-width: 900px;
+        }
+        
+        .supp-materials h2 {
+            color: #222;
+            font-size: 2em;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .material-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            padding: 30px;
             margin-bottom: 20px;
+        }
+        
+        .material-card .card {
+            border: 2px solid #047857;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
         
-        .material-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .material-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
-        }
-        
-        .material-card:hover::before {
-            opacity: 1;
+        .material-card .card:hover {
+            box-shadow: 0 4px 12px rgba(4, 120, 87, 0.3);
+            transform: translateY(-3px);
         }
         
         .material-card a {
-            color: white;
             text-decoration: none;
-            display: block;
-            position: relative;
-            z-index: 1;
+            color: inherit;
+        }
+        
+        .material-card .card-body {
+            padding: 25px;
         }
         
         .material-title {
-            font-size: 1.5em;
+            font-size: 1.4em;
             font-weight: 600;
+            color: #047857;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
         
         .material-title::after {
             content: "→";
-            margin-left: auto;
             font-size: 1.2em;
             transition: transform 0.3s ease;
         }
@@ -191,80 +151,82 @@
         }
         
         .material-description {
-            color: rgba(255, 255, 255, 0.9);
+            color: #555;
             font-size: 1em;
             line-height: 1.6;
         }
         
         .footer-info {
-            margin-top: 50px;
+            margin-top: 60px;
             padding-top: 30px;
-            border-top: 2px solid #ecf0f1;
+            border-top: 2px solid #ddd;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .info-section {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         
         .info-section h3 {
-            color: #34495e;
-            font-size: 1.2em;
+            color: #222;
+            font-size: 1.3em;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .info-section h3::before {
-            margin-right: 8px;
-            font-size: 1em;
-        }
-        
-        .info-section.repo h3::before {
-            content: "🔗";
-        }
-        
-        .info-section.doi h3::before {
-            content: "🏛️";
-        }
-        
-        .info-section.citation h3::before {
-            content: "📚";
+            font-weight: 600;
         }
         
         .info-section p {
             color: #666;
-            margin-left: 28px;
+            line-height: 1.6;
         }
         
         .info-section a {
-            color: #667eea;
+            color: #047857;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
         }
         
         .info-section a:hover {
-            color: #764ba2;
             text-decoration: underline;
+            color: #036046;
         }
         
-        .badge {
-            display: inline-block;
-            margin-left: 28px;
-            margin-top: 5px;
+        .badge-container {
+            margin-top: 10px;
+        }
+        
+        /* Copyright footer */
+        .copyright-footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 20px;
+            border-top: 2px solid #ddd;
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .copyright-footer a {
+            color: #047857;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .copyright-footer a:hover {
+            text-decoration: underline;
+            color: #036046;
         }
         
         /* Modal for enlarged graphical abstract */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 2000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            animation: fadeIn 0.3s ease;
         }
         
         .modal-content {
@@ -276,16 +238,6 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            animation: zoomIn 0.3s ease;
-        }
-        
-        @keyframes zoomIn {
-            from {
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-            to {
-                transform: translate(-50%, -50%) scale(1);
-            }
         }
         
         .close-modal {
@@ -297,6 +249,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: color 0.3s ease;
+            z-index: 2001;
         }
         
         .close-modal:hover {
@@ -304,16 +257,12 @@
         }
         
         @media (max-width: 768px) {
-            .container {
-                padding: 30px 25px;
+            .header h1 {
+                font-size: 2em;
             }
             
             .logo {
                 width: 120px;
-            }
-            
-            h1 {
-                font-size: 2em;
             }
             
             .subtitle {
@@ -329,6 +278,10 @@
                 right: 20px;
                 font-size: 30px;
             }
+            
+            body {
+                padding: 20px 10px;
+            }
         }
     </style>
 </head>
@@ -336,20 +289,23 @@
     <div class="container">
         <div class="header">
             <img src="img/gVenn_hex_sticker.png" alt="gVenn Logo" class="logo">
-            <h1>gVenn Manuscript</h1>
-            <p class="subtitle">Interactive Supplementary Materials</p>
+            <h1>gVenn</h1>
+            <p class="subtitle">Interactive HTML supplementary materials for the gVenn manuscript</p>
         </div>
         
+        <!--
         <div class="intro">
             <p>
-                Welcome to the interactive supplementary materials for the gVenn manuscript. 
-                This page provides access to interactive HTML documents containing detailed 
-                analyses, figures, and data supporting our research.
+                Interactive HTML supplementary materials for the gVenn manuscript. 
+            </p>
+            <p>
+                Access detailed ChIP-seq and gene set analysis workflows with supporting data and figures.
             </p>
         </div>
+        -->
         
         <div class="graphical-abstract">
-            <h2>Graphical Abstract</h2>
+            <!-- <h2>Graphical Abstract</h2> -->
             <img src="img/Tav_graphical_abstract_v3_20251029.png" 
                  alt="gVenn Graphical Abstract" 
                  id="graphical-abstract-img"
@@ -357,28 +313,49 @@
         </div>
         
         <div class="supp-materials">
-            <h2>Supplementary Data</h2>
+            <h2>Supplementary data</h2>
             
             <div class="material-card">
                 <a href="supp_data_S1.html">
-                    <div class="material-title">Supplementary Data S1</div>
-                    <div class="material-description">
-                        Interactive figures, analyses, and detailed results for the first set of supplementary materials.
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="material-title">Supplementary data S1</div>
+                            <div class="material-description">
+                                ChIP-seq analysis workflow using the A549 dataset.
+                            </div>
+                        </div>
                     </div>
                 </a>
             </div>
             
             <div class="material-card">
                 <a href="supp_data_S2.html">
-                    <div class="material-title">Supplementary Data S2</div>
-                    <div class="material-description">
-                        Additional interactive figures, analyses, and detailed results for the second set of supplementary materials.
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="material-title">Supplementary data S2</div>
+                            <div class="material-description">
+                                Gene set analysis workflow.
+                            </div>
+                        </div>
                     </div>
                 </a>
             </div>
         </div>
         
         <div class="footer-info">
+            <div class="info-section preprint">
+                <h3>Preprint</h3>
+                <p>
+                    Read the manuscript on bioRxiv:
+                </p>
+                <!-- Replace XXXXX with your actual bioRxiv DOI -->
+                <div class="badge-container">
+                    <a href="https://doi.org/10.1101/XXXXX" target="_blank">
+                        <img src="https://img.shields.io/badge/bioRxiv-10.1101%2FXXXXX-b31b1b?style=flat-square&logo=bioRxiv&logoColor=white" alt="bioRxiv">
+                    </a>
+                </div>
+            </div>
+            
             <div class="info-section repo">
                 <h3>Repository</h3>
                 <p>
@@ -389,35 +366,28 @@
                 </p>
             </div>
             
-            <div class="info-section doi">
-                <h3>Archived Version</h3>
-                <p>
-                    For a permanent, citable version of these materials, see the archived release on Zenodo.
-                </p>
-                <!-- Uncomment and add your DOI after creating Zenodo release -->
-                <!-- 
-                <div class="badge">
-                    <a href="https://doi.org/10.5281/zenodo.XXXXX" target="_blank">
-                        <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXX.svg" alt="DOI">
-                    </a>
-                </div>
-                -->
-            </div>
-            
             <div class="info-section citation">
                 <h3>Citation</h3>
                 <p>
-                    If you use these materials, please cite the gVenn manuscript and reference this supplementary data repository.
+                    If you use these materials, please cite the gVenn paper.
                 </p>
             </div>
+        </div>
+        
+        <!-- Copyright Footer -->
+        <div class="copyright-footer">
+            <p>&copy; 2025 <a href="https://ckntav.github.io/" target="_blank">Christophe Tav</a></p>
         </div>
     </div>
     
     <!-- Modal for enlarged graphical abstract -->
     <div id="imageModal" class="modal" onclick="closeModal()">
         <span class="close-modal">&times;</span>
-        <img class="modal-content" id="modal-img">
+        <img class="modal-content" id="modal-img" alt="Enlarged graphical abstract">
     </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
         function openModal() {
