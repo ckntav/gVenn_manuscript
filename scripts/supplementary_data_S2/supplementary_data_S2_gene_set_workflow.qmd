@@ -1,0 +1,457 @@
+---
+title: "Gene Set Analysis Workflow Using gVenn"
+subtitle: "Supplementary data S2"
+output-file: "supp_data_S2"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: true
+    code-block-bg: true
+    code-block-border-left: "#F3B349"
+    theme: journal
+    embed-resources: true
+    fig-width: 7
+    fig-height: 5
+    fig-align: center
+output-dir: docs
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Add this copmutational notebook is available here: <link>
+
+# Overview
+
+This supplementary material demonstrates a complete gene set analysis workflow using the **gVenn** R package. The workflow includes computing overlaps between gene lists, visualizing results with Venn diagrams and UpSet plots, extracting overlap groups, and exporting results for downstream analysis.
+
+# Installation
+
+The gVenn package can be installed from Bioconductor or GitHub:
+
+```{r}
+#| label: installation
+#| eval: false
+
+# From Bioconductor
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("gVenn")
+
+# From GitHub (development version)
+# install.packages("pak")
+# pak::pak("ckntav/gVenn")
+```
+
+# Load Required Packages
+
+```{r}
+#| label: setup
+
+library(gVenn)
+library(knitr)
+```
+
+# Example Dataset
+
+The **gVenn** package includes a synthetic gene list dataset (`gene_list`) comprising three sets of human gene symbols with designed overlaps. This dataset was generated from the first 250 gene symbols in the `org.Hs.eg.db` package using a reproducible random seed.
+
+```{r}
+#| label: load-data
+
+# Load the example gene list dataset
+data(gene_list)
+
+# Display the structure of the dataset
+str(gene_list)
+```
+
+The dataset contains three gene lists with the following sizes:
+
+```{r}
+#| label: dataset-summary
+
+# Create a summary table
+summary_df <- data.frame(
+  "Gene List" = names(gene_list),
+  "Number of Genes" = sapply(gene_list, length),
+  check.names = FALSE
+)
+
+kable(summary_df, 
+      caption = "Summary of example gene lists")
+```
+
+# Computing Overlaps
+
+The `computeOverlaps()` function analyzes the intersection patterns across all gene lists and returns a structured object containing:
+
+- A vector of all unique elements across sets
+- A logical matrix indicating set membership for each element
+- Category labels encoding the overlap pattern (e.g., "110", "101")
+
+```{r}
+#| label: compute-overlaps
+
+# Compute overlaps between gene lists
+gene_overlaps <- computeOverlaps(gene_list)
+
+# Display the structure of the result
+class(gene_overlaps)
+names(gene_overlaps)
+```
+
+## Overlap Matrix
+
+The overlap matrix shows which genes belong to which sets:
+
+```{r}
+#| label: overlap-matrix
+
+# Display the first 10 rows of the overlap matrix
+kable(head(gene_overlaps$overlap_matrix, 10),
+      caption = "First 10 rows of the overlap matrix (TRUE = gene present in set)")
+```
+
+## Overlap Categories
+
+Each gene is assigned a category code representing its overlap pattern:
+
+```{r}
+#| label: overlap-categories
+
+# Show the distribution of overlap categories
+category_table <- table(gene_overlaps$intersect_category)
+category_df <- data.frame(
+  "Overlap Pattern" = names(category_table),
+  "Number of Genes" = as.integer(category_table),
+  check.names = FALSE
+)
+
+kable(category_df,
+      caption = "Distribution of overlap patterns")
+```
+
+**Interpretation of overlap patterns:**
+
+- `100`: Genes only in set A (random_genes_A)
+- `010`: Genes only in set B (random_genes_B)
+- `001`: Genes only in set C (random_genes_C)
+- `110`: Genes in A ∩ B (not in C)
+- `101`: Genes in A ∩ C (not in B)
+- `011`: Genes in B ∩ C (not in A)
+- `111`: Genes in A ∩ B ∩ C (all three sets)
+
+# Visualization
+
+## Venn Diagram
+
+The `plotVenn()` function creates area-proportional Venn diagrams to visualize the overlaps:
+
+```{r}
+#| label: fig-venn-basic
+#| fig-cap: "Basic Venn diagram showing overlaps between three gene lists"
+
+# Create a basic Venn diagram
+plotVenn(gene_overlaps)
+```
+
+### Customized Venn Diagram
+
+The appearance can be customized by adjusting colors, transparency, labels, and other parameters:
+
+```{r}
+#| label: fig-venn-custom
+#| fig-cap: "Customized Venn diagram with adjusted colors and transparency"
+
+# Create a customized Venn diagram
+plotVenn(gene_overlaps,
+         fills = list(fill = c("#2B70AB", "#FFB027", "#3EA742"), alpha = 0.6),
+         edges = list(col = "gray30", lwd = 1.5),
+         labels = list(col = "black", fontsize = 12, font = 2),
+         quantities = list(type = c("counts", "percent"), 
+                          col = "black", fontsize = 10),
+         main = list(label = "Gene Set Overlaps", 
+                    fontsize = 14, font = 2, col = "navy"),
+         legend = list(side = "right", fontsize = 10))
+```
+
+## UpSet Plot
+
+For larger numbers of sets (>3), UpSet plots provide a clearer alternative to Venn diagrams:
+
+```{r}
+#| label: fig-upset
+#| fig-cap: "UpSet plot showing intersection sizes between gene lists"
+#| fig-width: 7
+#| fig-height: 4
+
+# Create an UpSet plot
+plotUpSet(gene_overlaps)
+```
+
+### Customized UpSet Plot
+
+The UpSet plot can also be customized with colors:
+
+```{r}
+#| label: fig-upset-custom
+#| fig-cap: "Customized UpSet plot with colored combination matrix"
+#| fig-width: 7
+#| fig-height: 4
+
+# Create a customized UpSet plot with colored dots
+plotUpSet(gene_overlaps, 
+          comb_col = c("#2B70AB", "#FFB027", "#3EA742", "#CD3301", 
+                      "#9370DB", "#008B8B", "#D87093"))
+```
+
+# Extracting Overlap Groups
+
+The `extractOverlaps()` function separates genes into distinct groups based on their overlap patterns:
+
+```{r}
+#| label: extract-overlaps
+
+# Extract genes grouped by overlap pattern
+gene_groups <- extractOverlaps(gene_overlaps)
+
+# Display the number of genes per group
+group_sizes <- sapply(gene_groups, length)
+group_df <- data.frame(
+  "Overlap Group" = names(group_sizes),
+  "Number of Genes" = as.integer(group_sizes),
+  check.names = FALSE
+)
+
+kable(group_df,
+      caption = "Number of genes in each overlap group")
+```
+
+## Examining Specific Groups
+
+Individual overlap groups can be accessed for downstream analysis:
+
+```{r}
+#| label: specific-groups
+
+# Extract genes present in all three sets (group_111)
+genes_in_all_three <- gene_groups[["group_111"]]
+
+cat("Genes present in all three sets (A ∩ B ∩ C):\n")
+print(genes_in_all_three)
+
+# Extract genes unique to random_genes_A (group_100)
+genes_unique_to_A <- gene_groups[["group_100"]]
+
+cat("\n\nFirst 20 genes unique to random_genes_A:\n")
+print(head(genes_unique_to_A, 20))
+```
+
+## Summary Table of All Groups
+
+```{r}
+#| label: all-groups-table
+
+# Create a detailed table showing first 5 genes from each group
+group_preview <- lapply(names(gene_groups), function(group_name) {
+  genes <- gene_groups[[group_name]]
+  preview <- if(length(genes) <= 5) {
+    paste(genes, collapse = ", ")
+  } else {
+    paste(c(head(genes, 5), "..."), collapse = ", ")
+  }
+  data.frame(
+    Group = group_name,
+    Count = length(genes),
+    "Example Genes" = preview,
+    check.names = FALSE
+  )
+})
+
+group_preview_df <- do.call(rbind, group_preview)
+
+kable(group_preview_df,
+      caption = "Summary of all overlap groups with example genes")
+```
+
+# Exporting Results
+
+## Export to Excel
+
+The `exportOverlaps()` function exports each overlap group to a separate sheet in an Excel file:
+
+```{r}
+#| label: export-excel
+#| eval: false
+
+# Export overlap groups to Excel
+exportOverlaps(gene_groups,
+               output_dir = "results",
+               output_file = "gene_overlap_groups",
+               with_date = TRUE,
+               verbose = TRUE)
+```
+
+This creates an Excel file with one sheet per overlap group, making it easy to:
+
+- Review genes in each category
+- Perform functional enrichment analysis
+- Share results with collaborators
+- Import into other analysis tools
+
+## Saving Visualizations
+
+Visualizations can be exported in multiple formats (PDF, PNG, SVG):
+
+```{r}
+#| label: save-viz
+#| eval: false
+
+# Create a Venn diagram
+venn_plot <- plotVenn(gene_overlaps)
+
+# Save as PDF
+saveViz(venn_plot,
+        output_dir = "figures",
+        output_file = "gene_venn_diagram",
+        format = "pdf",
+        width = 6,
+        height = 4)
+
+# Save as high-resolution PNG
+saveViz(venn_plot,
+        output_dir = "figures",
+        output_file = "gene_venn_diagram",
+        format = "png",
+        width = 6,
+        height = 4,
+        resolution = 300)
+
+# Save with transparent background for presentations
+saveViz(venn_plot,
+        output_dir = "figures",
+        output_file = "gene_venn_diagram_transparent",
+        format = "png",
+        bg = "transparent")
+```
+
+# Downstream Analysis Applications
+
+The extracted overlap groups can be used for various downstream analyses:
+
+## Functional Enrichment Analysis
+
+```{r}
+#| label: enrichment-example
+#| eval: false
+
+# Example: Perform GO enrichment on genes unique to set A
+library(clusterProfiler)
+library(org.Hs.eg.db)
+
+genes_unique_A <- gene_groups[["group_100"]]
+
+# Convert gene symbols to Entrez IDs
+entrez_ids <- bitr(genes_unique_A, 
+                   fromType = "SYMBOL",
+                   toType = "ENTREZID", 
+                   OrgDb = org.Hs.eg.db)
+
+# Perform GO enrichment
+go_results <- enrichGO(gene = entrez_ids$ENTREZID,
+                       OrgDb = org.Hs.eg.db,
+                       ont = "BP",
+                       pvalueCutoff = 0.05)
+```
+
+## Comparing Shared vs. Unique Genes
+
+```{r}
+#| label: comparison-table
+
+# Compare genes shared across all sets vs. unique to each set
+comparison_df <- data.frame(
+  Category = c("Shared (all 3 sets)",
+               "Unique to A",
+               "Unique to B", 
+               "Unique to C"),
+  Count = c(
+    length(gene_groups[["group_111"]]),
+    length(gene_groups[["group_100"]]),
+    length(gene_groups[["group_010"]]),
+    length(gene_groups[["group_001"]])
+  ),
+  Percentage = c(
+    round(100 * length(gene_groups[["group_111"]]) / length(gene_overlaps$unique_elements), 1),
+    round(100 * length(gene_groups[["group_100"]]) / length(gene_overlaps$unique_elements), 1),
+    round(100 * length(gene_groups[["group_010"]]) / length(gene_overlaps$unique_elements), 1),
+    round(100 * length(gene_groups[["group_001"]]) / length(gene_overlaps$unique_elements), 1)
+  )
+)
+
+kable(comparison_df,
+      caption = "Comparison of shared vs. unique genes")
+```
+
+# Working with Your Own Data
+
+To use **gVenn** with your own gene lists:
+
+```{r}
+#| label: custom-data-example
+#| eval: false
+
+# Example: Creating gene lists from your own data
+my_gene_lists <- list(
+  Treatment_A = c("TP53", "BRCA1", "EGFR", "MYC", "KRAS"),
+  Treatment_B = c("TP53", "BRCA1", "PTEN", "AKT1", "PIK3CA"),
+  Control = c("EGFR", "MYC", "AKT1", "BRAF", "NRAS")
+)
+
+# Compute overlaps
+my_overlaps <- computeOverlaps(my_gene_lists)
+
+# Visualize
+plotVenn(my_overlaps)
+
+# Extract groups
+my_groups <- extractOverlaps(my_overlaps)
+
+# Export results
+exportOverlaps(my_groups,
+               output_dir = "my_results",
+               output_file = "my_gene_overlaps")
+```
+
+# Session Information
+
+```{r}
+#| label: session-info
+
+sessionInfo()
+```
+
+# References
+
+1. **gVenn Package**  
+   Tav, C. (2025). gVenn: Proportional Venn and UpSet Diagrams for Gene Sets and Genomic Regions. 
+   R package. https://github.com/ckntav/gVenn
+
+2. **eulerr Package**  
+   Larsson, J. (2023). eulerr: Area-Proportional Euler and Venn Diagrams with Ellipses. 
+   https://CRAN.R-project.org/package=eulerr
+
+3. **ComplexHeatmap**  
+   Gu, Z., Eils, R., & Schlesner, M. (2016). Complex heatmaps reveal patterns and correlations 
+   in multidimensional genomic data. *Bioinformatics*, 32(18), 2847-2849. 
+   doi:10.1093/bioinformatics/btw313
+
+4. **Gene Set Analysis**  
+   Subramanian, A., et al. (2005). Gene set enrichment analysis: a knowledge-based approach 
+   for interpreting genome-wide expression profiles. *PNAS*, 102(43), 15545-15550.
