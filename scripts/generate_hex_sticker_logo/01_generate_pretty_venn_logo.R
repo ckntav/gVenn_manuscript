@@ -8,7 +8,7 @@ library(gVenn)        # For creating Venn diagrams
 library(org.Hs.eg.db) # Human genome annotation database for gene symbols
 library(here)         # For robust file path management
 
-# Check package version - need >= 0.99.6 for transparent background support
+# Check package version - need >= 1.1.1 for transparent background support
 packageVersion("gVenn")
 
 ## ------------------------------------------------------------------
