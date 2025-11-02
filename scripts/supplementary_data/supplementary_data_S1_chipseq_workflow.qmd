@@ -1,0 +1,413 @@
+---
+title: "ChIP-seq Analysis Workflow Using gVenn"
+subtitle: "Supplementary data S1"
+output-file: "supp_data_S1"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: true
+    code-block-bg: true
+    code-block-border-left: "#047857"
+    theme: 
+      - journal
+      - custom.scss
+    embed-resources: true
+    fig-width: 7
+    fig-height: 5
+    fig-align: center
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+::: {.callout-note icon=false}
+## Interactive notebook
+This analysis workflow is available online at:  
+**<https://ckntav.github.io/gVenn_manuscript/supp_data_S1.html>**
+:::
+
+# Overview
+
+This supplementary material demonstrates a complete ChIP-seq analysis workflow using the **gVenn** R package with A549 cell line data. The workflow includes:
+
+- Loading ChIP-seq peak data from BED files
+- Computing overlaps between genomic regions
+- Visualizing results with Venn diagrams and UpSet plots
+- Extracting specific overlap groups for downstream analysis
+- Exporting results
+
+# Installation
+
+The gVenn package can be installed from Bioconductor or GitHub:
+
+```{r}
+#| label: installation
+#| eval: false
+
+# From Bioconductor
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("gVenn")
+
+# From GitHub (development version)
+# install.packages("pak")
+# pak::pak("ckntav/gVenn")
+```
+
+# Load Required Packages
+
+```{r}
+#| label: setup
+
+library(gVenn)
+library(GenomicRanges)
+library(knitr)
+```
+
+# Dataset Description
+
+The dataset consists of ChIP-seq peaks from A549 cells (lung adenocarcinoma cell line) for three transcription factors:
+
+- **MED1**: Mediator complex subunit 1
+- **BRD4**: Bromodomain-containing protein 4
+- **GR**: Glucocorticoid receptor
+
+These data represent binding sites identified from ChIP-seq experiments, and the analysis focuses on chromosome 7 peaks.
+
+[add ref to [Tav et al.](https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2023.1237092/full)]
+
+# Load ChIP-seq Data
+
+The **gVenn** package includes example ChIP-seq peak data for the A549 cell line:
+
+```{r}
+#| label: load-data
+
+# Load the example ChIP-seq peaks dataset
+data(a549_chipseq_peaks)
+
+# Display the structure of the dataset
+a549_chipseq_peaks
+```
+
+The dataset is a `GRangesList` object containing three sets of genomic ranges:
+
+```{r}
+#| label: dataset-summary
+
+# Create a summary table
+summary_df <- data.frame(
+  "Factor" = names(a549_chipseq_peaks),
+  "Number of Peaks" = sapply(a549_chipseq_peaks, length),
+  "Chromosome" = "chr7",
+  check.names = FALSE
+)
+
+kable(summary_df, 
+      caption = "Summary of ChIP-seq peaks for each transcription factor")
+```
+
+## Inspect Individual Peak Sets
+
+Let's examine the first few peaks from each factor:
+
+```{r}
+#| label: inspect-peaks
+
+# Display first 5 peaks from MED1
+head(a549_chipseq_peaks$MED1_Dex_chr7, 5)
+```
+
+# Computing Overlaps
+
+The `computeOverlaps()` function analyzes the intersection patterns across all peak sets. For genomic ranges, it identifies regions that overlap between different ChIP-seq experiments:
+
+```{r}
+#| label: compute-overlaps
+
+# Compute overlaps between ChIP-seq peaks
+peak_overlaps <- computeOverlaps(a549_chipseq_peaks)
+
+# Display the structure of the result
+class(peak_overlaps)
+names(peak_overlaps)
+```
+
+## Overlap Summary
+
+The overlap analysis produces a categorical assignment for each genomic region:
+
+```{r}
+#| label: overlap-categories
+
+# Show the distribution of overlap categories
+category_table <- table(peak_overlaps$intersect_category)
+category_df <- data.frame(
+  "Overlap Pattern" = names(category_table),
+  "Number of Peaks" = as.integer(category_table),
+  check.names = FALSE
+)
+
+# Sort by number of peaks (descending)
+category_df <- category_df[order(-category_df$`Number of Peaks`), ]
+
+kable(category_df,
+      caption = "Distribution of overlap patterns across ChIP-seq peaks",
+      row.names = FALSE)
+```
+
+**Interpretation of overlap patterns:**
+
+- `100`: Peaks unique to MED1
+- `010`: Peaks unique to BRD4
+- `001`: Peaks unique to GR
+- `110`: Peaks shared between MED1 and BRD4 only
+- `101`: Peaks shared between MED1 and GR only
+- `011`: Peaks shared between BRD4 and GR only
+- `111`: Peaks shared across all three factors
+
+# Visualization
+
+## Venn Diagram
+
+The `plotVenn()` function creates area-proportional Venn diagrams to visualize the overlaps between ChIP-seq peaks:
+
+```{r}
+#| label: fig-venn-basic
+#| fig-cap: "Basic Venn diagram showing overlaps between ChIP-seq peaks for three transcription factors"
+#| fig-width: 7
+#| fig-height: 5
+
+# Create a basic Venn diagram
+plotVenn(peak_overlaps)
+```
+
+### Interpretation
+
+From the Venn diagram, we can observe:
+
+- The number of peaks unique to each transcription factor
+- The number of peaks shared between pairs of factors
+- The core set of peaks bound by all three factors (MED1, BRD4, and GR)
+
+### Customized Venn Diagram
+
+The appearance can be customized with different colors, transparency, and labels:
+
+```{r}
+#| label: fig-venn-custom
+#| fig-cap: "Customized Venn diagram with adjusted colors and styling"
+#| fig-width: 7
+#| fig-height: 5
+
+# Create a customized Venn diagram
+plotVenn(peak_overlaps,
+         fills = list(fill = c("#E41A1C", "#377EB8", "#4DAF4A"), alpha = 0.5),
+         edges = list(col = "gray30", lwd = 2),
+         labels = list(col = "black", fontsize = 12, font = 2),
+         quantities = list(type = c("counts", "percent"), 
+                          col = "black", fontsize = 10),
+         main = list(label = "ChIP-seq Peak Overlaps (A549 cells)", 
+                    fontsize = 14, font = 2, col = "navy"),
+         legend = list(side = "right", fontsize = 10))
+```
+
+## UpSet Plot
+
+For complex overlap patterns, UpSet plots provide an alternative visualization that can be easier to interpret:
+
+```{r}
+#| label: fig-upset
+#| fig-cap: "UpSet plot showing intersection sizes between ChIP-seq peaks"
+#| fig-width: 8
+#| fig-height: 4
+
+# Create an UpSet plot
+plotUpSet(peak_overlaps)
+```
+
+# Extracting Overlap Groups
+
+The `extractOverlaps()` function extracts the actual genomic regions for each overlap group, which can be useful for downstream analyses such as:
+
+- Motif enrichment analysis
+- Peak annotation to nearby genes
+- Functional enrichment analysis
+- Export for genome browsers
+
+```{r}
+#| label: extract-groups
+
+# Extract all overlap groups
+overlap_groups <- extractOverlaps(peak_overlaps)
+
+# Display the number of peaks in each group
+group_sizes <- sapply(overlap_groups, length)
+group_df <- data.frame(
+  "Group" = names(group_sizes),
+  "Number of Peaks" = group_sizes,
+  check.names = FALSE
+)
+
+kable(group_df,
+      caption = "Number of genomic regions in each overlap group",
+      row.names = FALSE)
+```
+
+## Example: Peaks Shared by All Three Factors
+
+Let's examine the peaks that are bound by all three transcription factors (MED1, BRD4, and GR):
+
+```{r}
+#| label: shared-peaks
+
+# Extract peaks present in all three sets (group_111)
+shared_peaks <- overlap_groups[["group_111"]]
+
+# Display information about these shared peaks
+cat("Number of peaks bound by all three factors:", length(shared_peaks), "\n\n")
+
+# Show the first 10 shared peaks
+head(shared_peaks, 10)
+```
+
+## Example: Factor-Specific Peaks
+
+We can also extract peaks unique to each factor:
+
+```{r}
+#| label: unique-peaks
+
+# Extract factor-specific peaks
+med1_specific <- overlap_groups[["group_100"]]
+brd4_specific <- overlap_groups[["group_010"]]
+gr_specific <- overlap_groups[["group_001"]]
+
+# Summary
+unique_peaks_df <- data.frame(
+  "Factor" = c("MED1", "BRD4", "GR"),
+  "Unique Peaks" = c(length(med1_specific), 
+                     length(brd4_specific), 
+                     length(gr_specific)),
+  check.names = FALSE
+)
+
+kable(unique_peaks_df,
+      caption = "Number of factor-specific peaks",
+      row.names = FALSE)
+```
+
+## Example: Pairwise Overlaps
+
+Extract peaks shared between pairs of factors:
+
+```{r}
+#| label: pairwise-peaks
+
+# Extract pairwise overlaps
+med1_brd4 <- overlap_groups[["group_110"]]  # MED1 and BRD4, not GR
+med1_gr <- overlap_groups[["group_101"]]    # MED1 and GR, not BRD4
+brd4_gr <- overlap_groups[["group_011"]]    # BRD4 and GR, not MED1
+
+# Summary
+pairwise_df <- data.frame(
+  "Overlap" = c("MED1 ∩ BRD4", "MED1 ∩ GR", "BRD4 ∩ GR"),
+  "Number of Peaks" = c(length(med1_brd4), 
+                        length(med1_gr), 
+                        length(brd4_gr)),
+  check.names = FALSE
+)
+
+kable(pairwise_df,
+      caption = "Number of peaks in pairwise overlaps (excluding triple overlap)",
+      row.names = FALSE)
+```
+
+# Export Results
+
+## Export Peak Coordinates
+
+The extracted overlap groups can be exported as BED files for visualization in genome browsers or for downstream analysis:
+
+```{r}
+#| label: export-bed
+#| eval: false
+
+# Export shared peaks to BED format
+library(rtracklayer)
+
+# Export peaks shared by all three factors
+export.bed(shared_peaks, "output/peaks_all_three_factors.bed")
+
+# Export MED1-specific peaks
+export.bed(med1_specific, "output/peaks_MED1_specific.bed")
+
+# Export BRD4-specific peaks
+export.bed(brd4_specific, "output/peaks_BRD4_specific.bed")
+
+# Export GR-specific peaks
+export.bed(gr_specific, "output/peaks_GR_specific.bed")
+```
+
+## Export Summary Table
+
+Create a comprehensive summary table:
+
+```{r}
+#| label: export-summary
+
+# Create a detailed summary
+all_groups <- names(overlap_groups)
+summary_table <- data.frame(
+  Group = all_groups,
+  Pattern = all_groups,
+  Count = sapply(overlap_groups, length),
+  Percentage = round(100 * sapply(overlap_groups, length) / 
+                     sum(sapply(overlap_groups, length)), 2)
+)
+
+# Add interpretation
+summary_table$Interpretation <- c(
+  "MED1 only",
+  "BRD4 only", 
+  "GR only",
+  "MED1 ∩ BRD4",
+  "BRD4 ∩ GR",
+  "MED1 ∩ GR",
+  "All three factors"
+)
+
+kable(summary_table,
+      caption = "Complete summary of ChIP-seq peak overlaps",
+      row.names = FALSE)
+```
+
+# Biological Interpretation
+
+The overlap analysis reveals important insights about transcription factor co-binding:
+
+1. **Core co-regulatory regions**: The `r length(shared_peaks)` peaks shared by all three factors likely represent core regulatory elements where MED1, BRD4, and GR work together.
+
+2. **Factor-specific binding**: Each transcription factor also has unique binding sites, suggesting independent regulatory functions.
+
+3. **Pairwise cooperativity**: The pairwise overlaps indicate potential cooperative binding between pairs of factors.
+
+# Session Information
+
+```{r}
+#| label: session-info
+
+sessionInfo()
+```
+
+# References
+
+For more information about the gVenn package, visit:
+
+- Package documentation: [https://ckntav.github.io/gVenn/](https://ckntav.github.io/gVenn/)
+- GitHub repository: [https://github.com/ckntav/gVenn](https://github.com/ckntav/gVenn)
