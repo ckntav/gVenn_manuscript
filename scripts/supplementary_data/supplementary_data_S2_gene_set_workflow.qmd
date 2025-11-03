@@ -1,5 +1,5 @@
 ---
-title: "Gene Set Analysis Workflow Using gVenn"
+title: "Gene set analysis workflow with gVenn: identifying overlaps and shared genes"
 subtitle: "Supplementary data S2"
 output-file: "supp_data_S2"
 format:
@@ -31,6 +31,10 @@ This analysis workflow is available online at:
 **<https://ckntav.github.io/gVenn_manuscript/supp_data_S2.html>**
 :::
 
+<p align="center">
+<img src="img/gVenn_hex_sticker.png" width="150"/>
+</p>
+
 # Overview
 
 This supplementary material demonstrates a complete gene set analysis workflow using the **gVenn** R package. The workflow includes computing overlaps between gene lists, visualizing results with Venn diagrams and UpSet plots, extracting overlap groups, and exporting results for downstream analysis.
@@ -53,13 +57,21 @@ BiocManager::install("gVenn")
 # pak::pak("ckntav/gVenn")
 ```
 
-# Load Required Packages
+# Load required packages
 
 ```{r}
 #| label: setup
 
 library(gVenn)
 library(knitr)
+```
+
+## Checking gVenn version
+
+```{r}
+#| label: package-version
+
+packageVersion("gVenn")
 ```
 
 # Example Dataset

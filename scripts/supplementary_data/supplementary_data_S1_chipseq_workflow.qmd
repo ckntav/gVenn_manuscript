@@ -1,5 +1,5 @@
 ---
-title: "ChIP-seq Analysis Workflow Using gVenn"
+title: "ChIP-seq analysis workflow with gVenn using A549 datasets: identifying binding site overlaps"
 subtitle: "Supplementary data S1"
 output-file: "supp_data_S1"
 format:
@@ -31,11 +31,15 @@ This analysis workflow is available online at:
 **<https://ckntav.github.io/gVenn_manuscript/supp_data_S1.html>**
 :::
 
+<p align="center">
+<img src="img/gVenn_hex_sticker.png" width="150"/>
+</p>
+
 # Overview
 
 This supplementary material demonstrates a complete ChIP-seq analysis workflow using the **gVenn** R package with A549 cell line data. The workflow includes:
 
-- Loading ChIP-seq peak data from BED files
+- Loading ChIP-seq peak data
 - Computing overlaps between genomic regions
 - Visualizing results with Venn diagrams and UpSet plots
 - Extracting specific overlap groups for downstream analysis
@@ -43,23 +47,35 @@ This supplementary material demonstrates a complete ChIP-seq analysis workflow u
 
 # Installation
 
-The gVenn package can be installed from Bioconductor or GitHub:
+The gVenn package is available through Bioconductor and GitHub.
+
+You can install it from Bioconductor using:
 
 ```{r}
-#| label: installation
+#| label: installation-bioconductor
 #| eval: false
 
 # From Bioconductor
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("gVenn")
-
-# From GitHub (development version)
-# install.packages("pak")
-# pak::pak("ckntav/gVenn")
 ```
 
-# Load Required Packages
+To install the development version from GitHub, use:
+
+```{r}
+#| label: installation-github
+#| eval: false
+
+# install.packages("pak")  # if not already installed
+pak::pak("ckntav/gVenn")
+
+# or, alternatively:
+# install.packages("devtools")  # if not already installed
+devtools::install_github("ckntav/gVenn")
+```
+
+# Load required packages
 
 ```{r}
 #| label: setup
@@ -67,169 +83,160 @@ BiocManager::install("gVenn")
 library(gVenn)
 library(GenomicRanges)
 library(knitr)
+library(tidyverse)
+library(kableExtra)
 ```
 
-# Dataset Description
+## Checking gVenn version
 
-The dataset consists of ChIP-seq peaks from A549 cells (lung adenocarcinoma cell line) for three transcription factors:
+```{r}
+#| label: package-version
+
+packageVersion("gVenn")
+```
+
+# Dataset description
+
+The dataset consists of ChIP-seq peaks from A549 cells (lung adenocarcinoma cell line) after dexamethasone treatment for two transcriptional coregulators and a transcription factor:
 
 - **MED1**: Mediator complex subunit 1
 - **BRD4**: Bromodomain-containing protein 4
 - **GR**: Glucocorticoid receptor
 
-These data represent binding sites identified from ChIP-seq experiments, and the analysis focuses on chromosome 7 peaks.
+These data represent binding sites identified from ChIP-seq experiments.
+To keep the dataset small and suitable for examples and tests, each set has been
+restricted to peaks located on *chromosome 7*.
 
-[add ref to [Tav et al.](https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2023.1237092/full)]
+The data originate from Tav *et al.* (2023)
+(<a href="https://doi.org/10.3389/fgene.2023.1237092" target="_blank">doi:10.3389/fgene.2023.1237092</a>).
 
-# Load ChIP-seq Data
+# Load ChIP-seq data
 
-The **gVenn** package includes example ChIP-seq peak data for the A549 cell line:
+The **gVenn** package includes example ChIP-seq peak data for the A549 cell line.
+
+## Locate data files
+
+First, we locate the BED files included in the package:
 
 ```{r}
-#| label: load-data
+#| label: locate-file
 
-# Load the example ChIP-seq peaks dataset
-data(a549_chipseq_peaks)
+# Locate the gzipped BED files inside inst/extdata/ of the installed package
+bed_med1 <- system.file("extdata", "A549_MED1_Dex.stdchr.bed.gz", package = "gVenn")
+bed_brd4 <- system.file("extdata", "A549_BRD4_Dex.stdchr.bed.gz", package = "gVenn")
+bed_gr   <- system.file("extdata", "A549_GR_Dex.stdchr.bed.gz", package = "gVenn")
+```
+
+## Import peak data
+
+Next, we import the peak sets using `rtracklayer`:
+
+```{r}
+#| label: import-peaks
+
+# Import full consensus peak sets
+med1_full <- rtracklayer::import(bed_med1)
+brd4_full <- rtracklayer::import(bed_brd4)
+gr_full   <- rtracklayer::import(bed_gr)
+```
+
+## Filter to chromosome 7
+
+To keep the dataset small and suitable for examples, we restrict the analysis to peaks on chromosome 7:
+
+```{r}
+#| label: filter-chr7
+
+# Helper function: keep only peaks on chr7
+keep_chr7 <- function(gr) {
+    gr[seqnames(gr) %in% c("chr7", "7")]
+}
+
+# Subset each peak set to chr7 only (keeps the dataset small and fast for examples)
+med1_chr7 <- keep_chr7(med1_full)
+brd4_chr7 <- keep_chr7(brd4_full)
+gr_chr7 <- keep_chr7(gr_full)
+```
+
+## Create GRangesList object
+
+Finally, we combine the filtered peak sets into a single `GRangesList` object:
+
+```{r}
+#| label: create-grangeslist
+
+# Combine into a GRangesList with descriptive names
+a549_chipseq_peaks <- GRangesList("MED1_Dex_chr7" = med1_chr7,
+                                  "BRD4_Dex_chr7" = brd4_chr7,
+                                  "GR_Dex_chr7" = gr_chr7)
 
 # Display the structure of the dataset
 a549_chipseq_peaks
 ```
 
-The dataset is a `GRangesList` object containing three sets of genomic ranges:
+## Dataset summary
 
 ```{r}
 #| label: dataset-summary
 
 # Create a summary table
 summary_df <- data.frame(
-  "Factor" = names(a549_chipseq_peaks),
-  "Number of Peaks" = sapply(a549_chipseq_peaks, length),
-  "Chromosome" = "chr7",
+  "factor" = gsub("_Dex_chr7", "", names(a549_chipseq_peaks)),
+  "number of peaks" = sapply(a549_chipseq_peaks, length),
   check.names = FALSE
 )
 
 kable(summary_df, 
-      caption = "Summary of ChIP-seq peaks for each transcription factor")
+      caption = "Summary of ChIP-seq peaks for each factor")
 ```
 
-## Inspect Individual Peak Sets
+# Computing overlaps
 
-Let's examine the first few peaks from each factor:
-
-```{r}
-#| label: inspect-peaks
-
-# Display first 5 peaks from MED1
-head(a549_chipseq_peaks$MED1_Dex_chr7, 5)
-```
-
-# Computing Overlaps
-
-The `computeOverlaps()` function analyzes the intersection patterns across all peak sets. For genomic ranges, it identifies regions that overlap between different ChIP-seq experiments:
+The `computeOverlaps()` function analyzes the intersection patterns across all peak sets. For genomic ranges, it identifies regions that overlap between different ChIP-seq samples:
 
 ```{r}
 #| label: compute-overlaps
 
 # Compute overlaps between ChIP-seq peaks
-peak_overlaps <- computeOverlaps(a549_chipseq_peaks)
+genomic_overlaps <- computeOverlaps(a549_chipseq_peaks)
 
 # Display the structure of the result
-class(peak_overlaps)
-names(peak_overlaps)
+class(genomic_overlaps)
+names(genomic_overlaps)
 ```
-
-## Overlap Summary
-
-The overlap analysis produces a categorical assignment for each genomic region:
-
-```{r}
-#| label: overlap-categories
-
-# Show the distribution of overlap categories
-category_table <- table(peak_overlaps$intersect_category)
-category_df <- data.frame(
-  "Overlap Pattern" = names(category_table),
-  "Number of Peaks" = as.integer(category_table),
-  check.names = FALSE
-)
-
-# Sort by number of peaks (descending)
-category_df <- category_df[order(-category_df$`Number of Peaks`), ]
-
-kable(category_df,
-      caption = "Distribution of overlap patterns across ChIP-seq peaks",
-      row.names = FALSE)
-```
-
-**Interpretation of overlap patterns:**
-
-- `100`: Peaks unique to MED1
-- `010`: Peaks unique to BRD4
-- `001`: Peaks unique to GR
-- `110`: Peaks shared between MED1 and BRD4 only
-- `101`: Peaks shared between MED1 and GR only
-- `011`: Peaks shared between BRD4 and GR only
-- `111`: Peaks shared across all three factors
 
 # Visualization
 
-## Venn Diagram
+## Venn diagram
 
 The `plotVenn()` function creates area-proportional Venn diagrams to visualize the overlaps between ChIP-seq peaks:
 
 ```{r}
 #| label: fig-venn-basic
-#| fig-cap: "Basic Venn diagram showing overlaps between ChIP-seq peaks for three transcription factors"
+#| fig-cap: "Basic Venn diagram showing overlaps between ChIP-seq peaks"
 #| fig-width: 7
 #| fig-height: 5
 
 # Create a basic Venn diagram
-plotVenn(peak_overlaps)
+plotVenn(genomic_overlaps)
 ```
 
-### Interpretation
+## UpSet plot
 
-From the Venn diagram, we can observe:
-
-- The number of peaks unique to each transcription factor
-- The number of peaks shared between pairs of factors
-- The core set of peaks bound by all three factors (MED1, BRD4, and GR)
-
-### Customized Venn Diagram
-
-The appearance can be customized with different colors, transparency, and labels:
-
-```{r}
-#| label: fig-venn-custom
-#| fig-cap: "Customized Venn diagram with adjusted colors and styling"
-#| fig-width: 7
-#| fig-height: 5
-
-# Create a customized Venn diagram
-plotVenn(peak_overlaps,
-         fills = list(fill = c("#E41A1C", "#377EB8", "#4DAF4A"), alpha = 0.5),
-         edges = list(col = "gray30", lwd = 2),
-         labels = list(col = "black", fontsize = 12, font = 2),
-         quantities = list(type = c("counts", "percent"), 
-                          col = "black", fontsize = 10),
-         main = list(label = "ChIP-seq Peak Overlaps (A549 cells)", 
-                    fontsize = 14, font = 2, col = "navy"),
-         legend = list(side = "right", fontsize = 10))
-```
-
-## UpSet Plot
-
-For complex overlap patterns, UpSet plots provide an alternative visualization that can be easier to interpret:
+For complex overlap patterns, `plotUpSet()` provide an alternative visualization that can be easier to interpret with more than 4 sets:
 
 ```{r}
 #| label: fig-upset
 #| fig-cap: "UpSet plot showing intersection sizes between ChIP-seq peaks"
-#| fig-width: 8
-#| fig-height: 4
+#| fig-width: 6
+#| fig-height: 3
 
 # Create an UpSet plot
-plotUpSet(peak_overlaps)
+plotUpSet(genomic_overlaps,
+          comb_col = c( "#D87093",  "#CD3301", "#9370DB", "#008B8B", "#2B70AB", "#FFB027", "#3EA742"))
 ```
+
+The top bar chart shows intersection sizes for each overlap combination, while the connected dots below indicate which sets participate in each intersection. Horizontal bars on the right show total set sizes. The UpSet representation is particularly useful for comparing more than four sets or when precise quantification of complex overlap patterns is required.
 
 # Extracting Overlap Groups
 
@@ -244,7 +251,7 @@ The `extractOverlaps()` function extracts the actual genomic regions for each ov
 #| label: extract-groups
 
 # Extract all overlap groups
-overlap_groups <- extractOverlaps(peak_overlaps)
+overlap_groups <- extractOverlaps(genomic_overlaps)
 
 # Display the number of peaks in each group
 group_sizes <- sapply(overlap_groups, length)
