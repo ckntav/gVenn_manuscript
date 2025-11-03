@@ -26,4 +26,4 @@ This repository contains all datasets and analysis scripts used to generate the 
 ---
 
 **For the complete R package:** [github.com/ckntav/gVenn](https://github.com/ckntav/gVenn)  
-**For manuscript data & analyses:** [github.com/ckntav/gvenn_manuscript](https://github.com/ckntav/gVenn_manuscript)
+**For manuscript data & analyses:** [github.com/ckntav/gVenn_manuscript](https://github.com/ckntav/gVenn_manuscript)
