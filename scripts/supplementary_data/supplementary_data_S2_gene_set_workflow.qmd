@@ -19,6 +19,15 @@ format:
     fig-width: 7
     fig-height: 5
     fig-align: center
+    include-in-header: |
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-4389F94LTN"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-4389F94LTN');
+      </script>
 execute:
   echo: true
   warning: false
