@@ -248,7 +248,7 @@ plotUpSet(genomic_overlaps,
 
 The top bar chart shows intersection sizes for each overlap combination, while the connected dots below indicate which sets participate in each intersection. Horizontal bars on the right show total set sizes. The UpSet representation is particularly useful for comparing more than four sets or when precise quantification of complex overlap patterns is required.
 
-# Extracting Overlap Groups
+# Extracting overlap groups
 
 The `extractOverlaps()` function extracts the actual genomic regions for each overlap group, which can be useful for downstream analyses such as:
 
@@ -404,17 +404,7 @@ kable(summary_table,
       row.names = FALSE)
 ```
 
-# Biological Interpretation
-
-The overlap analysis reveals important insights about transcription factor co-binding:
-
-1. **Core co-regulatory regions**: The `r length(shared_peaks)` peaks shared by all three factors likely represent core regulatory elements where MED1, BRD4, and GR work together.
-
-2. **Factor-specific binding**: Each transcription factor also has unique binding sites, suggesting independent regulatory functions.
-
-3. **Pairwise cooperativity**: The pairwise overlaps indicate potential cooperative binding between pairs of factors.
-
-# Session Information
+# Session information
 
 ```{r}
 #| label: session-info
@@ -428,3 +418,10 @@ For more information about the gVenn package, visit:
 
 - Package documentation: [https://ckntav.github.io/gVenn/](https://ckntav.github.io/gVenn/)
 - GitHub repository: [https://github.com/ckntav/gVenn](https://github.com/ckntav/gVenn)
+
+```{=html}
+<!-- Copyright Footer -->
+<div class="copyright-footer">
+    <p>&copy; 2025 <a href="https://ckntav.github.io/" target="_blank">Christophe Tav</a></p>
+</div>
+```

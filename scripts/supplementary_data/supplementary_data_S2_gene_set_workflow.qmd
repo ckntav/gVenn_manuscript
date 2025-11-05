@@ -456,7 +456,7 @@ exportOverlaps(my_groups,
                output_file = "my_gene_overlaps")
 ```
 
-# Session Information
+# Session information
 
 ```{r}
 #| label: session-info
@@ -465,3 +465,15 @@ sessionInfo()
 ```
 
 # References
+
+For more information about the gVenn package, visit:
+
+- Package documentation: [https://ckntav.github.io/gVenn/](https://ckntav.github.io/gVenn/)
+- GitHub repository: [https://github.com/ckntav/gVenn](https://github.com/ckntav/gVenn)
+
+```{=html}
+<!-- Copyright Footer -->
+<div class="copyright-footer">
+    <p>&copy; 2025 <a href="https://ckntav.github.io/" target="_blank">Christophe Tav</a></p>
+</div>
+```

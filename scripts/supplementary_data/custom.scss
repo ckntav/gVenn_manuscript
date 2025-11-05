@@ -50,3 +50,25 @@ a:hover {
 .callout-note .callout-title {
   color: #047857 !important;
 }
+
+
+/* Copyright footer */
+.copyright-footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 30px 20px;
+  border-top: 2px solid #ddd;
+  color: #666;
+  font-size: 0.95em;
+}
+        
+.copyright-footer a {
+  color: #047857;
+  text-decoration: none;
+  font-weight: 500;
+}
+        
+.copyright-footer a:hover {
+  text-decoration: underline;
+  color: #036046;
+}
