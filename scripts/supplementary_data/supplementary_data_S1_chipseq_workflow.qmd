@@ -276,9 +276,9 @@ kable(group_df,
       row.names = FALSE)
 ```
 
-## Example: Peaks Shared by All Three Factors
+## Example: Peaks shared by all three factors
 
-Let's examine the peaks that are bound by all three transcription factors (MED1, BRD4, and GR):
+Let's examine the peaks that are bound by all three factors (MED1, BRD4, and GR):
 
 ```{r}
 #| label: shared-peaks
@@ -293,116 +293,8 @@ cat("Number of peaks bound by all three factors:", length(shared_peaks), "\n\n")
 head(shared_peaks, 10)
 ```
 
-## Example: Factor-Specific Peaks
-
-We can also extract peaks unique to each factor:
-
-```{r}
-#| label: unique-peaks
-
-# Extract factor-specific peaks
-med1_specific <- overlap_groups[["group_100"]]
-brd4_specific <- overlap_groups[["group_010"]]
-gr_specific <- overlap_groups[["group_001"]]
-
-# Summary
-unique_peaks_df <- data.frame(
-  "Factor" = c("MED1", "BRD4", "GR"),
-  "Unique Peaks" = c(length(med1_specific), 
-                     length(brd4_specific), 
-                     length(gr_specific)),
-  check.names = FALSE
-)
-
-kable(unique_peaks_df,
-      caption = "Number of factor-specific peaks",
-      row.names = FALSE)
-```
-
-## Example: Pairwise Overlaps
-
-Extract peaks shared between pairs of factors:
-
-```{r}
-#| label: pairwise-peaks
-
-# Extract pairwise overlaps
-med1_brd4 <- overlap_groups[["group_110"]]  # MED1 and BRD4, not GR
-med1_gr <- overlap_groups[["group_101"]]    # MED1 and GR, not BRD4
-brd4_gr <- overlap_groups[["group_011"]]    # BRD4 and GR, not MED1
-
-# Summary
-pairwise_df <- data.frame(
-  "Overlap" = c("MED1 ∩ BRD4", "MED1 ∩ GR", "BRD4 ∩ GR"),
-  "Number of Peaks" = c(length(med1_brd4), 
-                        length(med1_gr), 
-                        length(brd4_gr)),
-  check.names = FALSE
-)
-
-kable(pairwise_df,
-      caption = "Number of peaks in pairwise overlaps (excluding triple overlap)",
-      row.names = FALSE)
-```
-
-# Export Results
-
-## Export Peak Coordinates
-
-The extracted overlap groups can be exported as BED files for visualization in genome browsers or for downstream analysis:
-
-```{r}
-#| label: export-bed
-#| eval: false
-
-# Export shared peaks to BED format
-library(rtracklayer)
-
-# Export peaks shared by all three factors
-export.bed(shared_peaks, "output/peaks_all_three_factors.bed")
-
-# Export MED1-specific peaks
-export.bed(med1_specific, "output/peaks_MED1_specific.bed")
-
-# Export BRD4-specific peaks
-export.bed(brd4_specific, "output/peaks_BRD4_specific.bed")
-
-# Export GR-specific peaks
-export.bed(gr_specific, "output/peaks_GR_specific.bed")
-```
-
-## Export Summary Table
-
-Create a comprehensive summary table:
-
-```{r}
-#| label: export-summary
-
-# Create a detailed summary
-all_groups <- names(overlap_groups)
-summary_table <- data.frame(
-  Group = all_groups,
-  Pattern = all_groups,
-  Count = sapply(overlap_groups, length),
-  Percentage = round(100 * sapply(overlap_groups, length) / 
-                     sum(sapply(overlap_groups, length)), 2)
-)
-
-# Add interpretation
-summary_table$Interpretation <- c(
-  "MED1 only",
-  "BRD4 only", 
-  "GR only",
-  "MED1 ∩ BRD4",
-  "BRD4 ∩ GR",
-  "MED1 ∩ GR",
-  "All three factors"
-)
-
-kable(summary_table,
-      caption = "Complete summary of ChIP-seq peak overlaps",
-      row.names = FALSE)
-```
+# Export results
+Check vignette...
 
 # Session information
 
