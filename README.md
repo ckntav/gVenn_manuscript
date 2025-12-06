@@ -8,9 +8,9 @@
 <img src="output/hex_sticker_logo/gVenn_hex_sticker.png" width="175"/>
 </p>
 
-## 📦 Main package
+## 🌐 Website
 
-For the R package, documentation, and source code, see the [**main gVenn repository**](https://github.com/ckntav/gVenn).
+View the [**gVenn manuscript website**](https://ckntav.github.io/gVenn_manuscript/)
 
 ## 📄 About this repository
 
