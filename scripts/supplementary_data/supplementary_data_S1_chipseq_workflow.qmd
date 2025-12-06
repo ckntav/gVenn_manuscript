@@ -454,7 +454,7 @@ plotVenn(genomic_overlaps,
 
 For more information about the gVenn package, visit:
 
-- Package documentation: [https://ckntav.github.io/gVenn/](https://ckntav.github.io/gVenn/)
+- Package documentation: [https://ckntav.github.io/gVenn](https://ckntav.github.io/gVenn)
 - GitHub repository: [https://github.com/ckntav/gVenn](https://github.com/ckntav/gVenn)
 
 # Session information
