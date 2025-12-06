@@ -35,6 +35,8 @@ execute:
   message: false
 ---
 
+Last updated: 06 December 2025 
+
 ::: {.callout-note icon=false}
 ## Interactive notebook
 This analysis workflow is available online at:  
