@@ -286,7 +286,7 @@ print(genes_in_all_three)
 genes_unique_to_A <- gene_groups[["group_100"]]
 
 cat("Genes unique to random_genes_A:\n")
-print(genes_unique_to_A, 20)
+print(genes_unique_to_A)
 ```
 
 # Exporting results
@@ -361,7 +361,7 @@ For more information about the gVenn package, visit:
 
 ```{r}
 #| label: session-info
-
+#| code-fold: true
 sessionInfo()
 ```
 
