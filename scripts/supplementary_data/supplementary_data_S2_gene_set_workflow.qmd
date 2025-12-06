@@ -285,8 +285,8 @@ print(genes_in_all_three)
 # Extract genes unique to random_genes_A (group_100)
 genes_unique_to_A <- gene_groups[["group_100"]]
 
-cat("\n\nFirst 20 genes unique to random_genes_A:\n")
-print(head(genes_unique_to_A, 20))
+cat("Genes unique to random_genes_A:\n")
+print(genes_unique_to_A, 20)
 ```
 
 # Exporting results
