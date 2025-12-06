@@ -35,7 +35,7 @@ execute:
   message: false
 ---
 
-Last updated: 06 December 2025 
+Last updated: 06 December 2025
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
@@ -86,7 +86,7 @@ library(knitr)
 packageVersion("gVenn")
 ```
 
-# Example Dataset
+# Example dataset
 
 The **gVenn** package includes a synthetic gene list dataset (`gene_list`) comprising three sets of human gene symbols with designed overlaps. This dataset was generated from the first 250 gene symbols in the `org.Hs.eg.db` package using a reproducible random seed.
 
@@ -104,11 +104,10 @@ The dataset contains three gene lists with the following sizes:
 
 ```{r}
 #| label: dataset-summary
-
 # Create a summary table
 summary_df <- data.frame(
-  "Gene List" = names(gene_list),
-  "Number of Genes" = sapply(gene_list, length),
+  "gene list" = names(gene_list),
+  "number of genes" = sapply(gene_list, length),
   check.names = FALSE
 )
 
@@ -116,7 +115,7 @@ kable(summary_df,
       caption = "Summary of example gene lists")
 ```
 
-# Computing Overlaps
+# Computing overlaps
 
 The `computeOverlaps()` function analyzes the intersection patterns across all gene lists and returns a structured object containing:
 
@@ -135,7 +134,7 @@ class(gene_overlaps)
 names(gene_overlaps)
 ```
 
-## Overlap Matrix
+## Overlap matrix
 
 The overlap matrix shows which genes belong to which sets:
 
@@ -147,7 +146,7 @@ kable(head(gene_overlaps$overlap_matrix, 10),
       caption = "First 10 rows of the overlap matrix (TRUE = gene present in set)")
 ```
 
-## Overlap Categories
+## Overlap categories
 
 Each gene is assigned a category code representing its overlap pattern:
 
@@ -157,8 +156,8 @@ Each gene is assigned a category code representing its overlap pattern:
 # Show the distribution of overlap categories
 category_table <- table(gene_overlaps$intersect_category)
 category_df <- data.frame(
-  "Overlap Pattern" = names(category_table),
-  "Number of Genes" = as.integer(category_table),
+  "Overlap pattern" = names(category_table),
+  "Number of genes" = as.integer(category_table),
   check.names = FALSE
 )
 
@@ -178,7 +177,7 @@ kable(category_df,
 
 # Visualization
 
-## Venn Diagram
+## Venn diagram
 
 The `plotVenn()` function creates area-proportional Venn diagrams to visualize the overlaps:
 
@@ -205,7 +204,7 @@ plotVenn(gene_overlaps,
          labels = list(col = "black", fontsize = 12, font = 2),
          quantities = list(type = c("counts", "percent"), 
                           col = "black", fontsize = 10),
-         main = list(label = "Gene Set Overlaps", 
+         main = list(label = "gene set overlaps", 
                     fontsize = 14, font = 2, col = "navy"),
          legend = list(side = "right", fontsize = 10))
 ```
@@ -224,7 +223,7 @@ For larger numbers of sets (>3), UpSet plots provide a clearer alternative to Ve
 plotUpSet(gene_overlaps)
 ```
 
-### Customized UpSet Plot
+### Customized UpSet plot
 
 The UpSet plot can also be customized with colors:
 
@@ -240,7 +239,7 @@ plotUpSet(gene_overlaps,
                       "#9370DB", "#008B8B", "#D87093"))
 ```
 
-# Extracting Overlap Groups
+# Extracting overlap groups
 
 The `extractOverlaps()` function separates genes into distinct groups based on their overlap patterns:
 
@@ -253,8 +252,8 @@ gene_groups <- extractOverlaps(gene_overlaps)
 # Display the number of genes per group
 group_sizes <- sapply(gene_groups, length)
 group_df <- data.frame(
-  "Overlap Group" = names(group_sizes),
-  "Number of Genes" = as.integer(group_sizes),
+  "Overlap group" = names(group_sizes),
+  "Number of genes" = as.integer(group_sizes),
   check.names = FALSE
 )
 
@@ -262,18 +261,26 @@ kable(group_df,
       caption = "Number of genes in each overlap group")
 ```
 
-## Examining Specific Groups
+## Examining specific groups
 
 Individual overlap groups can be accessed for downstream analysis:
 
+### Extract genes present in all three sets (group_111)
+
 ```{r}
-#| label: specific-groups
+#| label: specific-groups1
 
 # Extract genes present in all three sets (group_111)
 genes_in_all_three <- gene_groups[["group_111"]]
 
 cat("Genes present in all three sets (A ∩ B ∩ C):\n")
 print(genes_in_all_three)
+```
+
+### Extract genes unique to random_genes_A (group_100)
+
+```{r}
+#| label: specific-groups2
 
 # Extract genes unique to random_genes_A (group_100)
 genes_unique_to_A <- gene_groups[["group_100"]]
@@ -282,34 +289,7 @@ cat("\n\nFirst 20 genes unique to random_genes_A:\n")
 print(head(genes_unique_to_A, 20))
 ```
 
-## Summary Table of All Groups
-
-```{r}
-#| label: all-groups-table
-
-# Create a detailed table showing first 5 genes from each group
-group_preview <- lapply(names(gene_groups), function(group_name) {
-  genes <- gene_groups[[group_name]]
-  preview <- if(length(genes) <= 5) {
-    paste(genes, collapse = ", ")
-  } else {
-    paste(c(head(genes, 5), "..."), collapse = ", ")
-  }
-  data.frame(
-    Group = group_name,
-    Count = length(genes),
-    "Example Genes" = preview,
-    check.names = FALSE
-  )
-})
-
-group_preview_df <- do.call(rbind, group_preview)
-
-kable(group_preview_df,
-      caption = "Summary of all overlap groups with example genes")
-```
-
-# Exporting Results
+# Exporting results
 
 ## Export to Excel
 
@@ -334,7 +314,7 @@ This creates an Excel file with one sheet per overlap group, making it easy to:
 - Share results with collaborators
 - Import into other analysis tools
 
-## Saving Visualizations
+## Saving visualizations
 
 Visualizations can be exported in multiple formats (PDF, PNG, SVG):
 
@@ -370,93 +350,12 @@ saveViz(venn_plot,
         bg = "transparent")
 ```
 
-# Downstream Analysis Applications
+# References
 
-The extracted overlap groups can be used for various downstream analyses:
+For more information about the gVenn package, visit:
 
-## Functional Enrichment Analysis
-
-```{r}
-#| label: enrichment-example
-#| eval: false
-
-# Example: Perform GO enrichment on genes unique to set A
-library(clusterProfiler)
-library(org.Hs.eg.db)
-
-genes_unique_A <- gene_groups[["group_100"]]
-
-# Convert gene symbols to Entrez IDs
-entrez_ids <- bitr(genes_unique_A, 
-                   fromType = "SYMBOL",
-                   toType = "ENTREZID", 
-                   OrgDb = org.Hs.eg.db)
-
-# Perform GO enrichment
-go_results <- enrichGO(gene = entrez_ids$ENTREZID,
-                       OrgDb = org.Hs.eg.db,
-                       ont = "BP",
-                       pvalueCutoff = 0.05)
-```
-
-## Comparing Shared vs. Unique Genes
-
-```{r}
-#| label: comparison-table
-
-# Compare genes shared across all sets vs. unique to each set
-comparison_df <- data.frame(
-  Category = c("Shared (all 3 sets)",
-               "Unique to A",
-               "Unique to B", 
-               "Unique to C"),
-  Count = c(
-    length(gene_groups[["group_111"]]),
-    length(gene_groups[["group_100"]]),
-    length(gene_groups[["group_010"]]),
-    length(gene_groups[["group_001"]])
-  ),
-  Percentage = c(
-    round(100 * length(gene_groups[["group_111"]]) / length(gene_overlaps$unique_elements), 1),
-    round(100 * length(gene_groups[["group_100"]]) / length(gene_overlaps$unique_elements), 1),
-    round(100 * length(gene_groups[["group_010"]]) / length(gene_overlaps$unique_elements), 1),
-    round(100 * length(gene_groups[["group_001"]]) / length(gene_overlaps$unique_elements), 1)
-  )
-)
-
-kable(comparison_df,
-      caption = "Comparison of shared vs. unique genes")
-```
-
-# Working with Your Own Data
-
-To use **gVenn** with your own gene lists:
-
-```{r}
-#| label: custom-data-example
-#| eval: false
-
-# Example: Creating gene lists from your own data
-my_gene_lists <- list(
-  Treatment_A = c("TP53", "BRCA1", "EGFR", "MYC", "KRAS"),
-  Treatment_B = c("TP53", "BRCA1", "PTEN", "AKT1", "PIK3CA"),
-  Control = c("EGFR", "MYC", "AKT1", "BRAF", "NRAS")
-)
-
-# Compute overlaps
-my_overlaps <- computeOverlaps(my_gene_lists)
-
-# Visualize
-plotVenn(my_overlaps)
-
-# Extract groups
-my_groups <- extractOverlaps(my_overlaps)
-
-# Export results
-exportOverlaps(my_groups,
-               output_dir = "my_results",
-               output_file = "my_gene_overlaps")
-```
+- Package documentation: [https://ckntav.github.io/gVenn/](https://ckntav.github.io/gVenn/)
+- GitHub repository: [https://github.com/ckntav/gVenn](https://github.com/ckntav/gVenn)
 
 # Session information
 
@@ -465,13 +364,6 @@ exportOverlaps(my_groups,
 
 sessionInfo()
 ```
-
-# References
-
-For more information about the gVenn package, visit:
-
-- Package documentation: [https://ckntav.github.io/gVenn/](https://ckntav.github.io/gVenn/)
-- GitHub repository: [https://github.com/ckntav/gVenn](https://github.com/ckntav/gVenn)
 
 ```{=html}
 <!-- Copyright Footer -->
