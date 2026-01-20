@@ -35,7 +35,7 @@ execute:
   message: false
 ---
 
-Last updated: 09 December 2025 
+Last updated: 20 January 2026
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
@@ -468,6 +468,6 @@ sessionInfo()
 ```{=html}
 <!-- Copyright Footer -->
 <div class="copyright-footer">
-    <p>&copy; 2025 <a href="https://ckntav.github.io/" target="_blank">Christophe Tav</a></p>
+    <p>&copy; 2026 <a href="https://ckntav.github.io/" target="_blank">Christophe Tav</a></p>
 </div>
 ```
