@@ -256,32 +256,91 @@
         }
         
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .logo {
-                width: 120px;
-            }
-            
-            .subtitle {
-                font-size: 1em;
-            }
-            
-            .material-title {
-                font-size: 1.2em;
-            }
-            
-            .close-modal {
-                top: 10px;
-                right: 20px;
-                font-size: 30px;
-            }
-            
-            body {
-                padding: 20px 10px;
-            }
+            .header h1 { font-size: 2em; }
+            .logo { width: 120px; }
+            .subtitle { font-size: 1em; }
+            .material-title { font-size: 1.2em; }
+            .close-modal { top: 10px; right: 20px; font-size: 30px; }
+            body { padding: 20px 10px; }
         }
+
+        /* ── Download stats ───────────────────────────────────── */
+        .download-stats {
+            max-width: 900px;
+            margin: 0 auto 50px;
+            padding-top: 30px;
+            border-top: 2px solid #ddd;
+        }
+        .download-stats h3 {
+            color: #222;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 1.1rem;
+        }
+        #stat-chart-wrap {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem 0.5rem 0.5rem;
+            background: #fff;
+            margin-bottom: 0.85rem;
+        }
+        #stat-tooltip {
+            position: absolute;
+            display: none;
+            background: #fff;
+            border: 1px solid #c5ddd0;
+            border-radius: 6px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.82rem;
+            color: #24292f;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            pointer-events: none;
+            z-index: 10;
+            min-width: 140px;
+            line-height: 1.8;
+        }
+        .tt-month { font-weight: 600; color: #047857; }
+        .tt-val   { font-weight: 600; color: #047857; font-variant-numeric: tabular-nums; }
+        .stats-pills {
+            display: flex;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+            margin-top: 0.85rem;
+        }
+        .stat-pill {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #c5ddd0;
+            border-radius: 8px;
+            padding: 0.65rem 1.2rem;
+            background: #f2faf6;
+            min-width: 110px;
+            flex: 1;
+        }
+        .stat-val {
+            font-size: 1.55rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+            color: #047857;
+        }
+        .stat-lbl {
+            font-size: 0.68rem;
+            color: #6e7781;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.2rem;
+        }
+        .stats-source {
+            margin-top: 0.4rem;
+            font-size: 0.75rem;
+            color: #999;
+            text-align: right;
+        }
+        .stats-source a { color: #047857; text-decoration: none; }
+        .stats-source a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -353,6 +412,32 @@
             </div>
         </div>
         
+        <!-- Download Statistics -->
+        <div class="download-stats">
+            <h3>Download statistics</h3>
+
+            <div id="stat-chart-wrap">
+                <svg id="stat-chart" aria-label="gVenn monthly download statistics"></svg>
+                <div id="stat-tooltip"></div>
+            </div>
+
+            <div class="stats-pills">
+                <div class="stat-pill">
+                    <span class="stat-val" id="stat-dl">—</span>
+                    <span class="stat-lbl">Total downloads</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-val" id="stat-mo" style="color:#555;">—</span>
+                    <span class="stat-lbl">Active months</span>
+                </div>
+            </div>
+
+            <p class="stats-source">
+                source: <a href="https://bioconductor.org/packages/stats/bioc/gVenn/" target="_blank" rel="noopener">bioconductor.org</a>
+                &middot; retrieved <span id="stat-date">—</span>
+            </p>
+        </div>
+
         <!-- Copyright Footer -->
         <div class="copyright-footer">
             <p>&copy; 2026 <a href="https://ckntav.github.io/" target="_blank">Christophe Tav</a></p>
@@ -388,6 +473,163 @@
                 closeModal();
             }
         });
+    </script>
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+
+    <script>
+    (function () {
+      var COL = "#047857";
+
+      var RAW = [
+        /* STATS_DATA_START */
+        // Auto-generated by update_stats.R — 2026-02-19 00:00 UTC
+        { year:2025, month:"Sep", dl:48  },
+        { year:2025, month:"Oct", dl:188 },
+        { year:2025, month:"Nov", dl:166 },
+        { year:2025, month:"Dec", dl:216 },
+        { year:2026, month:"Jan", dl:239 },
+        { year:2026, month:"Feb", dl:145 }
+        /* STATS_DATA_END */
+      ];
+
+      var RETRIEVED = "2026-02-19";
+
+      var MONTH_IDX = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+      var data = RAW.map(function(d) {
+        return Object.assign({}, d, {
+          label: d.month + " '" + String(d.year).slice(2),
+          sort:  d.year * 100 + MONTH_IDX.indexOf(d.month)
+        });
+      }).sort(function(a,b){ return a.sort - b.sort; });
+
+      var totDl = data.reduce(function(s,d){ return s + d.dl; }, 0);
+      document.getElementById("stat-dl").textContent = totDl.toLocaleString();
+      document.getElementById("stat-mo").textContent = data.length;
+      document.getElementById("stat-date").textContent = RETRIEVED;
+
+      function draw() {
+        var wrap   = document.getElementById("stat-chart-wrap");
+        var totalW = wrap.clientWidth;
+        var margin = { top:20, right:20, bottom:44, left:46 };
+        var W = totalW - margin.left - margin.right;
+        var H = 220   - margin.top  - margin.bottom;
+
+        var svg = d3.select("#stat-chart");
+        svg.selectAll("*").remove();
+        svg.attr("width", totalW).attr("height", H + margin.top + margin.bottom);
+
+        var g = svg.append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var x = d3.scalePoint()
+          .domain(data.map(function(d){ return d.label; }))
+          .range([0, W]).padding(0.45);
+
+        var maxY = d3.max(data, function(d){ return d.dl; });
+        var y = d3.scaleLinear().domain([0, maxY * 1.2]).range([H, 0]).nice();
+
+        // Defs
+        var defs = svg.append("defs");
+        defs.append("clipPath").attr("id","sclip")
+          .append("rect").attr("width",W).attr("height",H+6).attr("y",-6);
+        var gr = defs.append("linearGradient")
+          .attr("id","sgrad").attr("x1","0").attr("y1","0").attr("x2","0").attr("y2","1");
+        gr.append("stop").attr("offset","0%").attr("stop-color",COL).attr("stop-opacity",0.18);
+        gr.append("stop").attr("offset","100%").attr("stop-color",COL).attr("stop-opacity",0);
+
+        // Grid
+        g.selectAll(".sgy").data(y.ticks(4)).enter().append("line")
+          .attr("x1",0).attr("x2",W)
+          .attr("y1",function(d){ return y(d); }).attr("y2",function(d){ return y(d); })
+          .attr("stroke","#eaeef2").attr("stroke-width",1);
+
+        // X axis
+        g.append("g").attr("transform","translate(0,"+H+")")
+          .call(d3.axisBottom(x).tickSize(0))
+          .call(function(ax){
+            ax.select(".domain").attr("stroke","#ddd");
+            ax.selectAll("text").attr("fill","#777").attr("font-size","11px").attr("dy","1.5em");
+          });
+
+        // Y axis
+        g.append("g")
+          .call(d3.axisLeft(y).ticks(4).tickSize(0))
+          .call(function(ax){
+            ax.select(".domain").remove();
+            ax.selectAll("text").attr("fill","#777").attr("font-size","10.5px").attr("dx","-0.2em");
+          });
+
+        // Year separator
+        data.forEach(function(d,i){
+          if (i===0) return;
+          if (data[i-1].year !== d.year) {
+            var sx = (x(data[i-1].label) + x(d.label)) / 2;
+            g.append("line")
+              .attr("x1",sx).attr("x2",sx).attr("y1",-8).attr("y2",H)
+              .attr("stroke","#ccc").attr("stroke-dasharray","5,4").attr("stroke-width",1);
+            g.append("text").attr("x",sx-5).attr("y",-9).attr("text-anchor","end")
+              .attr("font-size","9").attr("fill","#aaa").text(data[i-1].year);
+            g.append("text").attr("x",sx+5).attr("y",-9).attr("text-anchor","start")
+              .attr("font-size","9").attr("fill","#aaa").text(d.year);
+          }
+        });
+
+        var cg = g.append("g").attr("clip-path","url(#sclip)");
+
+        // Area
+        cg.append("path").datum(data)
+          .attr("fill","url(#sgrad)")
+          .attr("d", d3.area()
+            .x(function(d){ return x(d.label); }).y0(H).y1(function(d){ return y(d.dl); })
+            .curve(d3.curveMonotoneX));
+
+        // Line with draw animation
+        var path = cg.append("path").datum(data)
+          .attr("fill","none").attr("stroke",COL)
+          .attr("stroke-width",2.4).attr("stroke-linecap","round").attr("stroke-linejoin","round")
+          .attr("d", d3.line()
+            .x(function(d){ return x(d.label); }).y(function(d){ return y(d.dl); })
+            .curve(d3.curveMonotoneX));
+        var len = path.node().getTotalLength();
+        path.attr("stroke-dasharray",len+" "+len).attr("stroke-dashoffset",len)
+          .transition().duration(1100).ease(d3.easeCubicInOut).attr("stroke-dashoffset",0);
+
+        // Dots + tooltip
+        var tooltip = document.getElementById("stat-tooltip");
+        cg.selectAll(".sdot").data(data).enter().append("circle")
+          .attr("class","sdot")
+          .attr("cx",function(d){ return x(d.label); })
+          .attr("cy",function(d){ return y(d.dl); })
+          .attr("r",0).attr("fill",COL).attr("stroke","#fff").attr("stroke-width",2)
+          .style("cursor","crosshair")
+          .on("mousemove", function(event, d){
+            d3.select(this).attr("r",6);
+            var box = wrap.getBoundingClientRect();
+            var px  = event.clientX - box.left;
+            var py  = event.clientY - box.top;
+            tooltip.innerHTML =
+              '<div class="tt-month">'+d.month+' '+d.year+'</div>'+
+              '<div>Downloads: <span class="tt-val">'+d.dl.toLocaleString()+'</span></div>';
+            var ttW=145, ttH=58;
+            tooltip.style.left = (px+14+ttW > box.width ? px-ttW-6 : px+14) + "px";
+            tooltip.style.top  = (py-ttH < 0            ? py+10    : py-ttH) + "px";
+            tooltip.style.display = "block";
+          })
+          .on("mouseleave", function(){
+            d3.select(this).attr("r",4);
+            tooltip.style.display = "none";
+          })
+          .transition().delay(900).duration(300).attr("r",4);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function(){ draw(); window.addEventListener("resize", draw); });
+      } else {
+        draw(); window.addEventListener("resize", draw);
+      }
+    })();
     </script>
 </body>
 </html>
