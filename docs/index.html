@@ -434,7 +434,7 @@
 
             <p class="stats-source">
                 source: <a href="https://bioconductor.org/packages/stats/bioc/gVenn/" target="_blank" rel="noopener">bioconductor.org</a>
-                &middot; retrieved <span id="stat-date">—</span>
+                &middot; data as of <span id="stat-date">—</span>
             </p>
         </div>
 
@@ -493,7 +493,7 @@
         /* STATS_DATA_END */
       ];
 
-      var RETRIEVED = "2026-02-20";
+      var AS_OF = "Thu. 19 Feb 2026";
 
       var MONTH_IDX = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
@@ -507,7 +507,7 @@
       var totDl = data.reduce(function(s,d){ return s + d.dl; }, 0);
       document.getElementById("stat-dl").textContent = totDl.toLocaleString();
       document.getElementById("stat-mo").textContent = data.length;
-      document.getElementById("stat-date").textContent = RETRIEVED;
+      document.getElementById("stat-date").textContent = AS_OF;
 
       function draw() {
         var wrap   = document.getElementById("stat-chart-wrap");
