@@ -63,7 +63,7 @@ as_of <- tryCatch({
     close(con)
     hit   <- grep("Data as of", lines, value = TRUE)
     if (length(hit) == 0) stop("not found")
-    m <- regmatches(hit[1], regexpr("[A-Za-z]+\.?\s+[0-9]+\s+[A-Za-z]+\s+[0-9]{4}", hit[1]))
+    m <- regmatches(hit[1], regexpr("[A-Za-z]+\\.?\\s+[0-9]+\\s+[A-Za-z]+\\s+[0-9]{4}", hit[1]))
     m
 }, error = function(e) {
     warning("  Could not fetch as-of date: ", conditionMessage(e))
