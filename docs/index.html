@@ -181,14 +181,14 @@
         }
         
         .info-section a {
-            color: #047857;
+            color: #999;
             text-decoration: none;
             font-weight: 500;
         }
-        
+
         .info-section a:hover {
-            text-decoration: underline;
-            color: #036046;
+            text-decoration: none;
+            color: #047857;
         }
         
         .badge-container {
@@ -414,10 +414,10 @@
         
         <!-- Download Statistics -->
         <div class="download-stats">
-            <h3>Download statistics for gVenn R package (Bioconductor)</h3>
+            <h3>gVenn R package download stats (from Bioconductor)</h3>
 
             <div id="stat-chart-wrap">
-                <svg id="stat-chart" aria-label="gVenn monthly download statistics"></svg>
+                <svg id="stat-chart" aria-label="gVenn download stats (from Bioconductor)"></svg>
                 <div id="stat-tooltip"></div>
             </div>
 
@@ -514,7 +514,7 @@
         var totalW = wrap.clientWidth;
         var margin = { top:20, right:20, bottom:44, left:46 };
         var W = totalW - margin.left - margin.right;
-        var H = 340   - margin.top  - margin.bottom;
+        var H = 450   - margin.top  - margin.bottom;
 
         var svg = d3.select("#stat-chart");
         svg.selectAll("*").remove();
@@ -602,16 +602,21 @@
           .attr("class","sdot")
           .attr("cx",function(d){ return x(d.label); })
           .attr("cy",function(d){ return y(d.dl); })
-          .attr("r",0).attr("fill",COL).attr("stroke","#fff").attr("stroke-width",2)
+          .attr("r",0)
+          .attr("fill", function(d,i){ return i === data.length-1 ? "#fff" : COL; })
+          .attr("stroke", function(d,i){ return i === data.length-1 ? COL : "#fff"; })
+          .attr("stroke-width", 2)
           .style("cursor","crosshair")
           .on("mousemove", function(event, d){
             d3.select(this).attr("r",6);
             var box = wrap.getBoundingClientRect();
             var px  = event.clientX - box.left;
             var py  = event.clientY - box.top;
+            var isLast = d === data[data.length - 1];
             tooltip.innerHTML =
               '<div class="tt-month">'+d.month+' '+d.year+'</div>'+
-              '<div>Downloads: <span class="tt-val">'+d.dl.toLocaleString()+'</span></div>';
+              '<div>Downloads: <span class="tt-val">'+d.dl.toLocaleString()+'</span></div>'+
+              (isLast ? '<div style="color:#aaa;font-size:0.9em;font-style:italic;">partial month</div>' : '');
             var ttW=145, ttH=58;
             tooltip.style.left = (px+14+ttW > box.width ? px-ttW-6 : px+14) + "px";
             tooltip.style.top  = (py-ttH < 0            ? py+10    : py-ttH) + "px";
@@ -622,6 +627,17 @@
             tooltip.style.display = "none";
           })
           .transition().delay(900).duration(300).attr("r",4);
+
+        // "partial month" annotation on last data point
+        var last = data[data.length - 1];
+        cg.append("text")
+          .attr("x", x(last.label))
+          .attr("y", y(last.dl) + 25)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "9px")
+          .attr("fill", "#bbb")
+          .attr("font-style", "italic")
+          .text("partial month");
       }
 
       if (document.readyState === "loading") {
