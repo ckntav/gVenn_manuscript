@@ -616,7 +616,7 @@
             tooltip.innerHTML =
               '<div class="tt-month">'+d.month+' '+d.year+'</div>'+
               '<div>Downloads: <span class="tt-val">'+d.dl.toLocaleString()+'</span></div>'+
-              (isLast ? '<div style="color:#aaa;font-size:0.9em;font-style:italic;">partial month</div>' : '');
+              (isLast ? '<div style="color:#aaa;font-size:0.9em;font-style:italic;">month-to-date</div>' : '');
             var ttW=145, ttH=58;
             tooltip.style.left = (px+14+ttW > box.width ? px-ttW-6 : px+14) + "px";
             tooltip.style.top  = (py-ttH < 0            ? py+10    : py-ttH) + "px";
@@ -628,7 +628,7 @@
           })
           .transition().delay(900).duration(300).attr("r",4);
 
-        // "partial month" annotation on last data point
+        // "month-to-date" annotation on last data point
         var last = data[data.length - 1];
         cg.append("text")
           .attr("x", x(last.label))
@@ -637,7 +637,7 @@
           .attr("font-size", "9px")
           .attr("fill", "#bbb")
           .attr("font-style", "italic")
-          .text("partial month");
+          .text("month-to-date");
       }
 
       if (document.readyState === "loading") {
