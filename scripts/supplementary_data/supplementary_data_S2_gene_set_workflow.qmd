@@ -21,6 +21,8 @@ format:
     fig-align: center
     include-in-header:
       - text: |
+            <link rel="icon" type="image/png" href="img/venn_logo.png">
+      - text: |
             <script async src="https://www.googletagmanager.com/gtag/js?id=G-4389F94LTN"></script>
       - text: |
            <script>
