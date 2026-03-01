@@ -342,6 +342,29 @@
         }
         .stats-source a { color: inherit; text-decoration: none; }
         .stats-source a:hover { color: #047857; text-decoration: none; }
+
+        /* ── LinkedIn embed ───────────────────────────────────── */
+        .linkedin-section {
+            max-width: 900px;
+            margin: 0 auto 50px;
+            padding-top: 30px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+        }
+        .linkedin-section h3 {
+            color: #222;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 1.1rem;
+            text-align: left;
+        }
+        .linkedin-embed-wrap {
+            display: flex;
+            justify-content: center;
+        }
+        .linkedin-embed-wrap iframe {
+            max-width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -437,6 +460,14 @@
                 source: <a href="https://bioconductor.org/packages/stats/bioc/gVenn/" target="_blank" rel="noopener">bioconductor.org</a>
                 &middot; data as of <span id="stat-date">—</span>
             </p>
+        </div>
+
+        <!-- LinkedIn post -->
+        <div class="linkedin-section">
+            <h3>Featured post</h3>
+            <div class="linkedin-embed-wrap">
+                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7432167904005074944" height="1193" width="504" frameborder="0" allowfullscreen="" title="Post intégré"></iframe>
+            </div>
         </div>
 
         <!-- Copyright Footer -->
