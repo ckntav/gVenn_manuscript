@@ -37,7 +37,7 @@ execute:
   message: false
 ---
 
-Last updated: 11 February 2026
+Last updated: 12 June 2026
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
@@ -203,9 +203,9 @@ The appearance can be customized by adjusting colors, transparency, labels, and 
 plotVenn(gene_overlaps,
          fills = list(fill = c("#2B70AB", "#FFB027", "#3EA742"), alpha = 0.6),
          edges = list(col = "gray30", lwd = 1.5),
-         labels = list(col = "black", fontsize = 12, font = 2),
+         labels = list(col = "black", fontsize = 8, font = 2),
          quantities = list(type = c("counts", "percent"), 
-                          col = "black", fontsize = 10),
+                          col = "black", fontsize = 6),
          main = list(label = "gene set overlaps", 
                     fontsize = 14, font = 2, col = "navy"),
          legend = list(side = "right", fontsize = 10))

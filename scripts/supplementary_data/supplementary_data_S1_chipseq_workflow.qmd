@@ -37,7 +37,7 @@ execute:
   message: false
 ---
 
-Last updated: 11 February 2026
+Last updated: 12 June 2026
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
@@ -426,10 +426,10 @@ plotVenn(genomic_overlaps,
 ## Custom labels and counts + percentages
 ``` {r venn-labels-quantities, fig.width=6, fig.height=4, fig.align="center"}
 plotVenn(genomic_overlaps,
-         labels = list(col = "black", fontsize = 12, font = 2),
+         labels = list(col = "black", fontsize = 8, font = 2),
          quantities = list(type = c("counts","percent"),
-                           col = "black", fontsize = 10),
-         main = list(label = "Counts + Percentages", fontsize = 14))
+                           col = "black", fontsize = 6),
+         main = list(label = "Counts + Percentages", fontsize = 11))
 ```
 
 ## Legend at the bottom with custom text
