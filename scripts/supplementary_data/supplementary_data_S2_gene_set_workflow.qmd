@@ -37,7 +37,7 @@ execute:
   message: false
 ---
 
-Last updated: 12 June 2026
+Last updated: 14 July 2026
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
