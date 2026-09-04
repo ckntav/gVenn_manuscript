@@ -124,7 +124,7 @@ plotText(label = "peakset3", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2,
 # Plot Reduced Regions (Merged Overlapping Areas)
 # ==============================================================================
 # Show all regions that contain at least one peak, merged into non-overlapping intervals
-plotRanges(data = here("output", "overlaps_bed", "example_reduced_regions.bed"), params = params_i,
+plotRanges(data = here("output", "overlaps_reduced_bed", "example_reduced_regions.bed"), params = params_i,
            y = "0.15b", height = 0.065,
            linecolor = NA, fill = "#303030", collapse = TRUE)
 plotText(label = "reduced regions", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2, just = "right")
@@ -136,43 +136,43 @@ plotText(label = "reduced regions", x = 0.45, y = "-0.035b", fontsize = fontsize
 # Binary notation: 1 = present, 0 = absent (order: set1, set2, set3)
 
 # Group 111: Present in all three sets (pink)
-plotRanges(data = here("output", "overlaps_bed", "example_group_111.bed"), params = params_i,
+plotRanges(data = here("output", "overlaps_reduced_bed", "example_reduced_group_111.bed"), params = params_i,
            y = "0.15b", height = 0.065,
            linecolor = NA, fill = "#D87093", collapse = TRUE)
 plotText(label = "group_111", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2, just = "right")
 
 # Group 110: Present in sets 1 and 2, absent in set 3 (red)
-plotRanges(data = here("output", "overlaps_bed", "example_group_110.bed"), params = params_i,
+plotRanges(data = here("output", "overlaps_reduced_bed", "example_reduced_group_110.bed"), params = params_i,
            y = "0.03b", height = 0.065,
            linecolor = NA, fill = "#CD3301", collapse = TRUE)
 plotText(label = "group_110", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2, just = "right")
 
 # Group 101: Present in sets 1 and 3, absent in set 2 (purple)
-plotRanges(data = here("output", "overlaps_bed", "example_group_101.bed"), params = params_i,
+plotRanges(data = here("output", "overlaps_reduced_bed", "example_reduced_group_101.bed"), params = params_i,
            y = "0.03b", height = 0.065,
            linecolor = NA, fill = "#9370DB", collapse = TRUE)
 plotText(label = "group_101", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2, just = "right")
 
 # Group 011: Present in sets 2 and 3, absent in set 1 (teal)
-plotRanges(data = here("output", "overlaps_bed", "example_group_011.bed"), params = params_i,
+plotRanges(data = here("output", "overlaps_reduced_bed", "example_reduced_group_011.bed"), params = params_i,
            y = "0.03b", height = 0.065,
            linecolor = NA, fill = "#008B8B", collapse = TRUE)
 plotText(label = "group_011", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2, just = "right")
 
 # Group 100: Unique to set 1 (blue)
-plotRanges(data = here("output", "overlaps_bed", "example_group_100.bed"), params = params_i,
+plotRanges(data = here("output", "overlaps_reduced_bed", "example_reduced_group_100.bed"), params = params_i,
            y = "0.03b", height = 0.065,
            linecolor = NA, fill = "#2B70AB", collapse = TRUE)
 plotText(label = "group_100", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2, just = "right")
 
 # Group 010: Unique to set 2 (orange)
-plotRanges(data = here("output", "overlaps_bed", "example_group_010.bed"), params = params_i,
+plotRanges(data = here("output", "overlaps_reduced_bed", "example_reduced_group_010.bed"), params = params_i,
            y = "0.03b", height = 0.065,
            linecolor = NA, fill = "#FFB027", collapse = TRUE)
 plotText(label = "group_010", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2, just = "right")
 
 # Group 001: Unique to set 3 (green)
-plotRanges(data = here("output", "overlaps_bed", "example_group_001.bed"), params = params_i,
+plotRanges(data = here("output", "overlaps_reduced_bed", "example_reduced_group_001.bed"), params = params_i,
            y = "0.03b", height = 0.065,
            linecolor = NA, fill = "#3EA742", collapse = TRUE)
 plotText(label = "group_001", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2, just = "right")
