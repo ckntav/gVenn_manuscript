@@ -3,6 +3,7 @@
 # Purpose: Create two complementary visualizations of peak set overlaps:
 #          - Figure 1B: Traditional Venn diagram (good for 2-3 sets)
 #          - Figure 1C: UpSet plot (better for 3+ sets, shows combinations clearly)
+# Note:    Overlaps are computed with gVenn::computeOverlaps() in "reduce" mode
 # ==============================================================================
 
 # Load required packages
@@ -37,7 +38,10 @@ sapply(demo_peaks, length)
 # ==============================================================================
 # Calculate all possible overlap combinations between the three peak sets
 # This identifies which regions are shared or unique
-ov <- computeOverlaps(demo_peaks)
+# mode = "reduce" (the default) merges overlapping regions within each set before
+# intersecting them, so each region is assigned to a single overlap combination
+# (see Figure S1 for the alternative "disjoin" mode)
+ov <- computeOverlaps(demo_peaks, mode = "reduce")
 
 # ==============================================================================
 # Figure 1B: Create Venn Diagram

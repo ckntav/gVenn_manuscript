@@ -2,6 +2,10 @@
 # Script: Build Figure 1A - Genomic Track Visualization
 # Purpose: Create a publication-quality genomic browser-style visualization
 #          showing three peak sets and their overlap groups across a genomic region
+# Note:    The reduced regions and overlap groups plotted here come from
+#          gVenn::computeOverlaps() run in "reduce" mode (script 01), which is
+#          also annotated on the figure itself
+#          (see scripts/create_figureS1 for the "disjoin" counterpart)
 # ==============================================================================
 
 library(tidyverse)    # For data manipulation and string processing
@@ -66,17 +70,41 @@ output_filepath <- file.path(output_dir, paste0(output_file, ".pdf"))
 pdf(file = output_filepath, width = width_val, height = height_val)
 
 # Create a new page with specified dimensions
-pageCreate(width = width_val, 
-           height = height_val, 
-           default.units = "inches", 
+pageCreate(width = width_val,
+           height = height_val,
+           default.units = "inches",
            showGuides = FALSE)  # Don't show alignment guides
+
+# ==============================================================================
+# Add genome coordinate axis (top of the panel)
+# ==============================================================================
+# Drawn manually rather than with plotGenomeLabel() so that the coordinate
+# labels sit above the axis line, with the tracks hanging underneath
+track_left <- 0.5                       # Left edge of the genomic tracks
+track_right <- track_left + (width_val - 1)  # Right edge of the genomic tracks
+axis_label_y <- 0.10                    # Top of the coordinate labels
+axis_line_y <- 0.20                     # Vertical position of the axis line
+
+plotText(label = paste(format(start_i, big.mark = ",", scientific = FALSE), "bp"),
+         x = track_left, y = axis_label_y, just = c("left", "top"),
+         fontsize = fontsize_val, fontcolor = "#404040", default.units = "inches")
+plotText(label = chr_i,
+         x = mean(c(track_left, track_right)), y = axis_label_y, just = c("center", "top"),
+         fontsize = fontsize_val, fontcolor = "#404040", default.units = "inches")
+plotText(label = paste(format(end_i, big.mark = ",", scientific = FALSE), "bp"),
+         x = track_right, y = axis_label_y, just = c("right", "top"),
+         fontsize = fontsize_val, fontcolor = "#404040", default.units = "inches")
+
+plotSegments(x0 = track_left, y0 = axis_line_y,
+             x1 = track_right, y1 = axis_line_y,
+             default.units = "inches", linecolor = "#404040", lwd = 0.75)
 
 # ==============================================================================
 # Plot Original Peak Sets
 # ==============================================================================
 # Plot peakset1 (first row)
 plotRanges(data = here("input", "example_bed", "peakset1.bed"), params = params_i,
-           y = 0.3, height = 0.065,
+           y = 0.33, height = 0.065,
            linecolor = NA, fill = "darkgrey", collapse = TRUE)
 plotText(label = "peakset1", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2, just = "right")
 
@@ -150,16 +178,15 @@ plotRanges(data = here("output", "overlaps_bed", "example_group_001.bed"), param
 plotText(label = "group_001", x = 0.45, y = "-0.035b", fontsize = fontsize_val-2, just = "right")
 
 # ==============================================================================
-# Add genome coordinate axis
+# Annotate the overlap mode used
 # ==============================================================================
-# Plot a labeled axis showing genomic coordinates and scale
-plotGenomeLabel(params = params_i,
-                # assembly = ensembl104,
-                assembly = "hg38",
-                y = "0.1b", scale = "bp",
-                fontcolor = "#404040", linecolor = "#404040",
-                fontsize = fontsize_val,
-                boxWidth = 0.2)
+# The reduced regions and the overlap groups above are derived from
+# computeOverlaps() run in "reduce" mode (see Figure S1A for "disjoin" mode)
+plotText(label = 'computeOverlaps(mode = "reduce")',
+         x = track_left, y = "0.13b", just = c("left", "top"),
+         fontsize = fontsize_val - 1,
+         fontface = "italic",
+         fontcolor = "#404040")
 
 # ==============================================================================
 # Finalize and save
