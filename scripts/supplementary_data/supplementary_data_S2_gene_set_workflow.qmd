@@ -101,6 +101,8 @@ library(knitr)
 packageVersion("gVenn")
 ```
 
+This workflow requires gVenn version 2.0.0 or later. Earlier versions do not provide all the functions used below.
+
 # Example dataset
 
 The **gVenn** package includes a synthetic gene list dataset (`gene_list`) comprising three sets of human gene symbols with designed overlaps. This dataset was generated from the first 250 gene symbols in the `org.Hs.eg.db` package using a reproducible random seed.
