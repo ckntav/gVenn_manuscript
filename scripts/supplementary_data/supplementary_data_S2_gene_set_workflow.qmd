@@ -37,7 +37,7 @@ execute:
   message: false
 ---
 
-Last updated: 14 July 2026
+Last updated: 14 september 2026
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
@@ -55,20 +55,33 @@ This supplementary material demonstrates a complete gene set analysis workflow u
 
 # Installation
 
-The gVenn package can be installed from Bioconductor or GitHub:
+The gVenn package is available through Bioconductor and GitHub.
+
+You can install it from Bioconductor using:
 
 ```{r}
-#| label: installation
+#| label: installation-bioconductor
 #| eval: false
 
 # From Bioconductor
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("gVenn")
+```
 
-# From GitHub (development version)
-# install.packages("pak")
-# pak::pak("ckntav/gVenn")
+The Bioconductor release version may lag behind development, so the newest features are not always available there.
+To install the development version from GitHub, use:
+
+```{r}
+#| label: installation-github
+#| eval: false
+
+# install.packages("pak")  # if not already installed
+pak::pak("ckntav/gVenn")
+
+# or, alternatively:
+# install.packages("devtools")  # if not already installed
+devtools::install_github("ckntav/gVenn")
 ```
 
 # Load required packages

@@ -75,6 +75,7 @@ if (!require("BiocManager", quietly = TRUE))
 BiocManager::install("gVenn")
 ```
 
+The Bioconductor release version may lag behind development, so the newest features are not always available there.
 To install the development version from GitHub, use:
 
 ```{r}
@@ -108,6 +109,8 @@ library(kableExtra)
 
 packageVersion("gVenn")
 ```
+
+This workflow requires gVenn version 2.0.0 or later. Earlier versions do not provide all the functions used below.
 
 # Dataset description
 
@@ -226,18 +229,24 @@ names(genomic_overlaps)
 The `plotVenn()` function creates area-proportional Venn diagrams to visualize the overlaps between ChIP-seq peaks:
 
 ```{r}
-#| label: fig-venn-basic
-#| fig-cap: "Basic Venn diagram showing overlaps between ChIP-seq peaks"
-#| fig-width: 7
-#| fig-height: 5
+#| label: fig-venn-basic1
 #| message: true
 
 # Create a basic Venn diagram
 venn <- plotVenn(genomic_overlaps)
+```
+
+The message above reports `eulerr`'s goodness-of-fit diagnostics for this layout.
+
+```{r}
+#| label: fig-venn-basic2
+#| fig-cap: "Basic Venn diagram showing overlaps between ChIP-seq peaks"
+#| fig-width: 7
+#| fig-height: 5
 venn
 ```
 
-The message above reports `eulerr`'s goodness-of-fit diagnostics for this layout. `plotVenn()` also attaches them to the object it returns, together with the per-region errors:
+`plotVenn()` also attaches them to the object it returns, together with the per-region errors:
 
 ```{r}
 #| label: venn-fit-diagnostics
