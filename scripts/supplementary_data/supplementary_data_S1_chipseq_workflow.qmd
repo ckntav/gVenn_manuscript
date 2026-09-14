@@ -37,7 +37,7 @@ execute:
   message: false
 ---
 
-Last updated: 14 July 2026
+Last updated: 14 september 2026
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
@@ -257,7 +257,7 @@ plotUpSet(genomic_overlaps,
           comb_col = c( "#D87093",  "#CD3301", "#9370DB", "#008B8B", "#2B70AB", "#FFB027", "#3EA742"))
 ```
 
-The top bar chart shows intersection sizes for each overlap combination, while the connected dots below indicate which sets participate in each intersection. Horizontal bars on the right show total set sizes. The UpSet representation is particularly useful for comparing more than four sets or when precise quantification of complex overlap patterns is required.
+The top bar chart shows intersection sizes for each overlap combination, while the connected dots below indicate which sets participate in each intersection. Horizontal bars on the right show the total number of regions per set. The UpSet representation is particularly useful for comparing more than four sets or when precise quantification of complex overlap patterns is required.
 
 ## Export visualization
 
