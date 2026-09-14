@@ -233,8 +233,23 @@ The `plotVenn()` function creates area-proportional Venn diagrams to visualize t
 #| message: true
 
 # Create a basic Venn diagram
-plotVenn(genomic_overlaps)
+venn <- plotVenn(genomic_overlaps)
+venn
 ```
+
+The message above reports `eulerr`'s goodness-of-fit diagnostics for this layout. `plotVenn()` also attaches them to the object it returns, together with the per-region errors:
+
+```{r}
+#| label: venn-fit-diagnostics
+
+attr(venn, "fit_diagnostics")
+```
+
+`stress` and `diagError` are `0` for a perfect fit, and larger values indicate greater geometric distortion. `diagError` is the largest single-region discrepancy, in percentage points of total area, and `regionError` reports that discrepancy for each region separately. Here both are very close to zero without being exactly zero, so the drawn areas match the underlying counts closely.
+
+Fit quality degrades as sets are added, because the solver has fewer degrees of freedom to satisfy every intersection at once. These values are therefore worth checking before interpreting the areas of a four-set or larger diagram.
+Set `verbose = FALSE` to silence the message; the attribute is attached either way.
+See the [eulerr documentation](https://jolars.github.io/eulerr/) for the exact definitions of these statistics.
 
 ## UpSet plot
 
