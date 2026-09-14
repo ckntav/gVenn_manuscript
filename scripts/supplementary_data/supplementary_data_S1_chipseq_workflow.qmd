@@ -230,6 +230,7 @@ The `plotVenn()` function creates area-proportional Venn diagrams to visualize t
 #| fig-cap: "Basic Venn diagram showing overlaps between ChIP-seq peaks"
 #| fig-width: 7
 #| fig-height: 5
+#| message: true
 
 # Create a basic Venn diagram
 plotVenn(genomic_overlaps)
