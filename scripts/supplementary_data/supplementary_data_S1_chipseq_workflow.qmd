@@ -280,7 +280,6 @@ The top bar chart shows intersection sizes for each overlap combination, while t
 You can export any visualization using `saveViz()`:
 
 ```{r save_plot, eval=FALSE}
-venn <- plotVenn(genomic_overlaps)
 saveViz(venn,
         output_dir = ".",
         output_file = "figure_gVenn",
