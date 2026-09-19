@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gVenn | Supplementary data</title>
+    <link rel="icon" type="image/png" href="img/venn_logo.png">
+    
+    <!-- Bootstrap Journal Theme -->
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/journal/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4389F94LTN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4389F94LTN');
+    </script>
+    
+    <style>
+        body {
+            padding: 40px 20px;
+            background-color: #fff;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #047857;
+        }
+        
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #222;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            color: #777;
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+        
+        .intro {
+            color: #555;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .graphical-abstract {
+            margin: 40px auto;
+            text-align: center;
+            max-width: 900px;
+        }
+        
+        .graphical-abstract h2 {
+            color: #222;
+            font-size: 2em;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .graphical-abstract img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        
+        .graphical-abstract img:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: scale(1.01);
+        }
+        
+        .supp-materials {
+            margin: 50px auto;
+            max-width: 900px;
+        }
+        
+        .supp-materials h2 {
+            color: #222;
+            font-size: 2em;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .material-card {
+            margin-bottom: 20px;
+        }
+        
+        .material-card .card {
+            border: 2px solid #047857;
+            transition: all 0.3s ease;
+        }
+        
+        .material-card .card:hover {
+            box-shadow: 0 4px 12px rgba(4, 120, 87, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .material-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .material-card .card-body {
+            padding: 25px;
+        }
+        
+        .material-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #047857;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .material-title::after {
+            content: "→";
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+        
+        .material-card:hover .material-title::after {
+            transform: translateX(5px);
+        }
+        
+        .material-description {
+            color: #555;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+        
+        .footer-info {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid #ddd;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .info-section {
+            margin-bottom: 30px;
+        }
+        
+        .info-section h3 {
+            color: #222;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .info-section p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .info-section a {
+            color: #999;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .info-section a:hover {
+            text-decoration: none;
+            color: #047857;
+        }
+        
+        .badge-container {
+            margin-top: 10px;
+        }
+        
+        /* Copyright footer */
+        .copyright-footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 20px;
+            border-top: 2px solid #ddd;
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .copyright-footer a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: normal;
+        }
+        
+        .copyright-footer a:hover {
+            color: #047857;
+            text-decoration: none;
+        }
+        
+        /* Modal for enlarged graphical abstract */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 95%;
+            max-height: 95%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 2001;
+        }
+        
+        .close-modal:hover {
+            color: #bbb;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .logo { width: 120px; }
+            .subtitle { font-size: 1em; }
+            .material-title { font-size: 1.2em; }
+            .close-modal { top: 10px; right: 20px; font-size: 30px; }
+            body { padding: 20px 10px; }
+        }
+
+        /* ── Download stats ───────────────────────────────────── */
+        .download-stats {
+            max-width: 900px;
+            margin: 0 auto 50px;
+            padding-top: 30px;
+            border-top: 2px solid #ddd;
+        }
+        .download-stats h3 {
+            color: #222;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 1.1rem;
+        }
+        #stat-chart-wrap {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem 0.5rem 0.5rem;
+            background: #fff;
+            margin-bottom: 0.85rem;
+        }
+        #stat-tooltip {
+            position: absolute;
+            display: none;
+            background: #fff;
+            border: 1px solid #c5ddd0;
+            border-radius: 6px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.82rem;
+            color: #24292f;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            pointer-events: none;
+            z-index: 10;
+            min-width: 140px;
+            line-height: 1.8;
+        }
+        .tt-month { font-weight: 600; color: #047857; }
+        .tt-val   { font-weight: 600; color: #047857; font-variant-numeric: tabular-nums; }
+        .stats-pills {
+            display: flex;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+            margin-top: 0.85rem;
+        }
+        .stat-pill {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #c5ddd0;
+            border-radius: 8px;
+            padding: 0.65rem 1.2rem;
+            background: #f2faf6;
+            min-width: 110px;
+            flex: 1;
+        }
+        .stat-val {
+            font-size: 1.55rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+            color: #047857;
+        }
+        .stat-lbl {
+            font-size: 0.68rem;
+            color: #6e7781;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.2rem;
+        }
+        .stats-source {
+            margin-top: 0.4rem;
+            font-size: 0.75rem;
+            color: #999;
+            text-align: right;
+        }
+        .stats-source a { color: inherit; text-decoration: none; }
+        .stats-source a:hover { color: #047857; text-decoration: none; }
+
+        /* ── LinkedIn embed ───────────────────────────────────── */
+        .linkedin-section {
+            max-width: 900px;
+            margin: 0 auto 50px;
+            padding-top: 30px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+        }
+        .linkedin-section h3 {
+            color: #222;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 1.1rem;
+            text-align: left;
+        }
+        .linkedin-embed-wrap {
+            display: flex;
+            justify-content: center;
+        }
+        .linkedin-embed-wrap iframe {
+            max-width: 100%;
+        }
+        .linkedin-section h3 a {
+            color: #047857;
+            text-decoration: none;
+        }
+        .linkedin-section h3 a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="img/gVenn_hex_sticker.png" alt="gVenn Logo" class="logo">
+            <h1>gVenn</h1>
+            <p class="subtitle">Interactive HTML supplementary materials for the gVenn manuscript</p>
+        </div>
+        
+        <!--
+        <div class="intro">
+            <p>
+                Interactive HTML supplementary materials for the gVenn manuscript. 
+            </p>
+            <p>
+                Access detailed ChIP-seq and gene set analysis workflows with supporting data and figures.
+            </p>
+        </div>
+        -->
+        
+        <div class="graphical-abstract">
+            <!-- <h2>Graphical Abstract</h2> -->
+            <img src="img/Tav_graphical_abstract_v3_20251029.png" 
+                 alt="gVenn Graphical Abstract" 
+                 id="graphical-abstract-img"
+                 onclick="openModal()">
+        </div>
+        
+        <div class="supp-materials">
+            <h2>Supplementary data</h2>
+            
+            <div class="material-card">
+                <a href="supp_data_S1.html">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="material-title">Supplementary data S1</div>
+                            <div class="material-description">
+                                ChIP-seq analysis workflow using A549 datasets: identifying binding site overlaps.
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="material-card">
+                <a href="supp_data_S2.html">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="material-title">Supplementary data S2</div>
+                            <div class="material-description">
+                                Gene set analysis workflow: identifying overlaps and shared genes.
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer-info">
+            <div class="info-section repo">
+                <h3>Code repositories</h3>
+                <ul>
+                    <li>Manuscript source code and data:
+                        <a href="https://github.com/ckntav/gVenn_manuscript" target="_blank">
+                            github.com/ckntav/gVenn_manuscript
+                        </a>
+                    </li>
+                    <li>gVenn R package:
+                        <a href="https://github.com/ckntav/gVenn" target="_blank">
+                            github.com/ckntav/gVenn
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Download Statistics -->
+        <div class="download-stats">
+            <h3>gVenn R package download stats (from Bioconductor)</h3>
+
+            <div id="stat-chart-wrap">
+                <svg id="stat-chart" aria-label="gVenn download stats (from Bioconductor)"></svg>
+                <div id="stat-tooltip"></div>
+            </div>
+
+            <div class="stats-pills">
+                <div class="stat-pill">
+                    <span class="stat-val" id="stat-dl">—</span>
+                    <span class="stat-lbl">Total downloads</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-val" id="stat-mo" style="color:#555;">—</span>
+                    <span class="stat-lbl">Active months</span>
+                </div>
+            </div>
+
+            <p class="stats-source">
+                source: <a href="https://bioconductor.org/packages/stats/bioc/gVenn/" target="_blank" rel="noopener">bioconductor.org</a>
+                &middot; data as of <span id="stat-date">—</span>
+            </p>
+        </div>
+
+        <!-- LinkedIn post -->
+        <div class="linkedin-section">
+            <h3>gVenn web server is now online (beta version) at <a href="https://ckntav.shinyapps.io/gVenn/" target="_blank" rel="noopener">ckntav.shinyapps.io/gVenn</a></h3>
+            <div class="linkedin-embed-wrap">
+                <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7432167904005074944" height="1193" width="504" frameborder="0" allowfullscreen="" title="Post intégré"></iframe>
+            </div>
+        </div>
+
+        <!-- Copyright Footer -->
+        <div class="copyright-footer">
+            <p>&copy; 2026 <a href="https://ckntav.github.io/" target="_blank">Christophe Tav</a></p>
+        </div>
+    </div>
+    
+    <!-- Modal for enlarged graphical abstract -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modal-img" alt="Enlarged graphical abstract">
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function openModal() {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modal-img');
+            const img = document.getElementById('graphical-abstract-img');
+            
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+        }
+        
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+
+    <script>
+    (function () {
+      var COL = "#047857";
+
+      var RAW = [
+        /* STATS_DATA_START */
+        // Auto-generated by update_dl_stats.R — data as of Fri. 18 Sep 2026
+        { year:2025, month:"Sep", dl:  48 },
+        { year:2025, month:"Oct", dl: 188 },
+        { year:2025, month:"Nov", dl: 166 },
+        { year:2025, month:"Dec", dl: 216 },
+        { year:2026, month:"Jan", dl: 239 },
+        { year:2026, month:"Feb", dl: 240 },
+        { year:2026, month:"Mar", dl: 274 },
+        { year:2026, month:"Apr", dl: 303 },
+        { year:2026, month:"May", dl: 319 },
+        { year:2026, month:"Jun", dl: 274 },
+        { year:2026, month:"Jul", dl: 251 },
+        { year:2026, month:"Aug", dl:2934 },
+        { year:2026, month:"Sep", dl:1729 }
+        /* STATS_DATA_END */
+      ];
+
+      var AS_OF = "Fri. 18 Sep 2026";
+
+      var MONTH_IDX = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+      var data = RAW.map(function(d) {
+        return Object.assign({}, d, {
+          label: d.month + " '" + String(d.year).slice(2),
+          sort:  d.year * 100 + MONTH_IDX.indexOf(d.month)
+        });
+      }).sort(function(a,b){ return a.sort - b.sort; });
+
+      var totDl = data.reduce(function(s,d){ return s + d.dl; }, 0);
+      document.getElementById("stat-dl").textContent = totDl.toLocaleString();
+      document.getElementById("stat-mo").textContent = data.length;
+      document.getElementById("stat-date").textContent = AS_OF;
+
+      function draw() {
+        var wrap   = document.getElementById("stat-chart-wrap");
+        var totalW = wrap.clientWidth;
+        var margin = { top:20, right:20, bottom:44, left:46 };
+        var W = totalW - margin.left - margin.right;
+        var H = 450   - margin.top  - margin.bottom;
+
+        var svg = d3.select("#stat-chart");
+        svg.selectAll("*").remove();
+        svg.attr("width", totalW).attr("height", H + margin.top + margin.bottom);
+
+        var g = svg.append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var x = d3.scalePoint()
+          .domain(data.map(function(d){ return d.label; }))
+          .range([0, W]).padding(0.45);
+
+        var maxY = d3.max(data, function(d){ return d.dl; });
+        var y = d3.scaleLinear().domain([0, maxY * 1.2]).range([H, 0]).nice();
+
+        // Defs
+        var defs = svg.append("defs");
+        defs.append("clipPath").attr("id","sclip")
+          .append("rect").attr("width",W).attr("height",H+6).attr("y",-6);
+        var gr = defs.append("linearGradient")
+          .attr("id","sgrad").attr("x1","0").attr("y1","0").attr("x2","0").attr("y2","1");
+        gr.append("stop").attr("offset","0%").attr("stop-color",COL).attr("stop-opacity",0.18);
+        gr.append("stop").attr("offset","100%").attr("stop-color",COL).attr("stop-opacity",0);
+
+        // Grid
+        g.selectAll(".sgy").data(y.ticks(4)).enter().append("line")
+          .attr("x1",0).attr("x2",W)
+          .attr("y1",function(d){ return y(d); }).attr("y2",function(d){ return y(d); })
+          .attr("stroke","#eaeef2").attr("stroke-width",1);
+
+        // X axis
+        g.append("g").attr("transform","translate(0,"+H+")")
+          .call(d3.axisBottom(x).tickSize(0))
+          .call(function(ax){
+            ax.select(".domain").attr("stroke","#ddd");
+            ax.selectAll("text").attr("fill","#777").attr("font-size","11px").attr("dy","1.5em");
+          });
+
+        // Y axis
+        g.append("g")
+          .call(d3.axisLeft(y).ticks(4).tickSize(0))
+          .call(function(ax){
+            ax.select(".domain").remove();
+            ax.selectAll("text").attr("fill","#777").attr("font-size","10.5px").attr("dx","-0.2em");
+          });
+
+        // Year separator
+        data.forEach(function(d,i){
+          if (i===0) return;
+          if (data[i-1].year !== d.year) {
+            var sx = (x(data[i-1].label) + x(d.label)) / 2;
+            g.append("line")
+              .attr("x1",sx).attr("x2",sx).attr("y1",-8).attr("y2",H)
+              .attr("stroke","#ccc").attr("stroke-dasharray","5,4").attr("stroke-width",1);
+            g.append("text").attr("x",sx-5).attr("y",-9).attr("text-anchor","end")
+              .attr("font-size","9").attr("fill","#aaa").text(data[i-1].year);
+            g.append("text").attr("x",sx+5).attr("y",-9).attr("text-anchor","start")
+              .attr("font-size","9").attr("fill","#aaa").text(d.year);
+          }
+        });
+
+        var cg = g.append("g").attr("clip-path","url(#sclip)");
+
+        // Area
+        cg.append("path").datum(data)
+          .attr("fill","url(#sgrad)")
+          .attr("d", d3.area()
+            .x(function(d){ return x(d.label); }).y0(H).y1(function(d){ return y(d.dl); })
+            .curve(d3.curveMonotoneX));
+
+        // Line with draw animation
+        var path = cg.append("path").datum(data)
+          .attr("fill","none").attr("stroke",COL)
+          .attr("stroke-width",2.4).attr("stroke-linecap","round").attr("stroke-linejoin","round")
+          .attr("d", d3.line()
+            .x(function(d){ return x(d.label); }).y(function(d){ return y(d.dl); })
+            .curve(d3.curveMonotoneX));
+        var len = path.node().getTotalLength();
+        path.attr("stroke-dasharray",len+" "+len).attr("stroke-dashoffset",len)
+          .transition().duration(1100).ease(d3.easeCubicInOut).attr("stroke-dashoffset",0);
+
+        // Dots + tooltip
+        var tooltip = document.getElementById("stat-tooltip");
+        cg.selectAll(".sdot").data(data).enter().append("circle")
+          .attr("class","sdot")
+          .attr("cx",function(d){ return x(d.label); })
+          .attr("cy",function(d){ return y(d.dl); })
+          .attr("r",0)
+          .attr("fill", function(d,i){ return i === data.length-1 ? "#fff" : COL; })
+          .attr("stroke", function(d,i){ return i === data.length-1 ? COL : "#fff"; })
+          .attr("stroke-width", 2)
+          .style("cursor","crosshair")
+          .on("mousemove", function(event, d){
+            d3.select(this).attr("r",6);
+            var box = wrap.getBoundingClientRect();
+            var px  = event.clientX - box.left;
+            var py  = event.clientY - box.top;
+            var isLast = d === data[data.length - 1];
+            tooltip.innerHTML =
+              '<div class="tt-month">'+d.month+' '+d.year+'</div>'+
+              '<div>Downloads: <span class="tt-val">'+d.dl.toLocaleString()+'</span></div>'+
+              (isLast ? '<div style="color:#aaa;font-size:0.9em;font-style:italic;">month-to-date</div>' : '');
+            var ttW=145, ttH=58;
+            tooltip.style.left = (px+14+ttW > box.width ? px-ttW-6 : px+14) + "px";
+            tooltip.style.top  = (py-ttH < 0            ? py+10    : py-ttH) + "px";
+            tooltip.style.display = "block";
+          })
+          .on("mouseleave", function(){
+            d3.select(this).attr("r",4);
+            tooltip.style.display = "none";
+          })
+          .transition().delay(900).duration(300).attr("r",4);
+
+        // "month-to-date" annotation on last data point
+        var last = data[data.length - 1];
+        cg.append("text")
+          .attr("x", x(last.label))
+          .attr("y", y(last.dl) + 25)
+          .attr("text-anchor", "middle")
+          .attr("font-size", "9px")
+          .attr("fill", "#bbb")
+          .attr("font-style", "italic")
+          .text("month-to-date");
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", function(){ draw(); window.addEventListener("resize", draw); });
+      } else {
+        draw(); window.addEventListener("resize", draw);
+      }
+    })();
+    </script>
+</body>
+</html>

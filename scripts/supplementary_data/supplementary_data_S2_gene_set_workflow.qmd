@@ -1,0 +1,390 @@
+---
+title: "Gene set analysis workflow with gVenn: identifying overlaps and shared genes"
+subtitle: "Supplementary data S2"
+output-file: "supp_data_S2"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    toc-location: left
+    number-sections: true
+    code-fold: false
+    code-tools: true
+    code-block-bg: true
+    code-block-border-left: "#047857"
+    theme: 
+      - journal
+      - custom.scss
+    embed-resources: true
+    fig-width: 7
+    fig-height: 5
+    fig-align: center
+    include-in-header:
+      - text: |
+            <link rel="icon" type="image/png" href="img/venn_logo.png">
+      - text: |
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-4389F94LTN"></script>
+      - text: |
+           <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-4389F94LTN');
+            </script>
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+Last updated: 14 september 2026
+
+::: {.callout-note icon=false}
+## Interactive notebook
+This analysis workflow is available online at:  
+**<https://ckntav.github.io/gVenn_manuscript/supp_data_S2.html>**
+:::
+
+<p align="center">
+<img src="img/gVenn_hex_sticker.png" width="150"/>
+</p>
+
+# Overview
+
+This supplementary material demonstrates a complete gene set analysis workflow using the **gVenn** R package. The workflow includes computing overlaps between gene lists, visualizing results with Venn diagrams and UpSet plots, extracting overlap groups, and exporting results for downstream analysis.
+
+# Installation
+
+The gVenn package is available through Bioconductor and GitHub.
+
+You can install it from Bioconductor using:
+
+```{r}
+#| label: installation-bioconductor
+#| eval: false
+
+# From Bioconductor
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("gVenn")
+```
+
+The Bioconductor release version may lag behind development, so the newest features are not always available there.
+To install the development version from GitHub, use:
+
+```{r}
+#| label: installation-github
+#| eval: false
+
+# install.packages("pak")  # if not already installed
+pak::pak("ckntav/gVenn")
+
+# or, alternatively:
+# install.packages("devtools")  # if not already installed
+devtools::install_github("ckntav/gVenn")
+```
+
+# Load required packages
+
+```{r}
+#| label: setup
+
+library(gVenn)
+library(knitr)
+```
+
+## Checking gVenn version
+
+```{r}
+#| label: package-version
+
+packageVersion("gVenn")
+```
+
+This workflow requires gVenn version 2.0.0 or later. Earlier versions do not provide all the functions used below.
+
+# Example dataset
+
+The **gVenn** package includes a synthetic gene list dataset (`gene_list`) comprising three sets of human gene symbols with designed overlaps. This dataset was generated from the first 250 gene symbols in the `org.Hs.eg.db` package using a reproducible random seed.
+
+```{r}
+#| label: load-data
+
+# Load the example gene list dataset
+data(gene_list)
+
+# Display the structure of the dataset
+str(gene_list)
+```
+
+The dataset contains three gene lists with the following sizes:
+
+```{r}
+#| label: dataset-summary
+# Create a summary table
+summary_df <- data.frame(
+  "gene list" = names(gene_list),
+  "number of genes" = sapply(gene_list, length),
+  check.names = FALSE
+)
+
+kable(summary_df, 
+      caption = "Summary of example gene lists")
+```
+
+# Computing overlaps
+
+The `computeOverlaps()` function analyzes the intersection patterns across all gene lists and returns a structured object containing:
+
+- A vector of all unique elements across sets
+- A logical matrix indicating set membership for each element
+- Category labels encoding the overlap pattern (e.g., "110", "101")
+
+```{r}
+#| label: compute-overlaps
+
+# Compute overlaps between gene lists
+gene_overlaps <- computeOverlaps(gene_list)
+
+# Display the structure of the result
+class(gene_overlaps)
+names(gene_overlaps)
+```
+
+## Overlap matrix
+
+The overlap matrix shows which genes belong to which sets:
+
+```{r}
+#| label: overlap-matrix
+
+# Display the first 10 rows of the overlap matrix
+kable(head(gene_overlaps$overlap_matrix, 10),
+      caption = "First 10 rows of the overlap matrix (TRUE = gene present in set)")
+```
+
+## Overlap categories
+
+Each gene is assigned a category code representing its overlap pattern:
+
+```{r}
+#| label: overlap-categories
+
+# Show the distribution of overlap categories
+category_table <- table(gene_overlaps$intersect_category)
+category_df <- data.frame(
+  "Overlap pattern" = names(category_table),
+  "Number of genes" = as.integer(category_table),
+  check.names = FALSE
+)
+
+kable(category_df,
+      caption = "Distribution of overlap patterns")
+```
+
+**Interpretation of overlap patterns:**
+
+- `100`: Genes only in set A (random_genes_A)
+- `010`: Genes only in set B (random_genes_B)
+- `001`: Genes only in set C (random_genes_C)
+- `110`: Genes in A ∩ B (not in C)
+- `101`: Genes in A ∩ C (not in B)
+- `011`: Genes in B ∩ C (not in A)
+- `111`: Genes in A ∩ B ∩ C (all three sets)
+
+# Visualization
+
+## Venn diagram
+
+The `plotVenn()` function creates area-proportional Venn diagrams to visualize the overlaps:
+
+```{r}
+#| label: fig-venn-basic
+#| fig-cap: "Basic Venn diagram showing overlaps between three gene lists"
+
+# Create a basic Venn diagram
+plotVenn(gene_overlaps)
+```
+
+### Customized Venn Diagram
+
+The appearance can be customized by adjusting colors, transparency, labels, and other parameters:
+
+```{r}
+#| label: fig-venn-custom
+#| fig-cap: "Customized Venn diagram with adjusted colors and transparency"
+
+# Create a customized Venn diagram
+plotVenn(gene_overlaps,
+         fills = list(fill = c("#2B70AB", "#FFB027", "#3EA742"), alpha = 0.6),
+         edges = list(col = "gray30", lwd = 1.5),
+         labels = list(col = "black", fontsize = 8, font = 2),
+         quantities = list(type = c("counts", "percent"), 
+                          col = "black", fontsize = 6),
+         main = list(label = "gene set overlaps", 
+                    fontsize = 14, font = 2, col = "navy"),
+         legend = list(side = "right", fontsize = 10))
+```
+
+## UpSet Plot
+
+For larger numbers of sets (>3), UpSet plots provide a clearer alternative to Venn diagrams:
+
+```{r}
+#| label: fig-upset
+#| fig-cap: "UpSet plot showing intersection sizes between gene lists"
+#| fig-width: 7
+#| fig-height: 4
+
+# Create an UpSet plot
+plotUpSet(gene_overlaps)
+```
+
+### Customized UpSet plot
+
+The UpSet plot can also be customized with colors:
+
+```{r}
+#| label: fig-upset-custom
+#| fig-cap: "Customized UpSet plot with colored combination matrix"
+#| fig-width: 7
+#| fig-height: 4
+
+# Create a customized UpSet plot with colored dots
+plotUpSet(gene_overlaps, 
+          comb_col = c("#2B70AB", "#FFB027", "#3EA742", "#CD3301", 
+                      "#9370DB", "#008B8B", "#D87093"))
+```
+
+# Extracting overlap groups
+
+The `extractOverlaps()` function separates genes into distinct groups based on their overlap patterns:
+
+```{r}
+#| label: extract-overlaps
+
+# Extract genes grouped by overlap pattern
+gene_groups <- extractOverlaps(gene_overlaps)
+
+# Display the number of genes per group
+group_sizes <- sapply(gene_groups, length)
+group_df <- data.frame(
+  "Overlap group" = names(group_sizes),
+  "Number of genes" = as.integer(group_sizes),
+  check.names = FALSE
+)
+
+kable(group_df,
+      caption = "Number of genes in each overlap group")
+```
+
+## Examining specific groups
+
+Individual overlap groups can be accessed for downstream analysis:
+
+### Extract genes present in all three sets (group_111)
+
+```{r}
+#| label: specific-groups1
+
+# Extract genes present in all three sets (group_111)
+genes_in_all_three <- gene_groups[["group_111"]]
+
+cat("Genes present in all three sets (A ∩ B ∩ C):\n")
+print(genes_in_all_three)
+```
+
+### Extract genes unique to random_genes_A (group_100)
+
+```{r}
+#| label: specific-groups2
+
+# Extract genes unique to random_genes_A (group_100)
+genes_unique_to_A <- gene_groups[["group_100"]]
+
+cat("Genes unique to random_genes_A:\n")
+print(genes_unique_to_A)
+```
+
+# Exporting results
+
+## Export to Excel
+
+The `exportOverlaps()` function exports each overlap group to a separate sheet in an Excel file:
+
+```{r}
+#| label: export-excel
+#| eval: false
+
+# Export overlap groups to Excel
+exportOverlaps(gene_groups,
+               output_dir = "results",
+               output_file = "gene_overlap_groups",
+               with_date = TRUE,
+               verbose = TRUE)
+```
+
+This creates an Excel file with one sheet per overlap group, making it easy to:
+
+- Review genes in each category
+- Perform functional enrichment analysis
+- Share results with collaborators
+- Import into other analysis tools
+
+## Saving visualizations
+
+Visualizations can be exported in multiple formats (PDF, PNG, SVG):
+
+```{r}
+#| label: save-viz
+#| eval: false
+
+# Create a Venn diagram
+venn_plot <- plotVenn(gene_overlaps)
+
+# Save as PDF
+saveViz(venn_plot,
+        output_dir = "figures",
+        output_file = "gene_venn_diagram",
+        format = "pdf",
+        width = 6,
+        height = 4)
+
+# Save as high-resolution PNG
+saveViz(venn_plot,
+        output_dir = "figures",
+        output_file = "gene_venn_diagram",
+        format = "png",
+        width = 6,
+        height = 4,
+        resolution = 300)
+
+# Save with transparent background for presentations
+saveViz(venn_plot,
+        output_dir = "figures",
+        output_file = "gene_venn_diagram_transparent",
+        format = "png",
+        bg = "transparent")
+```
+
+# References
+
+For more information about the gVenn package, visit:
+
+- Package documentation: [https://ckntav.github.io/gVenn](https://ckntav.github.io/gVenn)
+- GitHub repository: [https://github.com/ckntav/gVenn](https://github.com/ckntav/gVenn)
+
+# Session information
+
+```{r}
+#| label: session-info
+#| code-fold: true
+sessionInfo()
+```
+
+```{=html}
+<!-- Copyright Footer -->
+<div class="copyright-footer">
+    <p>&copy; 2026 <a href="https://ckntav.github.io/" target="_blank">Christophe Tav</a></p>
+</div>
+```
