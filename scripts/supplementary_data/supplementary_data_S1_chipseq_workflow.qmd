@@ -283,9 +283,7 @@ saveViz(venn,
         format = "pdf")
 ```
 
-By default, files are written to the current directory (".").
-If you enabled the date option (today), the current date will be prepended
-to the filename.
+By default, files are written to the current directory (`"."`) and the current date is prepended to the filename; set `with_date = FALSE` to turn this off.
 
 You can also export to PNG or SVG:
 
@@ -401,7 +399,8 @@ UCSC Genome Browser) or for downstream analyses requiring BED format input.
 # Export genomic overlaps to BED files
 exportOverlapsToBed(groups,
                     output_dir = ".",
-                    output_prefix = "overlaps")
+                    output_prefix = "overlaps",
+                    with_date = FALSE)
 
 # This will create separate BED files such as:
 # - overlaps_group_100.bed

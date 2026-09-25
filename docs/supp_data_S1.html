@@ -2641,7 +2641,7 @@ Figure 2: UpSet plot of the overlap groups between MED1, BRD4 and GR regions (m
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_file =</span> <span class="st">&quot;figure_gVenn&quot;</span>,</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">format =</span> <span class="st">&quot;pdf&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>By default, files are written to the current directory (“.”). If you enabled the date option (today), the current date will be prepended to the filename.</p>
+<p>By default, files are written to the current directory (<code>&quot;.&quot;</code>) and the current date is prepended to the filename; set <code>with_date = FALSE</code> to turn this off.</p>
 <p>You can also export to PNG or SVG:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># png</span></span>
@@ -2794,13 +2794,14 @@ Figure 2: UpSet plot of the overlap groups between MED1, BRD4 and GR regions (m
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Export genomic overlaps to BED files</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exportOverlapsToBed</span>(groups,</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">output_prefix =</span> <span class="st">&quot;overlaps&quot;</span>)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># This will create separate BED files such as:</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_100.bed</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_110.bed</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_111.bed</span></span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co"># etc.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">output_prefix =</span> <span class="st">&quot;overlaps&quot;</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">with_date =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># This will create separate BED files such as:</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_100.bed</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_110.bed</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_111.bed</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co"># etc.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -2929,7 +2930,7 @@ BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/ve
 LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
 
 locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+[1] fr_CA.UTF-8/fr_CA.UTF-8/fr_CA.UTF-8/C/fr_CA.UTF-8/fr_CA.UTF-8
 
 time zone: America/Toronto
 tzcode source: internal
@@ -3728,208 +3729,207 @@ loaded via a namespace (and not attached):
 <span id="cb42-315"><a href="#cb42-315" aria-hidden="true" tabindex="-1"></a>        <span class="at">format =</span> <span class="st">&quot;pdf&quot;</span>)</span>
 <span id="cb42-316"><a href="#cb42-316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb42-317"><a href="#cb42-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-318"><a href="#cb42-318" aria-hidden="true" tabindex="-1"></a>By default, files are written to the current directory (&quot;.&quot;).</span>
-<span id="cb42-319"><a href="#cb42-319" aria-hidden="true" tabindex="-1"></a>If you enabled the date option (today), the current date will be prepended</span>
-<span id="cb42-320"><a href="#cb42-320" aria-hidden="true" tabindex="-1"></a>to the filename.</span>
+<span id="cb42-318"><a href="#cb42-318" aria-hidden="true" tabindex="-1"></a>By default, files are written to the current directory (<span class="in">`&quot;.&quot;`</span>) and the current date is prepended to the filename; set <span class="in">`with_date = FALSE`</span> to turn this off.</span>
+<span id="cb42-319"><a href="#cb42-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-320"><a href="#cb42-320" aria-hidden="true" tabindex="-1"></a>You can also export to PNG or SVG:</span>
 <span id="cb42-321"><a href="#cb42-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-322"><a href="#cb42-322" aria-hidden="true" tabindex="-1"></a>You can also export to PNG or SVG:</span>
-<span id="cb42-323"><a href="#cb42-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-324"><a href="#cb42-324" aria-hidden="true" tabindex="-1"></a><span class="in">```{r save_plot2, eval=FALSE}</span></span>
-<span id="cb42-325"><a href="#cb42-325" aria-hidden="true" tabindex="-1"></a><span class="co"># png</span></span>
-<span id="cb42-326"><a href="#cb42-326" aria-hidden="true" tabindex="-1"></a><span class="fu">saveViz</span>(venn,</span>
-<span id="cb42-327"><a href="#cb42-327" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
-<span id="cb42-328"><a href="#cb42-328" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_file =</span> <span class="st">&quot;figure_gVenn&quot;</span>,</span>
-<span id="cb42-329"><a href="#cb42-329" aria-hidden="true" tabindex="-1"></a>        <span class="at">format =</span> <span class="st">&quot;png&quot;</span>)</span>
-<span id="cb42-330"><a href="#cb42-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-331"><a href="#cb42-331" aria-hidden="true" tabindex="-1"></a><span class="co"># svg</span></span>
-<span id="cb42-332"><a href="#cb42-332" aria-hidden="true" tabindex="-1"></a><span class="fu">saveViz</span>(venn,</span>
-<span id="cb42-333"><a href="#cb42-333" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
-<span id="cb42-334"><a href="#cb42-334" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_file =</span> <span class="st">&quot;figure_gVenn&quot;</span>,</span>
-<span id="cb42-335"><a href="#cb42-335" aria-hidden="true" tabindex="-1"></a>        <span class="at">format =</span> <span class="st">&quot;svg&quot;</span>)</span>
-<span id="cb42-336"><a href="#cb42-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-322"><a href="#cb42-322" aria-hidden="true" tabindex="-1"></a><span class="in">```{r save_plot2, eval=FALSE}</span></span>
+<span id="cb42-323"><a href="#cb42-323" aria-hidden="true" tabindex="-1"></a><span class="co"># png</span></span>
+<span id="cb42-324"><a href="#cb42-324" aria-hidden="true" tabindex="-1"></a><span class="fu">saveViz</span>(venn,</span>
+<span id="cb42-325"><a href="#cb42-325" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
+<span id="cb42-326"><a href="#cb42-326" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_file =</span> <span class="st">&quot;figure_gVenn&quot;</span>,</span>
+<span id="cb42-327"><a href="#cb42-327" aria-hidden="true" tabindex="-1"></a>        <span class="at">format =</span> <span class="st">&quot;png&quot;</span>)</span>
+<span id="cb42-328"><a href="#cb42-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-329"><a href="#cb42-329" aria-hidden="true" tabindex="-1"></a><span class="co"># svg</span></span>
+<span id="cb42-330"><a href="#cb42-330" aria-hidden="true" tabindex="-1"></a><span class="fu">saveViz</span>(venn,</span>
+<span id="cb42-331"><a href="#cb42-331" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
+<span id="cb42-332"><a href="#cb42-332" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_file =</span> <span class="st">&quot;figure_gVenn&quot;</span>,</span>
+<span id="cb42-333"><a href="#cb42-333" aria-hidden="true" tabindex="-1"></a>        <span class="at">format =</span> <span class="st">&quot;svg&quot;</span>)</span>
+<span id="cb42-334"><a href="#cb42-334" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-335"><a href="#cb42-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-336"><a href="#cb42-336" aria-hidden="true" tabindex="-1"></a>By default, the background is white. For presentations or publications with colored backgrounds, figures can be exported with a transparent background using <span class="in">`bg = &quot;transparent&quot;`</span>:</span>
 <span id="cb42-337"><a href="#cb42-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-338"><a href="#cb42-338" aria-hidden="true" tabindex="-1"></a>By default, the background is white. For presentations or publications with colored backgrounds, figures can be exported with a transparent background using <span class="in">`bg = &quot;transparent&quot;`</span>:</span>
-<span id="cb42-339"><a href="#cb42-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-340"><a href="#cb42-340" aria-hidden="true" tabindex="-1"></a><span class="in">```{r save_plot_transparent, eval=FALSE}</span></span>
-<span id="cb42-341"><a href="#cb42-341" aria-hidden="true" tabindex="-1"></a><span class="co"># png</span></span>
-<span id="cb42-342"><a href="#cb42-342" aria-hidden="true" tabindex="-1"></a><span class="fu">saveViz</span>(venn,</span>
-<span id="cb42-343"><a href="#cb42-343" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
-<span id="cb42-344"><a href="#cb42-344" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_file =</span> <span class="st">&quot;figure_gVenn_transparent&quot;</span>,</span>
-<span id="cb42-345"><a href="#cb42-345" aria-hidden="true" tabindex="-1"></a>        <span class="at">format =</span> <span class="st">&quot;png&quot;</span>,</span>
-<span id="cb42-346"><a href="#cb42-346" aria-hidden="true" tabindex="-1"></a>        <span class="at">bg =</span> <span class="st">&quot;transparent&quot;</span>)</span>
-<span id="cb42-347"><a href="#cb42-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-348"><a href="#cb42-348" aria-hidden="true" tabindex="-1"></a><span class="co"># svg</span></span>
-<span id="cb42-349"><a href="#cb42-349" aria-hidden="true" tabindex="-1"></a><span class="fu">saveViz</span>(venn,</span>
-<span id="cb42-350"><a href="#cb42-350" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
-<span id="cb42-351"><a href="#cb42-351" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_file =</span> <span class="st">&quot;figure_gVenn_transparent&quot;</span>,</span>
-<span id="cb42-352"><a href="#cb42-352" aria-hidden="true" tabindex="-1"></a>        <span class="at">format =</span> <span class="st">&quot;svg&quot;</span>,</span>
-<span id="cb42-353"><a href="#cb42-353" aria-hidden="true" tabindex="-1"></a>        <span class="at">bg =</span> <span class="st">&quot;transparent&quot;</span>)</span>
-<span id="cb42-354"><a href="#cb42-354" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-338"><a href="#cb42-338" aria-hidden="true" tabindex="-1"></a><span class="in">```{r save_plot_transparent, eval=FALSE}</span></span>
+<span id="cb42-339"><a href="#cb42-339" aria-hidden="true" tabindex="-1"></a><span class="co"># png</span></span>
+<span id="cb42-340"><a href="#cb42-340" aria-hidden="true" tabindex="-1"></a><span class="fu">saveViz</span>(venn,</span>
+<span id="cb42-341"><a href="#cb42-341" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
+<span id="cb42-342"><a href="#cb42-342" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_file =</span> <span class="st">&quot;figure_gVenn_transparent&quot;</span>,</span>
+<span id="cb42-343"><a href="#cb42-343" aria-hidden="true" tabindex="-1"></a>        <span class="at">format =</span> <span class="st">&quot;png&quot;</span>,</span>
+<span id="cb42-344"><a href="#cb42-344" aria-hidden="true" tabindex="-1"></a>        <span class="at">bg =</span> <span class="st">&quot;transparent&quot;</span>)</span>
+<span id="cb42-345"><a href="#cb42-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-346"><a href="#cb42-346" aria-hidden="true" tabindex="-1"></a><span class="co"># svg</span></span>
+<span id="cb42-347"><a href="#cb42-347" aria-hidden="true" tabindex="-1"></a><span class="fu">saveViz</span>(venn,</span>
+<span id="cb42-348"><a href="#cb42-348" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
+<span id="cb42-349"><a href="#cb42-349" aria-hidden="true" tabindex="-1"></a>        <span class="at">output_file =</span> <span class="st">&quot;figure_gVenn_transparent&quot;</span>,</span>
+<span id="cb42-350"><a href="#cb42-350" aria-hidden="true" tabindex="-1"></a>        <span class="at">format =</span> <span class="st">&quot;svg&quot;</span>,</span>
+<span id="cb42-351"><a href="#cb42-351" aria-hidden="true" tabindex="-1"></a>        <span class="at">bg =</span> <span class="st">&quot;transparent&quot;</span>)</span>
+<span id="cb42-352"><a href="#cb42-352" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-353"><a href="#cb42-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-354"><a href="#cb42-354" aria-hidden="true" tabindex="-1"></a><span class="fu"># Extracting overlap groups</span></span>
 <span id="cb42-355"><a href="#cb42-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-356"><a href="#cb42-356" aria-hidden="true" tabindex="-1"></a><span class="fu"># Extracting overlap groups</span></span>
+<span id="cb42-356"><a href="#cb42-356" aria-hidden="true" tabindex="-1"></a>The <span class="in">`extractOverlaps()`</span> function retrieves the actual genomic regions for each overlap group, which can be useful for downstream analyses such as:</span>
 <span id="cb42-357"><a href="#cb42-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-358"><a href="#cb42-358" aria-hidden="true" tabindex="-1"></a>The <span class="in">`extractOverlaps()`</span> function retrieves the actual genomic regions for each overlap group, which can be useful for downstream analyses such as:</span>
-<span id="cb42-359"><a href="#cb42-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-360"><a href="#cb42-360" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Motif enrichment analysis</span>
-<span id="cb42-361"><a href="#cb42-361" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Peak annotation to nearby genes</span>
-<span id="cb42-362"><a href="#cb42-362" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Functional enrichment analysis</span>
-<span id="cb42-363"><a href="#cb42-363" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Export for genome browsers</span>
-<span id="cb42-364"><a href="#cb42-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-365"><a href="#cb42-365" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, extractOverlaps_example1}</span></span>
-<span id="cb42-366"><a href="#cb42-366" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">extractOverlaps</span>(genomic_overlaps)</span>
-<span id="cb42-367"><a href="#cb42-367" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-368"><a href="#cb42-368" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, extractOverlaps_example2}</span></span>
-<span id="cb42-369"><a href="#cb42-369" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the number of genomic regions per overlap group</span></span>
-<span id="cb42-370"><a href="#cb42-370" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(groups, length)</span>
-<span id="cb42-371"><a href="#cb42-371" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-372"><a href="#cb42-372" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-373"><a href="#cb42-373" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overlap group naming</span></span>
-<span id="cb42-374"><a href="#cb42-374" aria-hidden="true" tabindex="-1"></a>When overlaps are computed, each group of elements or genomic regions is</span>
-<span id="cb42-375"><a href="#cb42-375" aria-hidden="true" tabindex="-1"></a>labeled with a binary code that indicates which sets the element belongs to.</span>
-<span id="cb42-376"><a href="#cb42-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-377"><a href="#cb42-377" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Each digit in the code corresponds to one input set (e.g., A, B, C).</span>
-<span id="cb42-378"><a href="#cb42-378" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A 1 means the element is present in that set, while 0 means absent.</span>
-<span id="cb42-379"><a href="#cb42-379" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The group names in the output are prefixed with &quot;group_&quot; for clarity.</span>
-<span id="cb42-380"><a href="#cb42-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-381"><a href="#cb42-381" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> align</span><span class="op">=</span><span class="st">&quot;center&quot;</span><span class="ot"> width</span><span class="op">=</span><span class="st">&quot;50%&quot;</span><span class="dt">&gt;</span></span>
-<span id="cb42-382"><a href="#cb42-382" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Group name   <span class="pp">|</span> Meaning                       <span class="pp">|</span></span>
-<span id="cb42-383"><a href="#cb42-383" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------|-------------------------------|</span></span>
-<span id="cb42-384"><a href="#cb42-384" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_100`</span>  <span class="pp">|</span> Elements only in **A**        <span class="pp">|</span></span>
-<span id="cb42-385"><a href="#cb42-385" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_010`</span>  <span class="pp">|</span> Elements only in **B**        <span class="pp">|</span></span>
-<span id="cb42-386"><a href="#cb42-386" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_001`</span>  <span class="pp">|</span> Elements only in **C**        <span class="pp">|</span></span>
-<span id="cb42-387"><a href="#cb42-387" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_110`</span>  <span class="pp">|</span> Elements in **A ∩ B** (not C) <span class="pp">|</span></span>
-<span id="cb42-388"><a href="#cb42-388" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_101`</span>  <span class="pp">|</span> Elements in **A ∩ C** (not B) <span class="pp">|</span></span>
-<span id="cb42-389"><a href="#cb42-389" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_011`</span>  <span class="pp">|</span> Elements in **B ∩ C** (not A) <span class="pp">|</span></span>
-<span id="cb42-390"><a href="#cb42-390" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_111`</span>  <span class="pp">|</span> Elements in **A ∩ B ∩ C**     <span class="pp">|</span></span>
-<span id="cb42-391"><a href="#cb42-391" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
-<span id="cb42-392"><a href="#cb42-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-393"><a href="#cb42-393" aria-hidden="true" tabindex="-1"></a><span class="fu">## Extract one particular group</span></span>
-<span id="cb42-394"><a href="#cb42-394" aria-hidden="true" tabindex="-1"></a>Each overlap group can be accessed directly by name.</span>
+<span id="cb42-358"><a href="#cb42-358" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Motif enrichment analysis</span>
+<span id="cb42-359"><a href="#cb42-359" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Peak annotation to nearby genes</span>
+<span id="cb42-360"><a href="#cb42-360" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Functional enrichment analysis</span>
+<span id="cb42-361"><a href="#cb42-361" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Export for genome browsers</span>
+<span id="cb42-362"><a href="#cb42-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-363"><a href="#cb42-363" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, extractOverlaps_example1}</span></span>
+<span id="cb42-364"><a href="#cb42-364" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="fu">extractOverlaps</span>(genomic_overlaps)</span>
+<span id="cb42-365"><a href="#cb42-365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-366"><a href="#cb42-366" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, extractOverlaps_example2}</span></span>
+<span id="cb42-367"><a href="#cb42-367" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the number of genomic regions per overlap group</span></span>
+<span id="cb42-368"><a href="#cb42-368" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(groups, length)</span>
+<span id="cb42-369"><a href="#cb42-369" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-370"><a href="#cb42-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-371"><a href="#cb42-371" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overlap group naming</span></span>
+<span id="cb42-372"><a href="#cb42-372" aria-hidden="true" tabindex="-1"></a>When overlaps are computed, each group of elements or genomic regions is</span>
+<span id="cb42-373"><a href="#cb42-373" aria-hidden="true" tabindex="-1"></a>labeled with a binary code that indicates which sets the element belongs to.</span>
+<span id="cb42-374"><a href="#cb42-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-375"><a href="#cb42-375" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Each digit in the code corresponds to one input set (e.g., A, B, C).</span>
+<span id="cb42-376"><a href="#cb42-376" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A 1 means the element is present in that set, while 0 means absent.</span>
+<span id="cb42-377"><a href="#cb42-377" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The group names in the output are prefixed with &quot;group_&quot; for clarity.</span>
+<span id="cb42-378"><a href="#cb42-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-379"><a href="#cb42-379" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> align</span><span class="op">=</span><span class="st">&quot;center&quot;</span><span class="ot"> width</span><span class="op">=</span><span class="st">&quot;50%&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb42-380"><a href="#cb42-380" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Group name   <span class="pp">|</span> Meaning                       <span class="pp">|</span></span>
+<span id="cb42-381"><a href="#cb42-381" aria-hidden="true" tabindex="-1"></a><span class="pp">|--------------|-------------------------------|</span></span>
+<span id="cb42-382"><a href="#cb42-382" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_100`</span>  <span class="pp">|</span> Elements only in **A**        <span class="pp">|</span></span>
+<span id="cb42-383"><a href="#cb42-383" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_010`</span>  <span class="pp">|</span> Elements only in **B**        <span class="pp">|</span></span>
+<span id="cb42-384"><a href="#cb42-384" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_001`</span>  <span class="pp">|</span> Elements only in **C**        <span class="pp">|</span></span>
+<span id="cb42-385"><a href="#cb42-385" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_110`</span>  <span class="pp">|</span> Elements in **A ∩ B** (not C) <span class="pp">|</span></span>
+<span id="cb42-386"><a href="#cb42-386" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_101`</span>  <span class="pp">|</span> Elements in **A ∩ C** (not B) <span class="pp">|</span></span>
+<span id="cb42-387"><a href="#cb42-387" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_011`</span>  <span class="pp">|</span> Elements in **B ∩ C** (not A) <span class="pp">|</span></span>
+<span id="cb42-388"><a href="#cb42-388" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`group_111`</span>  <span class="pp">|</span> Elements in **A ∩ B ∩ C**     <span class="pp">|</span></span>
+<span id="cb42-389"><a href="#cb42-389" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb42-390"><a href="#cb42-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-391"><a href="#cb42-391" aria-hidden="true" tabindex="-1"></a><span class="fu">## Extract one particular group</span></span>
+<span id="cb42-392"><a href="#cb42-392" aria-hidden="true" tabindex="-1"></a>Each overlap group can be accessed directly by name.</span>
+<span id="cb42-393"><a href="#cb42-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-394"><a href="#cb42-394" aria-hidden="true" tabindex="-1"></a>For example, to extract all elements that are present in **A ∩ B ∩ C**:</span>
 <span id="cb42-395"><a href="#cb42-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-396"><a href="#cb42-396" aria-hidden="true" tabindex="-1"></a>For example, to extract all elements that are present in **A ∩ B ∩ C**:</span>
-<span id="cb42-397"><a href="#cb42-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-398"><a href="#cb42-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, extractOverlaps_example3}</span></span>
-<span id="cb42-399"><a href="#cb42-399" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract elements in group_111 (present in all three sets: MED1, BRD4, and GR)</span></span>
-<span id="cb42-400"><a href="#cb42-400" aria-hidden="true" tabindex="-1"></a>peaks_in_all_sets <span class="ot">&lt;-</span> groups[[<span class="st">&quot;group_111&quot;</span>]]</span>
-<span id="cb42-401"><a href="#cb42-401" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-402"><a href="#cb42-402" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the elements</span></span>
-<span id="cb42-403"><a href="#cb42-403" aria-hidden="true" tabindex="-1"></a>peaks_in_all_sets</span>
-<span id="cb42-404"><a href="#cb42-404" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-396"><a href="#cb42-396" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, extractOverlaps_example3}</span></span>
+<span id="cb42-397"><a href="#cb42-397" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract elements in group_111 (present in all three sets: MED1, BRD4, and GR)</span></span>
+<span id="cb42-398"><a href="#cb42-398" aria-hidden="true" tabindex="-1"></a>peaks_in_all_sets <span class="ot">&lt;-</span> groups[[<span class="st">&quot;group_111&quot;</span>]]</span>
+<span id="cb42-399"><a href="#cb42-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-400"><a href="#cb42-400" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the elements</span></span>
+<span id="cb42-401"><a href="#cb42-401" aria-hidden="true" tabindex="-1"></a>peaks_in_all_sets</span>
+<span id="cb42-402"><a href="#cb42-402" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-403"><a href="#cb42-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-404"><a href="#cb42-404" aria-hidden="true" tabindex="-1"></a><span class="fu"># Export overlap groups</span></span>
 <span id="cb42-405"><a href="#cb42-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-406"><a href="#cb42-406" aria-hidden="true" tabindex="-1"></a><span class="fu"># Export overlap groups</span></span>
-<span id="cb42-407"><a href="#cb42-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-408"><a href="#cb42-408" aria-hidden="true" tabindex="-1"></a>Each overlap group (e.g., <span class="in">`group_100`</span>, <span class="in">`group_110`</span>, <span class="in">`group_111`</span>) can be</span>
-<span id="cb42-409"><a href="#cb42-409" aria-hidden="true" tabindex="-1"></a>exported for downstream analysis. The gVenn package provides two export functions</span>
-<span id="cb42-410"><a href="#cb42-410" aria-hidden="true" tabindex="-1"></a>depending on your data type and downstream needs:</span>
+<span id="cb42-406"><a href="#cb42-406" aria-hidden="true" tabindex="-1"></a>Each overlap group (e.g., <span class="in">`group_100`</span>, <span class="in">`group_110`</span>, <span class="in">`group_111`</span>) can be</span>
+<span id="cb42-407"><a href="#cb42-407" aria-hidden="true" tabindex="-1"></a>exported for downstream analysis. The gVenn package provides two export functions</span>
+<span id="cb42-408"><a href="#cb42-408" aria-hidden="true" tabindex="-1"></a>depending on your data type and downstream needs:</span>
+<span id="cb42-409"><a href="#cb42-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-410"><a href="#cb42-410" aria-hidden="true" tabindex="-1"></a><span class="fu">## For all overlap types (genomic or gene sets):</span></span>
 <span id="cb42-411"><a href="#cb42-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-412"><a href="#cb42-412" aria-hidden="true" tabindex="-1"></a><span class="fu">## For all overlap types (genomic or gene sets):</span></span>
-<span id="cb42-413"><a href="#cb42-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-414"><a href="#cb42-414" aria-hidden="true" tabindex="-1"></a>The function <span class="in">`exportOverlaps()`</span> writes each group to an Excel file with one</span>
-<span id="cb42-415"><a href="#cb42-415" aria-hidden="true" tabindex="-1"></a>sheet per overlap group, making it easy to review and reuse the results outside</span>
-<span id="cb42-416"><a href="#cb42-416" aria-hidden="true" tabindex="-1"></a>of R.</span>
-<span id="cb42-417"><a href="#cb42-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-418"><a href="#cb42-418" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, exportOverlaps, eval=FALSE}</span></span>
-<span id="cb42-419"><a href="#cb42-419" aria-hidden="true" tabindex="-1"></a><span class="co"># export overlaps to Excel file</span></span>
-<span id="cb42-420"><a href="#cb42-420" aria-hidden="true" tabindex="-1"></a><span class="fu">exportOverlaps</span>(groups,</span>
-<span id="cb42-421"><a href="#cb42-421" aria-hidden="true" tabindex="-1"></a>               <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
-<span id="cb42-422"><a href="#cb42-422" aria-hidden="true" tabindex="-1"></a>               <span class="at">output_file =</span> <span class="st">&quot;overlap_groups&quot;</span>)</span>
-<span id="cb42-423"><a href="#cb42-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-412"><a href="#cb42-412" aria-hidden="true" tabindex="-1"></a>The function <span class="in">`exportOverlaps()`</span> writes each group to an Excel file with one</span>
+<span id="cb42-413"><a href="#cb42-413" aria-hidden="true" tabindex="-1"></a>sheet per overlap group, making it easy to review and reuse the results outside</span>
+<span id="cb42-414"><a href="#cb42-414" aria-hidden="true" tabindex="-1"></a>of R.</span>
+<span id="cb42-415"><a href="#cb42-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-416"><a href="#cb42-416" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, exportOverlaps, eval=FALSE}</span></span>
+<span id="cb42-417"><a href="#cb42-417" aria-hidden="true" tabindex="-1"></a><span class="co"># export overlaps to Excel file</span></span>
+<span id="cb42-418"><a href="#cb42-418" aria-hidden="true" tabindex="-1"></a><span class="fu">exportOverlaps</span>(groups,</span>
+<span id="cb42-419"><a href="#cb42-419" aria-hidden="true" tabindex="-1"></a>               <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
+<span id="cb42-420"><a href="#cb42-420" aria-hidden="true" tabindex="-1"></a>               <span class="at">output_file =</span> <span class="st">&quot;overlap_groups&quot;</span>)</span>
+<span id="cb42-421"><a href="#cb42-421" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-422"><a href="#cb42-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-423"><a href="#cb42-423" aria-hidden="true" tabindex="-1"></a><span class="fu">## For genomic overlaps only: </span></span>
 <span id="cb42-424"><a href="#cb42-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-425"><a href="#cb42-425" aria-hidden="true" tabindex="-1"></a><span class="fu">## For genomic overlaps only: </span></span>
-<span id="cb42-426"><a href="#cb42-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-427"><a href="#cb42-427" aria-hidden="true" tabindex="-1"></a>When working with genomic regions (GRanges objects), you can export overlap</span>
-<span id="cb42-428"><a href="#cb42-428" aria-hidden="true" tabindex="-1"></a>groups as BED files using <span class="in">`exportOverlapsToBed()`</span>. This creates one BED file</span>
-<span id="cb42-429"><a href="#cb42-429" aria-hidden="true" tabindex="-1"></a>per overlap group, which is ideal for visualization in genome browsers (IGV,</span>
-<span id="cb42-430"><a href="#cb42-430" aria-hidden="true" tabindex="-1"></a>UCSC Genome Browser) or for downstream analyses requiring BED format input.</span>
-<span id="cb42-431"><a href="#cb42-431" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-432"><a href="#cb42-432" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, exportOverlapsToBed, eval=FALSE}</span></span>
-<span id="cb42-433"><a href="#cb42-433" aria-hidden="true" tabindex="-1"></a><span class="co"># Export genomic overlaps to BED files</span></span>
-<span id="cb42-434"><a href="#cb42-434" aria-hidden="true" tabindex="-1"></a><span class="fu">exportOverlapsToBed</span>(groups,</span>
-<span id="cb42-435"><a href="#cb42-435" aria-hidden="true" tabindex="-1"></a>                    <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
-<span id="cb42-436"><a href="#cb42-436" aria-hidden="true" tabindex="-1"></a>                    <span class="at">output_prefix =</span> <span class="st">&quot;overlaps&quot;</span>)</span>
-<span id="cb42-437"><a href="#cb42-437" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-438"><a href="#cb42-438" aria-hidden="true" tabindex="-1"></a><span class="co"># This will create separate BED files such as:</span></span>
-<span id="cb42-439"><a href="#cb42-439" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_100.bed</span></span>
-<span id="cb42-440"><a href="#cb42-440" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_110.bed</span></span>
-<span id="cb42-441"><a href="#cb42-441" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_111.bed</span></span>
-<span id="cb42-442"><a href="#cb42-442" aria-hidden="true" tabindex="-1"></a><span class="co"># etc.</span></span>
-<span id="cb42-443"><a href="#cb42-443" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-444"><a href="#cb42-444" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-445"><a href="#cb42-445" aria-hidden="true" tabindex="-1"></a><span class="fu"># Customization examples</span></span>
-<span id="cb42-446"><a href="#cb42-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-447"><a href="#cb42-447" aria-hidden="true" tabindex="-1"></a>This section shows common ways to customize the Venn diagram produced by <span class="in">`plotVenn()`</span>.</span>
-<span id="cb42-448"><a href="#cb42-448" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-449"><a href="#cb42-449" aria-hidden="true" tabindex="-1"></a><span class="in">```{r venn-custom-default, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
-<span id="cb42-450"><a href="#cb42-450" aria-hidden="true" tabindex="-1"></a><span class="co"># basic default venn plot (uses package defaults)</span></span>
-<span id="cb42-451"><a href="#cb42-451" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps)</span>
-<span id="cb42-452"><a href="#cb42-452" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-453"><a href="#cb42-453" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-454"><a href="#cb42-454" aria-hidden="true" tabindex="-1"></a><span class="fu">## Custom fills with transparency</span></span>
-<span id="cb42-455"><a href="#cb42-455" aria-hidden="true" tabindex="-1"></a><span class="in">``` {r venn-custom-fills, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
-<span id="cb42-456"><a href="#cb42-456" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps,</span>
-<span id="cb42-457"><a href="#cb42-457" aria-hidden="true" tabindex="-1"></a>         <span class="at">fills =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;#FF6B6B&quot;</span>, <span class="st">&quot;#4ECDC4&quot;</span>, <span class="st">&quot;#45B7D1&quot;</span>), <span class="at">alpha =</span> <span class="fl">0.5</span>),</span>
-<span id="cb42-458"><a href="#cb42-458" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend =</span> <span class="st">&quot;right&quot;</span>,</span>
-<span id="cb42-459"><a href="#cb42-459" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">&quot;Custom fills (transparent)&quot;</span>, <span class="at">fontsize =</span> <span class="dv">14</span>))</span>
-<span id="cb42-460"><a href="#cb42-460" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-461"><a href="#cb42-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-462"><a href="#cb42-462" aria-hidden="true" tabindex="-1"></a><span class="fu">## Colored edges, no fills (colored borders only)</span></span>
-<span id="cb42-463"><a href="#cb42-463" aria-hidden="true" tabindex="-1"></a><span class="in">``` {r venn-transparent-fills, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
-<span id="cb42-464"><a href="#cb42-464" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps,</span>
-<span id="cb42-465"><a href="#cb42-465" aria-hidden="true" tabindex="-1"></a>         <span class="at">fills =</span> <span class="st">&quot;transparent&quot;</span>,</span>
-<span id="cb42-466"><a href="#cb42-466" aria-hidden="true" tabindex="-1"></a>         <span class="at">edges =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">lwd =</span> <span class="dv">2</span>),</span>
-<span id="cb42-467"><a href="#cb42-467" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">&quot;Colored borders only&quot;</span>))</span>
-<span id="cb42-468"><a href="#cb42-468" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-469"><a href="#cb42-469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-470"><a href="#cb42-470" aria-hidden="true" tabindex="-1"></a><span class="fu">## Custom labels and counts + percentages</span></span>
-<span id="cb42-471"><a href="#cb42-471" aria-hidden="true" tabindex="-1"></a><span class="in">``` {r venn-labels-quantities, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
-<span id="cb42-472"><a href="#cb42-472" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps,</span>
-<span id="cb42-473"><a href="#cb42-473" aria-hidden="true" tabindex="-1"></a>         <span class="at">labels =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fontsize =</span> <span class="dv">8</span>, <span class="at">font =</span> <span class="dv">2</span>),</span>
-<span id="cb42-474"><a href="#cb42-474" aria-hidden="true" tabindex="-1"></a>         <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;counts&quot;</span>,<span class="st">&quot;percent&quot;</span>),</span>
-<span id="cb42-475"><a href="#cb42-475" aria-hidden="true" tabindex="-1"></a>                           <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fontsize =</span> <span class="dv">6</span>),</span>
-<span id="cb42-476"><a href="#cb42-476" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">&quot;Counts + Percentages&quot;</span>, <span class="at">fontsize =</span> <span class="dv">11</span>))</span>
-<span id="cb42-477"><a href="#cb42-477" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-478"><a href="#cb42-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-479"><a href="#cb42-479" aria-hidden="true" tabindex="-1"></a><span class="fu">## Legend at the bottom with custom text</span></span>
-<span id="cb42-480"><a href="#cb42-480" aria-hidden="true" tabindex="-1"></a><span class="in">``` {r venn-legend-bottom, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
-<span id="cb42-481"><a href="#cb42-481" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps,</span>
-<span id="cb42-482"><a href="#cb42-482" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend =</span> <span class="fu">list</span>(<span class="at">side =</span> <span class="st">&quot;bottom&quot;</span>,</span>
-<span id="cb42-483"><a href="#cb42-483" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Treatment A&quot;</span>,<span class="st">&quot;Treatment B&quot;</span>,<span class="st">&quot;Control&quot;</span>),</span>
-<span id="cb42-484"><a href="#cb42-484" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fontsize =</span> <span class="dv">10</span>),</span>
-<span id="cb42-485"><a href="#cb42-485" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">&quot;Custom legend&quot;</span>))</span>
-<span id="cb42-486"><a href="#cb42-486" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-487"><a href="#cb42-487" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-488"><a href="#cb42-488" aria-hidden="true" tabindex="-1"></a><span class="fu">## Combining multiple custom options</span></span>
-<span id="cb42-489"><a href="#cb42-489" aria-hidden="true" tabindex="-1"></a><span class="in">``` {r venn-multiple-custom, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
-<span id="cb42-490"><a href="#cb42-490" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps,</span>
-<span id="cb42-491"><a href="#cb42-491" aria-hidden="true" tabindex="-1"></a>         <span class="at">fills =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;#2B70AB&quot;</span>, <span class="st">&quot;#FFB027&quot;</span>, <span class="st">&quot;#3EA742&quot;</span>), <span class="at">alpha =</span> <span class="fl">0.6</span>),</span>
-<span id="cb42-492"><a href="#cb42-492" aria-hidden="true" tabindex="-1"></a>         <span class="at">edges =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="st">&quot;gray30&quot;</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>),</span>
-<span id="cb42-493"><a href="#cb42-493" aria-hidden="true" tabindex="-1"></a>         <span class="at">labels =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fontsize =</span> <span class="dv">7</span>, <span class="at">font =</span> <span class="dv">2</span>),</span>
-<span id="cb42-494"><a href="#cb42-494" aria-hidden="true" tabindex="-1"></a>         <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;counts&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fontsize =</span> <span class="dv">10</span>),</span>
-<span id="cb42-495"><a href="#cb42-495" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">&quot;multiple custom options Venn&quot;</span>, <span class="at">fontsize =</span> <span class="dv">16</span>, <span class="at">font =</span> <span class="dv">2</span>),</span>
-<span id="cb42-496"><a href="#cb42-496" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb42-497"><a href="#cb42-497" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-498"><a href="#cb42-498" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-499"><a href="#cb42-499" aria-hidden="true" tabindex="-1"></a><span class="fu"># References</span></span>
-<span id="cb42-500"><a href="#cb42-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-501"><a href="#cb42-501" aria-hidden="true" tabindex="-1"></a>For more information about the gVenn package, visit:</span>
-<span id="cb42-502"><a href="#cb42-502" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-503"><a href="#cb42-503" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Package documentation: <span class="co">[</span><span class="ot">https://ckntav.github.io/gVenn</span><span class="co">](https://ckntav.github.io/gVenn)</span></span>
-<span id="cb42-504"><a href="#cb42-504" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GitHub repository: <span class="co">[</span><span class="ot">https://github.com/ckntav/gVenn</span><span class="co">](https://github.com/ckntav/gVenn)</span></span>
-<span id="cb42-505"><a href="#cb42-505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-506"><a href="#cb42-506" aria-hidden="true" tabindex="-1"></a><span class="fu"># Session information</span></span>
-<span id="cb42-507"><a href="#cb42-507" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-510"><a href="#cb42-510" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb42-511"><a href="#cb42-511" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: session-info</span></span>
-<span id="cb42-512"><a href="#cb42-512" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb42-513"><a href="#cb42-513" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb42-514"><a href="#cb42-514" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb42-515"><a href="#cb42-515" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-516"><a href="#cb42-516" aria-hidden="true" tabindex="-1"></a><span class="in">```{=html}</span></span>
-<span id="cb42-517"><a href="#cb42-517" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;!-- Copyright Footer --&gt;</span></span>
-<span id="cb42-518"><a href="#cb42-518" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;div class=&quot;copyright-footer&quot;&gt;</span></span>
-<span id="cb42-519"><a href="#cb42-519" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;p&gt;&amp;copy; 2026 &lt;a href=&quot;https://ckntav.github.io/&quot; target=&quot;_blank&quot;&gt;Christophe Tav&lt;/a&gt;&lt;/p&gt;</span></span>
-<span id="cb42-520"><a href="#cb42-520" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;/div&gt;</span></span>
-<span id="cb42-521"><a href="#cb42-521" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-425"><a href="#cb42-425" aria-hidden="true" tabindex="-1"></a>When working with genomic regions (GRanges objects), you can export overlap</span>
+<span id="cb42-426"><a href="#cb42-426" aria-hidden="true" tabindex="-1"></a>groups as BED files using <span class="in">`exportOverlapsToBed()`</span>. This creates one BED file</span>
+<span id="cb42-427"><a href="#cb42-427" aria-hidden="true" tabindex="-1"></a>per overlap group, which is ideal for visualization in genome browsers (IGV,</span>
+<span id="cb42-428"><a href="#cb42-428" aria-hidden="true" tabindex="-1"></a>UCSC Genome Browser) or for downstream analyses requiring BED format input.</span>
+<span id="cb42-429"><a href="#cb42-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-430"><a href="#cb42-430" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, exportOverlapsToBed, eval=FALSE}</span></span>
+<span id="cb42-431"><a href="#cb42-431" aria-hidden="true" tabindex="-1"></a><span class="co"># Export genomic overlaps to BED files</span></span>
+<span id="cb42-432"><a href="#cb42-432" aria-hidden="true" tabindex="-1"></a><span class="fu">exportOverlapsToBed</span>(groups,</span>
+<span id="cb42-433"><a href="#cb42-433" aria-hidden="true" tabindex="-1"></a>                    <span class="at">output_dir =</span> <span class="st">&quot;.&quot;</span>,</span>
+<span id="cb42-434"><a href="#cb42-434" aria-hidden="true" tabindex="-1"></a>                    <span class="at">output_prefix =</span> <span class="st">&quot;overlaps&quot;</span>,</span>
+<span id="cb42-435"><a href="#cb42-435" aria-hidden="true" tabindex="-1"></a>                    <span class="at">with_date =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb42-436"><a href="#cb42-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-437"><a href="#cb42-437" aria-hidden="true" tabindex="-1"></a><span class="co"># This will create separate BED files such as:</span></span>
+<span id="cb42-438"><a href="#cb42-438" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_100.bed</span></span>
+<span id="cb42-439"><a href="#cb42-439" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_110.bed</span></span>
+<span id="cb42-440"><a href="#cb42-440" aria-hidden="true" tabindex="-1"></a><span class="co"># - overlaps_group_111.bed</span></span>
+<span id="cb42-441"><a href="#cb42-441" aria-hidden="true" tabindex="-1"></a><span class="co"># etc.</span></span>
+<span id="cb42-442"><a href="#cb42-442" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-443"><a href="#cb42-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-444"><a href="#cb42-444" aria-hidden="true" tabindex="-1"></a><span class="fu"># Customization examples</span></span>
+<span id="cb42-445"><a href="#cb42-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-446"><a href="#cb42-446" aria-hidden="true" tabindex="-1"></a>This section shows common ways to customize the Venn diagram produced by <span class="in">`plotVenn()`</span>.</span>
+<span id="cb42-447"><a href="#cb42-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-448"><a href="#cb42-448" aria-hidden="true" tabindex="-1"></a><span class="in">```{r venn-custom-default, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
+<span id="cb42-449"><a href="#cb42-449" aria-hidden="true" tabindex="-1"></a><span class="co"># basic default venn plot (uses package defaults)</span></span>
+<span id="cb42-450"><a href="#cb42-450" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps)</span>
+<span id="cb42-451"><a href="#cb42-451" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-452"><a href="#cb42-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-453"><a href="#cb42-453" aria-hidden="true" tabindex="-1"></a><span class="fu">## Custom fills with transparency</span></span>
+<span id="cb42-454"><a href="#cb42-454" aria-hidden="true" tabindex="-1"></a><span class="in">``` {r venn-custom-fills, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
+<span id="cb42-455"><a href="#cb42-455" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps,</span>
+<span id="cb42-456"><a href="#cb42-456" aria-hidden="true" tabindex="-1"></a>         <span class="at">fills =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;#FF6B6B&quot;</span>, <span class="st">&quot;#4ECDC4&quot;</span>, <span class="st">&quot;#45B7D1&quot;</span>), <span class="at">alpha =</span> <span class="fl">0.5</span>),</span>
+<span id="cb42-457"><a href="#cb42-457" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend =</span> <span class="st">&quot;right&quot;</span>,</span>
+<span id="cb42-458"><a href="#cb42-458" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">&quot;Custom fills (transparent)&quot;</span>, <span class="at">fontsize =</span> <span class="dv">14</span>))</span>
+<span id="cb42-459"><a href="#cb42-459" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-460"><a href="#cb42-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-461"><a href="#cb42-461" aria-hidden="true" tabindex="-1"></a><span class="fu">## Colored edges, no fills (colored borders only)</span></span>
+<span id="cb42-462"><a href="#cb42-462" aria-hidden="true" tabindex="-1"></a><span class="in">``` {r venn-transparent-fills, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
+<span id="cb42-463"><a href="#cb42-463" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps,</span>
+<span id="cb42-464"><a href="#cb42-464" aria-hidden="true" tabindex="-1"></a>         <span class="at">fills =</span> <span class="st">&quot;transparent&quot;</span>,</span>
+<span id="cb42-465"><a href="#cb42-465" aria-hidden="true" tabindex="-1"></a>         <span class="at">edges =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">lwd =</span> <span class="dv">2</span>),</span>
+<span id="cb42-466"><a href="#cb42-466" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">&quot;Colored borders only&quot;</span>))</span>
+<span id="cb42-467"><a href="#cb42-467" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-468"><a href="#cb42-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-469"><a href="#cb42-469" aria-hidden="true" tabindex="-1"></a><span class="fu">## Custom labels and counts + percentages</span></span>
+<span id="cb42-470"><a href="#cb42-470" aria-hidden="true" tabindex="-1"></a><span class="in">``` {r venn-labels-quantities, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
+<span id="cb42-471"><a href="#cb42-471" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps,</span>
+<span id="cb42-472"><a href="#cb42-472" aria-hidden="true" tabindex="-1"></a>         <span class="at">labels =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fontsize =</span> <span class="dv">8</span>, <span class="at">font =</span> <span class="dv">2</span>),</span>
+<span id="cb42-473"><a href="#cb42-473" aria-hidden="true" tabindex="-1"></a>         <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="fu">c</span>(<span class="st">&quot;counts&quot;</span>,<span class="st">&quot;percent&quot;</span>),</span>
+<span id="cb42-474"><a href="#cb42-474" aria-hidden="true" tabindex="-1"></a>                           <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fontsize =</span> <span class="dv">6</span>),</span>
+<span id="cb42-475"><a href="#cb42-475" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">&quot;Counts + Percentages&quot;</span>, <span class="at">fontsize =</span> <span class="dv">11</span>))</span>
+<span id="cb42-476"><a href="#cb42-476" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-477"><a href="#cb42-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-478"><a href="#cb42-478" aria-hidden="true" tabindex="-1"></a><span class="fu">## Legend at the bottom with custom text</span></span>
+<span id="cb42-479"><a href="#cb42-479" aria-hidden="true" tabindex="-1"></a><span class="in">``` {r venn-legend-bottom, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
+<span id="cb42-480"><a href="#cb42-480" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps,</span>
+<span id="cb42-481"><a href="#cb42-481" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend =</span> <span class="fu">list</span>(<span class="at">side =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb42-482"><a href="#cb42-482" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Treatment A&quot;</span>,<span class="st">&quot;Treatment B&quot;</span>,<span class="st">&quot;Control&quot;</span>),</span>
+<span id="cb42-483"><a href="#cb42-483" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fontsize =</span> <span class="dv">10</span>),</span>
+<span id="cb42-484"><a href="#cb42-484" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">&quot;Custom legend&quot;</span>))</span>
+<span id="cb42-485"><a href="#cb42-485" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-486"><a href="#cb42-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-487"><a href="#cb42-487" aria-hidden="true" tabindex="-1"></a><span class="fu">## Combining multiple custom options</span></span>
+<span id="cb42-488"><a href="#cb42-488" aria-hidden="true" tabindex="-1"></a><span class="in">``` {r venn-multiple-custom, fig.width=6, fig.height=4, fig.align=&quot;center&quot;}</span></span>
+<span id="cb42-489"><a href="#cb42-489" aria-hidden="true" tabindex="-1"></a><span class="fu">plotVenn</span>(genomic_overlaps,</span>
+<span id="cb42-490"><a href="#cb42-490" aria-hidden="true" tabindex="-1"></a>         <span class="at">fills =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;#2B70AB&quot;</span>, <span class="st">&quot;#FFB027&quot;</span>, <span class="st">&quot;#3EA742&quot;</span>), <span class="at">alpha =</span> <span class="fl">0.6</span>),</span>
+<span id="cb42-491"><a href="#cb42-491" aria-hidden="true" tabindex="-1"></a>         <span class="at">edges =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="st">&quot;gray30&quot;</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>),</span>
+<span id="cb42-492"><a href="#cb42-492" aria-hidden="true" tabindex="-1"></a>         <span class="at">labels =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fontsize =</span> <span class="dv">7</span>, <span class="at">font =</span> <span class="dv">2</span>),</span>
+<span id="cb42-493"><a href="#cb42-493" aria-hidden="true" tabindex="-1"></a>         <span class="at">quantities =</span> <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;counts&quot;</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fontsize =</span> <span class="dv">10</span>),</span>
+<span id="cb42-494"><a href="#cb42-494" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="fu">list</span>(<span class="at">label =</span> <span class="st">&quot;multiple custom options Venn&quot;</span>, <span class="at">fontsize =</span> <span class="dv">16</span>, <span class="at">font =</span> <span class="dv">2</span>),</span>
+<span id="cb42-495"><a href="#cb42-495" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb42-496"><a href="#cb42-496" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-497"><a href="#cb42-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-498"><a href="#cb42-498" aria-hidden="true" tabindex="-1"></a><span class="fu"># References</span></span>
+<span id="cb42-499"><a href="#cb42-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-500"><a href="#cb42-500" aria-hidden="true" tabindex="-1"></a>For more information about the gVenn package, visit:</span>
+<span id="cb42-501"><a href="#cb42-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-502"><a href="#cb42-502" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Package documentation: <span class="co">[</span><span class="ot">https://ckntav.github.io/gVenn</span><span class="co">](https://ckntav.github.io/gVenn)</span></span>
+<span id="cb42-503"><a href="#cb42-503" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GitHub repository: <span class="co">[</span><span class="ot">https://github.com/ckntav/gVenn</span><span class="co">](https://github.com/ckntav/gVenn)</span></span>
+<span id="cb42-504"><a href="#cb42-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-505"><a href="#cb42-505" aria-hidden="true" tabindex="-1"></a><span class="fu"># Session information</span></span>
+<span id="cb42-506"><a href="#cb42-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-509"><a href="#cb42-509" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-510"><a href="#cb42-510" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: session-info</span></span>
+<span id="cb42-511"><a href="#cb42-511" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb42-512"><a href="#cb42-512" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb42-513"><a href="#cb42-513" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-514"><a href="#cb42-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-515"><a href="#cb42-515" aria-hidden="true" tabindex="-1"></a><span class="in">```{=html}</span></span>
+<span id="cb42-516"><a href="#cb42-516" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;!-- Copyright Footer --&gt;</span></span>
+<span id="cb42-517"><a href="#cb42-517" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;div class=&quot;copyright-footer&quot;&gt;</span></span>
+<span id="cb42-518"><a href="#cb42-518" aria-hidden="true" tabindex="-1"></a><span class="in">    &lt;p&gt;&amp;copy; 2026 &lt;a href=&quot;https://ckntav.github.io/&quot; target=&quot;_blank&quot;&gt;Christophe Tav&lt;/a&gt;&lt;/p&gt;</span></span>
+<span id="cb42-519"><a href="#cb42-519" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;/div&gt;</span></span>
+<span id="cb42-520"><a href="#cb42-520" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
