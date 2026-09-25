@@ -18,12 +18,6 @@ View the [**gVenn manuscript website**](https://ckntav.github.io/gVenn_manuscrip
 
 This repository holds the code, inputs and outputs behind the gVenn manuscript: Figure 1, Table 1 and Supplementary Data S1 and S2.
 
-## 📚 Citation
-
-<!-- TODO: add the manuscript reference or preprint DOI -->
-
-To cite the package, run `citation("gVenn")` in R.
-
 ---
 
 **R package:** [github.com/ckntav/gVenn](https://github.com/ckntav/gVenn)  
