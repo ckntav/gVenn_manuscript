@@ -37,7 +37,7 @@ execute:
   message: false
 ---
 
-Last updated: 14 september 2026
+Last updated: 25 september 2026
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
@@ -101,7 +101,7 @@ library(knitr)
 packageVersion("gVenn")
 ```
 
-This workflow requires gVenn version 2.0.0 or later. Earlier versions do not provide all the functions used below.
+This workflow requires gVenn version 1.99.0 or later. Earlier versions do not provide all the functions used below.
 
 # Example dataset
 

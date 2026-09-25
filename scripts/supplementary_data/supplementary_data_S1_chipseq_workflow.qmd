@@ -37,7 +37,7 @@ execute:
   message: false
 ---
 
-Last updated: 14 september 2026
+Last updated: 25 september 2026
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
@@ -110,7 +110,7 @@ library(kableExtra)
 packageVersion("gVenn")
 ```
 
-This workflow requires gVenn version 2.0.0 or later. Earlier versions do not provide all the functions used below.
+This workflow requires gVenn version 1.99.0 or later. Earlier versions do not provide all the functions used below.
 
 # Dataset description
 
@@ -222,6 +222,20 @@ class(genomic_overlaps)
 names(genomic_overlaps)
 ```
 
+By default, `computeOverlaps()` uses `mode = "reduce"`: overlapping peaks from all sets are merged into reduced regions, and each region is labeled with the sets that contributed an interval somewhere within it. With `mode = "disjoin"`, the union of peaks is instead cut at every set boundary into disjoint regions, whose label holds at every position they cover.
+In either mode, the numbers reported below are counts of regions, not of input peaks, so a set's total can be lower than its number of peaks when several of its peaks fall within the same region.
+
+```{r}
+#| label: compute-overlaps-disjoin
+
+# Same peak sets, partitioned at every set boundary
+genomic_overlaps_disjoin <- computeOverlaps(a549_chipseq_peaks, mode = "disjoin")
+
+# Number of regions under each mode
+c(reduce  = length(genomic_overlaps$regions),
+  disjoin = length(genomic_overlaps_disjoin$regions))
+```
+
 # Visualization
 
 ## Venn diagram
@@ -284,7 +298,7 @@ plotUpSet(genomic_overlaps,
           comb_col = c( "#D87093",  "#CD3301", "#9370DB", "#008B8B", "#2B70AB", "#FFB027", "#3EA742"))
 ```
 
-The top bar chart shows intersection sizes for each overlap combination, while the connected dots below indicate which sets participate in each intersection. Horizontal bars on the right show the total number of regions per set. The UpSet representation is particularly useful for comparing more than four sets or when precise quantification of complex overlap patterns is required.
+The top bar chart shows intersection sizes for each overlap combination, while the connected dots below indicate which sets participate in each intersection. Horizontal bars on the right show the total number of regions per set. The UpSet representation is particularly useful for comparing four or more sets or when precise quantification of complex overlap patterns is required.
 
 ## Export visualization
 
