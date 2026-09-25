@@ -248,7 +248,7 @@ attr(venn, "fit_diagnostics")
 
 `diagError` is the largest difference, over all regions, between the share of the diagram's area a region receives and the share its count requires: 0 for an exact fit, at most 1. `regionError` gives that difference region by region, and `undrawnRegions` names any non-empty region left with no area. `stress` is `eulerr`'s own loss function, also 0 for an exact fit.
 
-Following Micallef and Rodgers (2014), who introduced `diagError`, a diagram is considered accurate when it draws every non-empty region and its `diagError` does not exceed 10⁻⁶, the threshold the message reports against. Here diagError is `r signif(attr(venn, "fit_diagnostics")$diagError, 2)` and no region is undrawn.
+Following Micallef and Rodgers (2014), who introduced `diagError`, a diagram is considered accurate when it draws every non-empty region and its `diagError` does not exceed 10⁻⁶, the threshold the message reports against. Here `diagError` is `r sprintf("%.3e", attr(venn, "fit_diagnostics")$diagError)` and no region is undrawn.
 
 With four sets, ellipses cannot produce every combination of the fifteen region areas, and an exact fit rarely exists. Approximate areas matter little, since the count printed in each region carries the quantitative information. An undrawn region is more serious, since its count disappears from the figure. In that case, or when the fit is poor, use `plotUpSet()` (next section).
 

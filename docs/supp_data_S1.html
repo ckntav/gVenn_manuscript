@@ -2585,7 +2585,7 @@ Figure 1: Basic Venn diagram showing overlaps between ChIP-seq peaks
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(venn, <span class="st">&quot;fit_diagnostics&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$stress
-[1] 2.091923e-23
+[1] 2.091925e-23
 
 $diagError
 [1] 2.229461e-12
@@ -2605,7 +2605,7 @@ character(0)</code></pre>
 </div>
 </div>
 <p><code>diagError</code> is the largest difference, over all regions, between the share of the diagram’s area a region receives and the share its count requires: 0 for an exact fit, at most 1. <code>regionError</code> gives that difference region by region, and <code>undrawnRegions</code> names any non-empty region left with no area. <code>stress</code> is <code>eulerr</code>’s own loss function, also 0 for an exact fit.</p>
-<p>Following Micallef and Rodgers (2014), who introduced <code>diagError</code>, a diagram is considered accurate when it draws every non-empty region and its <code>diagError</code> does not exceed 10⁻⁶, the threshold the message reports against. Here diagError is 2.2^{-12} and no region is undrawn.</p>
+<p>Following Micallef and Rodgers (2014), who introduced <code>diagError</code>, a diagram is considered accurate when it draws every non-empty region and its <code>diagError</code> does not exceed 10⁻⁶, the threshold the message reports against. Here <code>diagError</code> is 2.229e-12 and no region is undrawn.</p>
 <p>With four sets, ellipses cannot produce every combination of the fifteen region areas, and an exact fit rarely exists. Approximate areas matter little, since the count printed in each region carries the quantitative information. An undrawn region is more serious, since its count disappears from the figure. In that case, or when the fit is poor, use <code>plotUpSet()</code> (next section).</p>
 <p>Set <code>verbose = FALSE</code> to silence the message; the attribute is attached either way. See the <a href="https://jolars.github.io/eulerr/">eulerr documentation</a> for the definition of <code>stress</code>.</p>
 </section>
@@ -2929,7 +2929,7 @@ BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/ve
 LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
 
 locale:
-[1] fr_CA.UTF-8/fr_CA.UTF-8/fr_CA.UTF-8/C/fr_CA.UTF-8/fr_CA.UTF-8
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 time zone: America/Toronto
 tzcode source: internal
@@ -3693,7 +3693,7 @@ loaded via a namespace (and not attached):
 <span id="cb42-278"><a href="#cb42-278" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-279"><a href="#cb42-279" aria-hidden="true" tabindex="-1"></a><span class="in">`diagError`</span> is the largest difference, over all regions, between the share of the diagram&#39;s area a region receives and the share its count requires: 0 for an exact fit, at most 1. <span class="in">`regionError`</span> gives that difference region by region, and <span class="in">`undrawnRegions`</span> names any non-empty region left with no area. <span class="in">`stress`</span> is <span class="in">`eulerr`</span>&#39;s own loss function, also 0 for an exact fit.</span>
 <span id="cb42-280"><a href="#cb42-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-281"><a href="#cb42-281" aria-hidden="true" tabindex="-1"></a>Following Micallef and Rodgers (2014), who introduced <span class="in">`diagError`</span>, a diagram is considered accurate when it draws every non-empty region and its <span class="in">`diagError`</span> does not exceed 10⁻⁶, the threshold the message reports against. Here diagError is <span class="in">`r signif(attr(venn, &quot;fit_diagnostics&quot;)$diagError, 2)`</span> and no region is undrawn.</span>
+<span id="cb42-281"><a href="#cb42-281" aria-hidden="true" tabindex="-1"></a>Following Micallef and Rodgers (2014), who introduced <span class="in">`diagError`</span>, a diagram is considered accurate when it draws every non-empty region and its <span class="in">`diagError`</span> does not exceed 10⁻⁶, the threshold the message reports against. Here <span class="in">`diagError`</span> is <span class="in">`r sprintf(&quot;%.3e&quot;, attr(venn, &quot;fit_diagnostics&quot;)$diagError)`</span> and no region is undrawn.</span>
 <span id="cb42-282"><a href="#cb42-282" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-283"><a href="#cb42-283" aria-hidden="true" tabindex="-1"></a>With four sets, ellipses cannot produce every combination of the fifteen region areas, and an exact fit rarely exists. Approximate areas matter little, since the count printed in each region carries the quantitative information. An undrawn region is more serious, since its count disappears from the figure. In that case, or when the fit is poor, use <span class="in">`plotUpSet()`</span> (next section).</span>
 <span id="cb42-284"><a href="#cb42-284" aria-hidden="true" tabindex="-1"></a></span>
