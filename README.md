@@ -16,7 +16,7 @@ View the [**gVenn manuscript website**](https://ckntav.github.io/gVenn_manuscrip
 
 ## 📄 About this repository
 
-This repository holds the code, inputs and outputs behind the gVenn manuscript: Figure 1, Table 1 and Supplementary Data S1 and S2.
+This repository contains computational notebooks provided as supplementary data.
 
 ---
 
