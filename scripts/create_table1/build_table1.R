@@ -1,7 +1,7 @@
 # ==============================================================================
 # Script: Render Table 1 from the spreadsheet
 # Input:  input/venn_tools/20260922_table1_venn_tools.xlsx
-# Output: output/table1/Table1_venn_tools.{png,tiff}
+# Output: output/table1/table1_venn_tools.{png,tiff}
 # ==============================================================================
 
 library(kableExtra)
