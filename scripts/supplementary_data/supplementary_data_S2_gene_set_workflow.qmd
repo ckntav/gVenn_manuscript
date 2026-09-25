@@ -2,42 +2,7 @@
 title: "Gene set analysis workflow with gVenn: identifying overlaps and shared genes"
 subtitle: "Supplementary data S2"
 output-file: "supp_data_S2"
-format:
-  html:
-    toc: true
-    toc-depth: 2
-    toc-location: left
-    number-sections: true
-    code-fold: false
-    code-tools: true
-    code-block-bg: true
-    code-block-border-left: "#047857"
-    theme: 
-      - journal
-      - custom.scss
-    embed-resources: true
-    fig-width: 7
-    fig-height: 5
-    fig-align: center
-    include-in-header:
-      - text: |
-            <link rel="icon" type="image/png" href="img/venn_logo.png">
-      - text: |
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-4389F94LTN"></script>
-      - text: |
-           <script>
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-4389F94LTN');
-            </script>
-execute:
-  echo: true
-  warning: false
-  message: false
 ---
-
-Last updated: 25 september 2026
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
@@ -177,24 +142,7 @@ kable(head(gene_overlaps$overlap_matrix, 10),
 
 ## Overlap categories
 
-Each gene is assigned a category code representing its overlap pattern:
-
-```{r}
-#| label: overlap-categories
-
-# Show the distribution of overlap categories
-category_table <- table(gene_overlaps$intersect_category)
-category_df <- data.frame(
-  "Overlap pattern" = names(category_table),
-  "Number of genes" = as.integer(category_table),
-  check.names = FALSE
-)
-
-kable(category_df,
-      caption = "Distribution of overlap patterns")
-```
-
-**Interpretation of overlap patterns:**
+Each gene is assigned a category code representing its overlap pattern. The number of genes per pattern is given in [Extracting overlap groups](#extracting-overlap-groups).
 
 - `100`: Genes only in set A (random_genes_A)
 - `010`: Genes only in set B (random_genes_B)
@@ -218,7 +166,7 @@ The `plotVenn()` function creates area-proportional Venn diagrams to visualize t
 plotVenn(gene_overlaps)
 ```
 
-### Customized Venn Diagram
+### Customized Venn diagram
 
 The appearance can be customized by adjusting colors, transparency, labels, and other parameters:
 
@@ -233,12 +181,12 @@ plotVenn(gene_overlaps,
          labels = list(col = "black", fontsize = 8, font = 2),
          quantities = list(type = c("counts", "percent"), 
                           col = "black", fontsize = 6),
-         main = list(label = "gene set overlaps", 
+         main = list(label = "Gene set overlaps", 
                     fontsize = 14, font = 2, col = "navy"),
          legend = list(side = "right", fontsize = 10))
 ```
 
-## UpSet Plot
+## UpSet plot
 
 For larger numbers of sets (>3), UpSet plots provide a clearer alternative to Venn diagrams:
 
