@@ -37,7 +37,7 @@ execute:
   message: false
 ---
 
-Last updated: 25 september 2026
+Last updated: 25 September 2026
 
 ::: {.callout-note icon=false}
 ## Interactive notebook
@@ -91,6 +91,18 @@ devtools::install_github("ckntav/gVenn")
 ```
 
 # Load required packages
+
+```{r}
+#| label: seed
+#| include: false
+
+# eulerr's fit starts from random values
+SEED <- 1111
+set.seed(SEED)
+
+# Single thread makes eulerr's diagError reproducible across runs
+Sys.setenv(EULERR_NUM_THREADS = 1)
+```
 
 ```{r}
 #| label: setup
@@ -222,8 +234,11 @@ class(genomic_overlaps)
 names(genomic_overlaps)
 ```
 
-By default, `computeOverlaps()` uses `mode = "reduce"`: overlapping peaks from all sets are merged into reduced regions, and each region is labeled with the sets that contributed an interval somewhere within it. With `mode = "disjoin"`, the union of peaks is instead cut at every set boundary into disjoint regions, whose label holds at every position they cover.
-In either mode, the numbers reported below are counts of regions, not of input peaks, so a set's total can be lower than its number of peaks when several of its peaks fall within the same region.
+By default, `computeOverlaps()` uses `mode = "reduce"`: overlapping peaks from all sets are merged into reduced regions, and each region is labeled with the sets that contributed an interval somewhere within it.
+
+With `mode = "disjoin"`, the union of peaks is instead cut at every set boundary into disjoint regions, whose label holds at every position they cover.
+
+In either mode, the numbers reported below are counts of regions, not of input peaks.
 
 ```{r}
 #| label: compute-overlaps-disjoin
@@ -268,37 +283,31 @@ venn
 attr(venn, "fit_diagnostics")
 ```
 
-`stress` and `diagError` are `0` for a perfect fit, and larger values indicate greater geometric distortion. `diagError` is the largest single-region discrepancy, over all regions, between the share of the total diagram area a region is given and the share the counts require, a proportion between 0 and 1. `regionError` reports that discrepancy region by region. `undrawnRegions` names the regions the counts populate but the layout gives no area to at all.
+`diagError` is the largest difference, over all regions, between the share of the diagram's area a region receives and the share its count requires: 0 for an exact fit, at most 1. `regionError` gives that difference region by region, and `undrawnRegions` names any non-empty region left with no area. `stress` is `eulerr`'s own loss function, also 0 for an exact fit.
 
-Micallef and Rodgers (2014), who introduced diagError, call a diagram accurately proportional to its data when it is at most 1e-6, and that is the threshold the message reports against. Here both statistics are very close to zero without being exactly zero and no region is undrawn, so the drawn areas match the underlying counts closely.
+Following Micallef and Rodgers (2014), who introduced `diagError`, a diagram is considered accurate when it draws every non-empty region and its `diagError` does not exceed 10⁻⁶, the threshold the message reports against. Here diagError is `r signif(attr(venn, "fit_diagnostics")$diagError, 2)` and no region is undrawn.
 
-Fit quality degrades as sets are added, because the solver has fewer degrees of freedom to satisfy every intersection at once. These values are therefore worth checking before interpreting the areas of a four-set or larger diagram.
-Set `verbose = FALSE` to silence the message; the attribute is attached either way.
-See the [eulerr documentation](https://jolars.github.io/eulerr/) for the exact definitions of these statistics.
+With four sets, ellipses cannot produce every combination of the fifteen region areas, and an exact fit rarely exists. Approximate areas matter little, since the count printed in each region carries the quantitative information. An undrawn region is more serious, since its count disappears from the figure. In that case, or when the fit is poor, use `plotUpSet()` (next section).
+
+Set `verbose = FALSE` to silence the message; the attribute is attached either way. See the [eulerr documentation](https://jolars.github.io/eulerr/) for the definition of `stress`.
 
 ## UpSet plot
 
-For more than **three sets**, a Venn diagram with **areas exactly proportional**
-to all intersections is **generally not mathematically attainable**. Solvers
-(like those used by `eulerr`) provide **best-effort approximations**, but the
-layout can become hard to read. In these cases, an **UpSet plot** is the
-recommended visualization because it scales cleanly to many sets and preserves
-intersection sizes precisely on bar axes.
-
-For complex overlap patterns, `plotUpSet()` provide an alternative visualization that can be easier to interpret with more than 4 sets:
+`plotUpSet()` shows the same overlap groups as bars along a common scale, so every count stays readable whatever the number of sets. It is the alternative when a Venn diagram leaves a region undrawn or fits poorly, and the only option beyond four sets.
 
 ```{r}
 #| label: fig-upset
-#| fig-cap: "UpSet plot showing intersection sizes between ChIP-seq peaks"
+#| fig-cap: "UpSet plot of the overlap groups between MED1, BRD4 and GR regions (mode = \"reduce\")"
 #| fig-width: 6
 #| fig-height: 3
 
-# Create an UpSet plot
+# Colors follow the overlap groups of Figure 1: 111, 110, 101, 011, 100, 010, 001
 plotUpSet(genomic_overlaps,
-          comb_col = c( "#D87093",  "#CD3301", "#9370DB", "#008B8B", "#2B70AB", "#FFB027", "#3EA742"))
+          comb_col = c("#D87093", "#CD3301", "#9370DB", "#008B8B",
+                       "#2B70AB", "#FFB027", "#3EA742"))
 ```
 
-The top bar chart shows intersection sizes for each overlap combination, while the connected dots below indicate which sets participate in each intersection. Horizontal bars on the right show the total number of regions per set. The UpSet representation is particularly useful for comparing four or more sets or when precise quantification of complex overlap patterns is required.
+The top bars give the number of regions in each overlap group, and the dots below indicate which sets form it. The horizontal bars, labeled "Region size", give the number of reduced regions per set, not the number of input peaks.
 
 ## Export visualization
 
@@ -324,7 +333,7 @@ saveViz(venn,
         output_file = "figure_gVenn",
         format = "png")
 
-# pdf
+# svg
 saveViz(venn,
         output_dir = ".",
         output_file = "figure_gVenn",

@@ -87,6 +87,18 @@ devtools::install_github("ckntav/gVenn")
 # Load required packages
 
 ```{r}
+#| label: seed
+#| include: false
+
+# eulerr's fit starts from random values
+SEED <- 1111
+set.seed(SEED)
+
+# Single thread makes eulerr's diagError reproducible across runs
+Sys.setenv(EULERR_NUM_THREADS = 1)
+```
+
+```{r}
 #| label: setup
 
 library(gVenn)
