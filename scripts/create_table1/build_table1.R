@@ -17,8 +17,8 @@ LOGO_PATH <- here("docs", "img", "venn_logo.png")
 HEADERS <- list(
     "^tool$"       = c("",              "Tool"),
     "genomic"      = c("Input",         "Genomic regions"),
-    "proportional" = c("Visualisation", "Proportional Venn"),
-    "upset"        = c("Visualisation", "UpSet plot"),
+    "proportional" = c("Visualization", "Proportional Venn"),
+    "upset"        = c("Visualization", "UpSet plot"),
     "released"     = c("",              "First release"),
     "env"          = c("",              "Environment"))
 
@@ -31,7 +31,7 @@ DESCRIPTIVE <- "released|env|^tool$"
 # ==============================================================================
 # Read the sheet
 # ==============================================================================
-path <- here("input", "venn_tools", "20260922_table1_venn_tools.xlsx")
+path <- here("input", "venn_tools", "20260927_table1_venn_tools.xlsx")
 tbl <- as.data.frame(readxl::read_excel(path))
 message("Reading ", basename(path), ": ", nrow(tbl), " tools, ", ncol(tbl), " columns")
 
